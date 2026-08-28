@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>离职面谈洞察 - WorkBuddy Demo</title>
+<script src="chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f5f5f7;color:#1d1d1f;line-height:1.7}
+  .page{max-width:1060px;margin:0 auto;padding:20px}
+
+  /* Top header */
+  .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#D85A30,#F0997B);color:#fff;font-size:12px;padding:6px 14px;border-radius:20px;font-weight:500}
+  .badge svg{width:14px;height:14px}
+  .page-title{font-size:24px;font-weight:700}
+  .page-sub{font-size:13px;color:#86868b;margin-top:2px}
+
+  /* Filter bar */
+  .filter-bar{display:flex;align-items:center;gap:16px;background:#fff;border-radius:12px;padding:14px 20px;border:1px solid #e5e5e7;margin-bottom:20px}
+  .filter-bar label{font-size:12px;color:#86868b;font-weight:500;margin-right:6px}
+  .filter-bar select,.filter-bar input{font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid #e5e5e7;background:#f5f5f7;color:#1d1d1f;outline:none}
+  .filter-bar select:focus,.filter-bar input:focus{border-color:#378ADD;box-shadow:0 0 0 2px #E6F1FB}
+  .filter-stat{font-size:12px;color:#86868b;margin-left:auto}
+  .filter-stat b{color:#1d1d1f}
+  .new-badge{background:#1D9E75;color:#fff;font-size:11px;padding:3px 10px;border-radius:12px;margin-left:8px;font-weight:600;animation:pulseBadge 1.5s ease-in-out 3}
+  @keyframes pulseBadge{0%,100%{opacity:1}50%{opacity:.6}}
+
+  /* Tab navigation */
+  .tabs{display:flex;gap:0;margin-bottom:20px;border-radius:10px;background:#fff;border:1px solid #e5e5e7;overflow:hidden}
+  .tab-btn{flex:1;padding:12px 16px;text-align:center;font-size:13px;font-weight:500;color:#86868b;cursor:pointer;border:none;background:transparent;transition:all .2s}
+  .tab-btn:hover{background:#f0f0f2}
+  .tab-btn.active{background:#E6F1FB;color:#185FA5;border-bottom:2px solid #378ADD}
+  .tab-btn svg{width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+
+  /* === Overview tab === */
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+  .kpi-item{background:#fff;border-radius:14px;padding:18px;border:1px solid #e5e5e7;text-align:center;transition:all .3s}
+  .kpi-item.flash{border-color:#1D9E75;box-shadow:0 0 16px rgba(29,158,117,.25)}
+  .kpi-item .ki-val{font-size:28px;font-weight:700}
+  .kpi-item .ki-val.danger{color:#D85A30}
+  .kpi-item .ki-val.warn{color:#BA7517}
+  .kpi-item .ki-val.teal{color:#0F6E56}
+  .kpi-item .ki-label{font-size:12px;color:#86868b;margin-top:4px}
+
+  .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+  .chart-box{background:#fff;border-radius:14px;padding:20px;border:1px solid #e5e5e7}
+  .chart-box .cb-title{font-size:14px;font-weight:500;color:#86868b;margin-bottom:10px}
+  .chart-box canvas{max-height:240px}
+
+  .insight-card{background:#fff;border-radius:14px;padding:24px;border:1px solid #e5e5e7;margin-bottom:20px}
+  .insight-card .ic-title{font-size:16px;font-weight:600;padding-left:12px;border-left:3px solid #D85A30;margin-bottom:14px}
+  .insight-list{list-style:none;padding:0}
+  .insight-list li{font-size:14px;color:#3a3a3c;padding:8px 0 8px 20px;position:relative;line-height:1.7}
+  .insight-list li::before{content:'';position:absolute;left:0;top:14px;width:8px;height:8px;border-radius:50%}
+  .insight-list li.red::before{background:#E24B4A}
+  .insight-list li.amber::before{background:#BA7517}
+  .insight-list li.teal::before{background:#1D9E75}
+
+  .action-box{background:#E1F5EE;border-radius:14px;padding:24px;margin-bottom:20px}
+  .action-box .ab-title{font-size:16px;font-weight:600;color:#085041;margin-bottom:14px}
+  .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .action-item{background:#fff;border-radius:10px;padding:16px;border:1px solid #9FE1CB}
+  .action-item .ai-priority{font-size:11px;font-weight:600;color:#D85A30}
+  .action-item .ai-title{font-size:14px;font-weight:500;color:#085041;margin-top:4px}
+  .action-item .ai-desc{font-size:12px;color:#5F5E5A;margin-top:6px;line-height:1.5}
+
+  /* === Individual tab === */
+  .person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:20px}
+  .person-card{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;cursor:pointer;transition:all .2s}
+  .person-card:hover{border-color:#378ADD;box-shadow:0 2px 12px rgba(55,138,221,.12)}
+  .person-card.selected{border-color:#378ADD;background:#E6F1FB}
+  .person-card.new-entry{border-color:#1D9E75;background:#E1F5EE;animation:fadeInCard .6s ease}
+  .person-card .pc-name{font-size:15px;font-weight:600;color:#1d1d1f}
+  .person-card .pc-new{font-size:10px;color:#1D9E75;font-weight:600;background:#E1F5EE;padding:2px 8px;border-radius:8px;margin-left:6px}
+  .person-card .pc-info{font-size:12px;color:#86868b;margin-top:4px}
+  .person-card .pc-reason{font-size:12px;color:#D85A30;margin-top:6px;font-weight:500}
+  .person-card .pc-refer{font-size:11px;margin-top:4px}
+  .person-card .pc-refer.no{color:#E24B4A}
+  .person-card .pc-refer.maybe{color:#BA7517}
+  @keyframes fadeInCard{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+
+  .detail-panel{background:#fff;border-radius:16px;padding:0;border:1px solid #e5e5e7;margin-bottom:20px;overflow:hidden}
+  .detail-header{padding:20px 28px;background:#E6F1FB;border-bottom:1px solid #e5e5e7;display:flex;justify-content:space-between;align-items:center}
+  .detail-header .dh-name{font-size:18px;font-weight:700;color:#0C447C}
+  .detail-header .dh-meta{font-size:13px;color:#185FA5}
+  .detail-header .dh-close{background:#fff;border:1px solid #e5e5e7;border-radius:8px;padding:6px 12px;font-size:12px;color:#86868b;cursor:pointer}
+  .detail-body{padding:28px}
+
+  .transcript-section{margin-bottom:24px}
+  .transcript-section .ts-label{font-size:13px;font-weight:500;color:#86868b;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .transcript-section .ts-label svg{width:14px;height:14px;color:#378ADD}
+  .transcript-box{background:#f5f5f7;border-radius:12px;padding:20px;font-size:13px;line-height:1.8;color:#3a3a3c;border:1px solid #e5e5e7}
+  .transcript-box .ts-time{color:#86868b;font-size:11px;font-weight:500}
+  .transcript-box .ts-speaker{font-weight:600}
+  .transcript-box .ts-speaker.hr{color:#185FA5}
+  .transcript-box .ts-speaker.emp{color:#3a3a3c}
+  .transcript-box .ts-highlight{background:#FAEEDA;padding:1px 4px;border-radius:3px;color:#854F0B;font-weight:500}
+
+  .summary-section{margin-bottom:20px}
+  .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .summary-item{border-radius:10px;padding:16px}
+  .summary-item.reason{background:#FAECE7;border:1px solid #F0997B}
+  .summary-item.evaluation{background:#E1F5EE;border:1px solid #9FE1CB}
+  .summary-item .si-label{font-size:12px;font-weight:600;margin-bottom:6px}
+  .summary-item.reason .si-label{color:#712B13}
+  .summary-item.evaluation .si-label{color:#085041}
+  .summary-item .si-text{font-size:13px;line-height:1.7}
+  .summary-item.reason .si-text{color:#993C1D}
+  .summary-item.evaluation .si-text{color:#0F6E56}
+  .summary-item.suggest{background:#EEEDFE;border:1px solid #AFA9EC;grid-column:span 2}
+  .summary-item.suggest .si-label{color:#3C3489}
+  .summary-item.suggest .si-text{color:#534AB7}
+
+  /* === Import tab === */
+  .import-hero{background:#fff;border-radius:16px;padding:32px;border:1px solid #e5e5e7;margin-bottom:20px}
+  .import-hero .ih-title{font-size:18px;font-weight:600;margin-bottom:8px}
+  .import-hero .ih-desc{font-size:14px;color:#86868b;margin-bottom:20px;line-height:1.7}
+  .import-flow{display:flex;gap:0;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1px solid #e5e5e7}
+  .import-step{flex:1;padding:14px 10px;text-align:center;font-size:12px;color:#86868b;background:#fff;border-right:1px solid #e5e5e7}
+  .import-step:last-child{border-right:none}
+  .import-step .is-num{font-size:20px;font-weight:700;color:#378ADD;margin-bottom:4px}
+  .import-step .is-text{font-weight:500}
+
+  /* Input mode toggle */
+  .input-mode-row{display:flex;gap:12px;margin-bottom:16px}
+  .mode-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #e5e5e7;background:#fff;color:#86868b;transition:all .2s}
+  .mode-btn.active{background:#378ADD;color:#fff;border-color:#378ADD}
+  .mode-btn svg{width:14px;height:14px;vertical-align:-2px;margin-right:4px}
+
+  /* Upload zone */
+  .upload-zone{border:2px dashed #d5d5d7;border-radius:14px;padding:40px 24px;text-align:center;background:#fff;margin-bottom:16px;transition:all .2s;cursor:pointer;position:relative}
+  .upload-zone:hover{border-color:#378ADD;background:#E6F1FB}
+  .upload-zone.drag-over{border-color:#378ADD;background:#E6F1FB;box-shadow:0 0 20px rgba(55,138,221,.15)}
+  .upload-zone .uz-icon{font-size:36px;color:#378ADD;margin-bottom:12px}
+  .upload-zone .uz-title{font-size:16px;font-weight:600;color:#1d1d1f;margin-bottom:6px}
+  .upload-zone .uz-sub{font-size:13px;color:#86868b}
+  .upload-zone .uz-sub b{color:#378ADD;cursor:pointer}
+  .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+  .upload-success{background:#E1F5EE;border-radius:12px;padding:16px 20px;border:1px solid #9FE1CB;display:flex;align-items:center;gap:10px;margin-bottom:16px;animation:fadeInCard .5s ease}
+  .upload-success svg{width:20px;height:20px;color:#1D9E75}
+  .upload-success .us-filename{font-size:14px;font-weight:500;color:#085041}
+  .upload-success .us-size{font-size:12px;color:#0F6E56}
+
+  /* Paste textarea */
+  .transcript-input{margin-bottom:16px}
+  .transcript-input .ti-label{font-size:14px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .transcript-input textarea{width:100%;height:280px;border-radius:12px;border:1px solid #e5e5e7;padding:20px;font-size:13px;line-height:1.8;color:#3a3a3c;background:#f5f5f7;font-family:inherit;resize:vertical;outline:none}
+  .transcript-input textarea:focus{border-color:#378ADD;box-shadow:0 0 0 2px #E6F1FB}
+
+  .btn-row{display:flex;gap:12px;margin-bottom:20px}
+  .btn{padding:10px 24px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+  .btn-primary{background:#378ADD;color:#fff}
+  .btn-primary:hover{background:#185FA5}
+  .btn-secondary{background:#fff;color:#3a3a3c;border:1px solid #e5e5e7}
+  .btn-secondary:hover{background:#f0f0f2}
+
+  .parse-result{background:#fff;border-radius:14px;padding:24px;border:1px solid #e5e5e7;display:none}
+  .parse-result.show{display:block;animation:fadeInCard .5s ease}
+  .parse-result .pr-title{font-size:16px;font-weight:600;margin-bottom:14px;color:#1D9E75}
+  .parse-result .pr-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .parse-result .pr-field{background:#E1F5EE;border-radius:10px;padding:14px;border:1px solid #9FE1CB}
+  .parse-result .pr-field .pf-label{font-size:12px;font-weight:600;color:#085041;margin-bottom:4px}
+  .parse-result .pr-field .pf-val{font-size:14px;color:#0F6E56;font-weight:500}
+  .parse-result .pr-quotes{background:#FAEEDA;border-radius:10px;padding:14px;border:1px solid #FAC775;margin-bottom:14px}
+  .parse-result .pr-quotes .pq-label{font-size:12px;font-weight:600;color:#854F0B;margin-bottom:6px}
+  .parse-result .pr-quotes .pq-text{font-size:13px;color:#633806;line-height:1.7}
+
+  /* Absorbed toast */
+  .absorbed-toast{background:#1D9E75;color:#fff;border-radius:12px;padding:18px 24px;text-align:center;font-size:15px;font-weight:600;margin-top:20px;animation:toastSlide .4s ease}
+  .absorbed-toast svg{width:20px;height:20px;vertical-align:-3px;margin-right:6px}
+  .absorbed-toast .at-sub{font-size:12px;font-weight:400;margin-top:4px;opacity:.85}
+  @keyframes toastSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+  .sample-btn{background:#EEEDFE;color:#3C3489;border:1px solid #AFA9EC;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer}
+  .sample-btn:hover{background:#CECBF6}
+
+  .footer-note{text-align:center;font-size:12px;color:#86868b;margin-top:40px;padding-top:16px;border-top:1px solid #e5e5e7}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div>
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>WorkBuddy AI · 离职面谈洞察</div>
+      <div class="page-title">离职面谈洞察看板</div>
+      <div class="page-sub">语音转录导入 → 景能解析 → 可视化洞察 → 行动建议</div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <label>时间范围</label>
+    <select id="timeFilter" onchange="applyFilters()">
+      <option value="all">全部</option>
+      <option value="3">近3个月</option>
+      <option value="6">近6个月</option>
+      <option value="9">近9个月</option>
+    </select>
+    <label>部门</label>
+    <select id="deptFilter" onchange="applyFilters()">
+      <option value="all">全部部门</option>
+      <option value="技术部">技术部</option>
+      <option value="产品部">产品部</option>
+      <option value="市场部">市场部</option>
+      <option value="运营部">运营部</option>
+      <option value="HR部">HR部</option>
+    </select>
+    <div class="filter-stat">当前筛选：<b id="filterCount">15</b> 人 / <b id="filterDept">5</b> 个部门<span id="newBadge" style="display:none" class="new-badge">+1 新导入</span></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('overview')" data-tab="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      总览洞察
+    </button>
+    <button class="tab-btn" onclick="switchTab('individual')" data-tab="individual">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      个人面谈详情
+    </button>
+    <button class="tab-btn" onclick="switchTab('import')" data-tab="import">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      导入面谈记录
+    </button>
+  </div>
+
+  <!-- ====== OVERVIEW TAB ====== -->
+  <div class="tab-content active" id="tab-overview">
+    <div class="kpi-grid">
+      <div class="kpi-item" id="kpiTotalCard"><div class="ki-val danger" id="kpiTotal">15</div><div class="ki-label">离职总人数</div></div>
+      <div class="kpi-item" id="kpiVolCard"><div class="ki-val danger" id="kpiVoluntary">93%</div><div class="ki-label">主动离职占比</div></div>
+      <div class="kpi-item" id="kpiTenCard"><div class="ki-val warn" id="kpiTenure">17.2月</div><div class="ki-label">平均在职时长</div></div>
+      <div class="kpi-item" id="kpiRefCard"><div class="ki-val danger" id="kpiRefer">0%</div><div class="ki-label">愿意推荐朋友</div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="cb-title">部门离职人数分布</div><canvas id="deptChart"></canvas></div>
+      <div class="chart-box"><div class="cb-title">离职主要原因分类</div><canvas id="reasonChart"></canvas></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="cb-title">离职前在职时长分布</div><canvas id="tenureChart"></canvas></div>
+      <div class="chart-box"><div class="cb-title">是否愿意推荐朋友来公司</div><canvas id="referChart"></canvas></div>
+    </div>
+    <div class="insight-card">
+      <div class="ic-title">关键洞察</div>
+      <ul class="insight-list" id="insightList"></ul>
+    </div>
+    <div class="action-box">
+      <div class="ab-title">优先行动建议</div>
+      <div class="action-grid" id="actionGrid"></div>
+    </div>
+  </div>
+
+  <!-- ====== INDIVIDUAL TAB ====== -->
+  <div class="tab-content" id="tab-individual">
+    <div class="person-grid" id="personGrid"></div>
+    <div class="detail-panel" id="detailPanel" style="display:none"></div>
+  </div>
+
+  <!-- ====== IMPORT TAB ====== -->
+  <div class="tab-content" id="tab-import">
+    <div class="import-hero">
+      <div class="ih-title">导入离职面谈语音转录</div>
+      <div class="ih-desc">上传面谈录音的语音转文字文件，或直接粘贴转录内容。WorkBuddy 将自动解析关键信息：离职原因、对公司/领导的评价、改善建议、原话金句，并融合到洞察看板中。</div>
+      <div class="import-flow">
+        <div class="import-step"><div class="is-num">1</div><div class="is-text">上传/粘贴转录</div></div>
+        <div class="import-step"><div class="is-num">2</div><div class="is-text">AI智能解析</div></div>
+        <div class="import-step"><div class="is-num">3</div><div class="is-text">提取关键信息</div></div>
+        <div class="import-step"><div class="is-num">4</div><div class="is-text">融入洞察看板</div></div>
+      </div>
+    </div>
+
+    <!-- Input mode toggle -->
+    <div class="input-mode-row">
+      <button class="mode-btn active" onclick="setInputMode('upload')" id="modeUpload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        上传文件
+      </button>
+      <button class="mode-btn" onclick="setInputMode('paste')" id="modePaste">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        粘贴文本
+      </button>
+    </div>
+
+    <!-- Upload zone -->
+    <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <div class="uz-icon">📄</div>
+      <div class="uz-title">拖拽文件到此处上传</div>
+      <div class="uz-sub">或 <b>点击选择文件</b> · 支持 .txt / .csv / .md 格式</div>
+      <input type="file" id="fileInput" accept=".txt,.csv,.md,.text" onchange="handleFileSelect(event)">
+    </div>
+
+    <!-- Upload success indicator (hidden initially) -->
+    <div id="uploadSuccess" style="display:none"></div>
+
+    <!-- Paste textarea -->
+    <div class="transcript-input" id="pasteArea" style="display:none">
+      <div class="ti-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        粘贴面谈转录内容
+      </div>
+      <textarea id="transcriptInput" placeholder="粘贴面谈语音转录内容到这里...&#10;&#10;格式示例：&#10;[14:30] HR: 你决定离开的主要考虑是什么？&#10;[14:31] 员工: 主要是加班的问题..."></textarea>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <span style="font-size:12px;color:#86868b">快速填入示例转录：</span>
+        <button class="sample-btn" onclick="fillSample('zhoulei')">周磊 · 技术部后端开发</button>
+        <button class="sample-btn" onclick="fillSample('liufang')">刘芳 · 运营部运营主管</button>
+        <button class="sample-btn" onclick="fillSample('yangqian')">杨倩 · 产品部数据分析师</button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary btn" onclick="parseTranscript()">智能解析转录</button>
+      <button class="btn-secondary btn" onclick="clearInput()">清空重填</button>
+    </div>
+    <div class="parse-result" id="parseResult"></div>
+    <div id="absorbedToast" style="display:none"></div>
+  </div>
+
+  <div class="footer-note">本看板由 WorkBuddy 生成 · 语音转录 → 景能解析 → 可视化洞察 · 数据驱动 HR 决策</div>
+</div>
+
+<script>
+// ======== DATA MODEL ========
+const interviews = [
+  {
+    id:'zhangwei', name:'张伟', dept:'技术部', pos:'Java高级开发', tenure:18,
+    date:'2025-04-15', type:'主动离职',
+    mainReason:'薪酬低于市场水平', secondReason:'晋升通道不清晰',
+    companyEval:'公司氛围不错但薪资偏低', leaderEval:'领导技术能力强但管理偏弱',
+    recommend:'否', suggest:'提高薪酬竞争力、明确晋升标准',
+    transcript:`[14:30] HR: 张伟你好，感谢你抽出时间来做离职面谈。你在公司待了18个月，我想先了解一下你决定离开的主要原因是什么？
+
+[14:31] 张伟: 嗯，最核心的问题还是薪酬。我最近看了下市场行情，同级别的Java开发在深圳基本都在25K以上，我现在才18K，差距太大了。说实话，当初来的时候薪资就不高，想着内部调薪能追上来，但一年多了一直没动静。
+
+[14:33] HR: 你有跟领导提过薪酬调整的事情吗？
+
+[14:33] 张伟: 提过两次了，领导说理解，但公司调薪周期是一年一次，而且幅度有限。其实我也不是只看钱，公司氛围确实不错，同事之间关系也挺好的。但差距实在太大，我拿到了一个offer直接给到26K，很难不动心。
+
+[14:35] HR: 除了薪酬，还有其他让你不满意的地方吗？
+
+[14:36] 张伟: 晋升通道不太清晰。我现在是高级开发，但往上去是什么级别、需要什么条件，一直没有明确的标准。有些同事比我还久也没升上去，感觉看不到未来。
+
+[14:38] HR: 你对直属领导的评价怎么样？
+
+[14:38] 张伟: 领导技术能力很强，技术问题找他基本都能解决。但管理方面偏弱，比如团队激励、薪酬争取这些，他不太会去做。可能他自己也知道这个问题，但确实没什么改善。
+
+[14:40] HR: 如果朋友想来我们公司，你会推荐吗？
+
+[14:40] 张伟: 嗯...说实话不太会推荐，薪酬竞争力太低了。除非朋友特别看重工作氛围。
+
+[14:41] HR: 最后，你觉得公司最需要改善的是什么？
+
+[14:42] 张伟: 两个：一是薪酬要对标市场，不然留不住人；二是晋升标准要明确，让大家知道努力的方向。`,
+    isNew: false
+  },
+  {
+    id:'lina', name:'李娜', dept:'产品部', pos:'产品经理', tenure:24,
+    date:'2025-05-20', type:'主动离职',
+    mainReason:'工作压力大加班多', secondReason:'跨部门协作效率低',
+    companyEval:'项目节奏太快几乎没有喘息空间', leaderEval:'领导要求高但支持不足',
+    recommend:'否', suggest:'合理控制项目节奏、减少无效会议',
+    transcript:`[15:00] HR: 李娜，你在产品部待了两年了，能说说你离职的主要考虑吗？
+
+[15:01] 李娜: 主要是工作压力太大了，加班几乎是常态。产品迭代节奏太快，一个版本刚上线就要赶下一个，中间几乎没有喘息的空间。两年下来，身体和精神都快扛不住了。
+
+[15:03] HR: 加班的频率大概是怎样的？
+
+[15:04] 李娜: 平均每周至少4天加班到8、9点，赶版本的时候周末也要来。而且很多加班不是因为真正的工作量，而是跨部门协作效率太低，一个需求确认要来回沟通好几天，无效会议太多了。
+
+[15:06] HR: 你觉得领导在这方面的支持怎么样？
+
+[15:06] 李娜: 领导要求确实很高，推动力也强，但对团队的保护不够。比如他很少去跟其他部门争取减少无效协作，更多是把压力转嫁给团队。我理解他也有压力，但作为管理者应该帮团队挡一些。
+
+[15:09] HR: 有什么改善建议吗？
+
+[15:10] 李娜: 控制项目节奏，别一味追求速度；减少无效会议，很多决策一个邮件就能搞定非要拉个会；还有给产品团队一些自主空间，不要每个小功能都要领导拍板。`,
+    isNew: false
+  },
+  {
+    id:'wangqiang', name:'王强', dept:'技术部', pos:'前端开发', tenure:12,
+    date:'2025-06-01', type:'主动离职',
+    mainReason:'技术栈陈旧无成长空间', secondReason:'薪酬无竞争力',
+    companyEval:'技术栈太老想接触新东西', leaderEval:'领导对技术更新不积极',
+    recommend:'否', suggest:'引入新技术栈、加大技术培训投入',
+    transcript:`[10:00] HR: 王强，你在前端岗位待了一年，是比较短的在职时间。能说说离职原因吗？
+
+[10:01] 王强: 核心是技术成长的问题。我们前端还在用比较老的技术栈，Vue2 + jQuery混用，没有向现代化框架迁移的计划。我之前在别的公司接触过React和微前端架构，来这里之后感觉一直在退步。
+
+[10:03] HR: 你有提过技术栈升级的建议吗？
+
+[10:03] 王强: 提过，但领导觉得"现有架构稳定够用就行"，不太愿意推动更新。说实话，我觉得不更新才是最大的风险，招新人都不好招，谁愿意来用10年前的技术？
+
+[10:05] HR: 还有其他因素吗？
+
+[10:06] 王强: 薪酬也偏低，前端岗在深圳市场18-22K很常见，我现在15K。本来想着技术成长能弥补，但既然技术也学不到新东西，那就不值得留了。
+
+[10:08] HR: 你会推荐朋友来吗？
+
+[10:08] 王强: 不会。技术栈太老，对想成长的前端开发者来说不合适。建议公司尽快引入新技术栈，加大技术培训投入。`,
+    isNew: false
+  },
+  {
+    id:'chenxiao', name:'陈晓', dept:'市场部', pos:'市场专员', tenure:8,
+    date:'2025-06-15', type:'主动离职',
+    mainReason:'岗位定位模糊', secondReason:'直属领导沟通风格不适',
+    companyEval:'感觉自己在做打杂的工作', leaderEval:'领导指令式沟通缺乏讨论空间',
+    recommend:'否', suggest:'明确岗位职责、改善沟通方式',
+    transcript:`[11:00] HR: 陈晓，你入职才8个月就决定离开，是比较快的离职。能说说原因吗？
+
+[11:01] 陈晓: 主要是岗位定位太模糊了。面试时说的是"市场策划"，但进来之后发现做的全是打杂的工作——整理素材、跑数据报表、帮其他组做PPT。我自己的策划方案提交了三四次，从来没被认真讨论过。
+
+[11:03] HR: 你跟领导沟通过这个问题吗？
+
+[11:04] 陈晓: 沟通了，但领导的风格是那种指令式的，直接告诉我做什么，没有什么讨论空间。我提想法的时候他经常说"先把手头的事做好"，感觉创意和主动性不被重视。
+
+[11:06] HR: 改善建议？
+
+[11:07] 陈晓: 一是明确岗位职责，面试说的和实际做的要一致；二是领导沟通方式需要改善，多给下属讨论和表达的空间，别总是指令式。`,
+    isNew: false
+  },
+  {
+    id:'liufang', name:'刘芳', dept:'运营部', pos:'运营主管', tenure:30,
+    date:'2025-07-01', type:'主动离职',
+    mainReason:'职业发展天花板', secondReason:'薪酬涨幅太慢',
+    companyEval:'已经做到主管但看不到上升空间', leaderEval:'领导认可但公司没有更高级别岗位',
+    recommend:'否', suggest:'增加管理层岗位、加快薪酬调整周期',
+    transcript:`[16:00] HR: 刘芳，你在运营部已经30个月了，是团队里资历很深的成员。能说说离职原因吗？
+
+[16:01] 刘芳: 其实我也很纠结，毕竟待了两年半了。但核心问题是职业发展天花板。我现在已经是运营主管了，再往上就没有对应的岗位了。公司没有运营总监或运营VP的设置，我的天花板就在这里。
+
+[16:03] HR: 领导对你还是很认可的，这方面有没有可能？
+
+[16:04] 刘芳: 领导确实认可我的能力，但他也很坦诚地跟我说，公司目前没有更高级别的运营岗位计划。就算他想提拔我，也没位置可以放。这是组织架构的问题，不是他个人能解决的。
+
+[16:06] HR: 薪酬方面呢？
+
+[16:07] 刘芳: 薪酬涨幅太慢了。两年半涨了两次，每次3%左右，基本追不上通胀。主管级别的薪酬上限也就在20K，市场同类岗位能到25-28K。
+
+[16:09] HR: 你会推荐朋友来吗？
+
+[16:10] 刘芳: 不会，至少不会推荐有野心的人来。如果想安安稳稳做执行层的，还行；但如果想往上走的，这里没有空间。
+
+[16:11] HR: 最后，你的改善建议？
+
+[16:12] 刘芳: 增加管理层岗位，让有能力的员工有上升通道；加快薪酬调整周期，至少半年一次而不是一年一次，幅度也要对标市场。`,
+    isNew: false
+  },
+  {
+    id:'zhaoming', name:'赵明', dept:'技术部', pos:'测试工程师', tenure:15,
+    date:'2025-07-20', type:'主动离职',
+    mainReason:'薪酬偏低', secondReason:'测试岗位不受重视',
+    companyEval:'公司文化可以但测试团队地位低', leaderEval:'领导对测试重视度不够',
+    recommend:'否', suggest:'提升测试团队地位、薪酬对标开发岗',
+    transcript:`[13:30] HR: 赵明，你在测试岗位15个月了，能说说离职的主要原因吗？
+
+[13:31] 赵明: 两个问题叠在一起：薪酬偏低和测试岗位不受重视。薪酬方面，我现在14K，同级别的开发岗都在20K以上，差距近30%。而且测试岗在公司整体地位偏低，很多项目测试只是最后走个流程，不是真正被当作质量保障的核心环节。
+
+[13:33] HR: 你觉得领导在这方面的态度怎么样？
+
+[13:34] 赵明: 题目领导对测试重视度不够。比如关键项目的排期，测试时间经常被压缩，领导默认"开发做完就算上线了"，测试只是一个手续。这样的环境下，测试工程师的成就感很低。
+
+[13:36] HR: 建议公司怎么改善？
+
+[13:37] 赵明: 提升测试团队的地位，把测试纳入项目核心流程而不是最后补丁；薪酬至少对标开发岗70-80%而不是差30%。`,
+    isNew: false
+  },
+  {
+    id:'sunli', name:'孙丽', dept:'产品部', pos:'UI设计师', tenure:10,
+    date:'2025-08-05', type:'主动离职',
+    mainReason:'创意空间受限', secondReason:'领导审美干预过多',
+    companyEval:'设计自由度太低', leaderEval:'领导经常推翻设计方案让重做',
+    recommend:'否', suggest:'给设计师更多自主权、减少设计环节的反复修改',
+    transcript:`[14:00] HR: 孙丽，你在设计团队10个月了，离职原因是什么？
+
+[14:01] 孙丽: 最大的问题是创意空间太小。作为设计师，我希望有一定自主发挥的空间，但领导对审美干预太多了。经常是我做好一个方案，他看完直接说"这个风格不对，按我想要的改"，然后我改完他又说"还是不对"。一个页面来回改四五次，最后出的东西其实跟第一次差不多，中间浪费了大量时间。
+
+[14:03] HR: 你觉得这是领导管理风格的问题？
+
+[14:04] 孙丽: 是的。他审美要求确实高，但方式太强硬了，不给设计师讨论的空间。设计本身就需要一定的创作自由度，如果完全按指令来做，设计师的成就感为零。
+
+[14:06] HR: 改善建议？
+
+[14:06] 孙丽: 给设计师更多自主权，减少设计环节的反复修改。领导可以在需求阶段就明确方向，而不是做完之后再反复推翻。`,
+    isNew: false
+  },
+  {
+    id:'zhoulei', name:'周磊', dept:'技术部', pos:'后端开发', tenure:22,
+    date:'2025-08-15', type:'主动离职',
+    mainReason:'加班严重影响生活质量', secondReason:'技术方向与个人兴趣不符',
+    companyEval:'强度太大已经影响健康', leaderEval:'领导对加班习以为常不关心员工状态',
+    recommend:'否', suggest:'严格控制加班时长、关注员工身心健康',
+    transcript:`[14:30] HR: 周磊，你在后端开发岗待了22个月，离职的主要原因是什么？
+
+[14:31] 周磊: 最核心的是加班严重影响生活质量。这22个月以来，加班真的太严重了，平均每周至少3天要加班到晚上9点以后，赶项目的时候更夸张，一个月基本没有完整休息日。说实话，健康已经开始出问题了，我最近体检好几个指标异常——颈椎、睡眠、血压都有问题。
+
+[14:33] HR: 你觉得加班的根本原因是什么？
+
+[14:34] 周磊: 项目排期不合理，总是按最理想情况排，不考虑任何缓冲和风险。到了执行阶段问题一个个冒出来，就只能靠加班补。而且很多加班其实是在等——等前端接口、等需求确认、等测试环境，效率很低。
+
+[14:36] HR: 题目领导对此的态度？
+
+[14:37] 周磊: 题目领导对加班习以为常，不太关心员工的身心状态。他自己是那种"拼搏型"的，觉得加班是正常现象。但我觉得持续高强度加班绝对不正常，是在透支员工健康。
+
+[14:39] HR: 除了加班还有别的因素吗？
+
+[14:39] 周磊: 技术方向也跟个人兴趣不太吻合。后端服务偏业务逻辑开发，我更想做分布式系统和基础设施方向的工作，但公司没有这样的项目。
+
+[14:41] HR: 你会推荐朋友来吗？
+
+[14:41] 周磊: 不会。加班强度太高了，我不想朋友也来透支健康。
+
+[14:42] HR: 改善建议？
+
+[14:43] 周磊: 严格控制加班时长，设定月上限；关注员工身心健康，别只盯产出；项目排期要留缓冲，不要一味压时间。`,
+    isNew: false
+  },
+  {
+    id:'wujia', name:'吴佳', dept:'HR部', pos:'HR专员', tenure:6,
+    date:'2025-09-01', type:'主动离职',
+    mainReason:'工作内容单一重复', secondReason:'看不到HR的职业价值',
+    companyEval:'每天都是流程性工作太枯燥', leaderEval:'领导安排工作缺乏挑战性',
+    recommend:'否', suggest:'增加HR战略性工作内容、让HR参与更多业务决策',
+    transcript:`[09:30] HR: 吴佳，你入职才6个月，是比较短的在职时间。能说说原因吗？
+
+[09:31] 吴佳: 主要是工作内容太单一重复了。每天的活就是处理入职离职流程、整理员工信息、做各种表格。面试说的是"参与人力资源体系建设"，但进来之后发现全是执行层的事务性工作，看不到HR的战略价值。
+
+[09:33] HR: 题目领导在这方面的安排？
+
+[09:33] 吴佳: 题目领导安排的工作确实缺乏挑战性。我也主动问过能不能参与一些组织发展、人才规划的项目，但领导觉得我经验不够先做好基础工作。问题是基础工作永远做不完，根本没有机会接触更高层面的东西。
+
+[09:35] HR: 改善建议？
+
+[09:36] 吴佳: 增加HR战略性工作内容，不要让HR只做流程性事务；让HR参与更多业务决策，比如人才规划、组织设计这些。`,
+    isNew: false
+  },
+  {
+    id:'zhengyuan', name:'郑远', dept:'技术部', pos:'架构师', tenure:36,
+    date:'2025-09-10', type:'被动离职(裁员)',
+    mainReason:'业务收缩岗位被裁', secondReason:'公司战略调整',
+    companyEval:'对公司战略方向不确定', leaderEval:'领导本人也受影响',
+    recommend:'不好说', suggest:'裁员过程要更透明、给被裁员工更好过渡支持',
+    transcript:`[10:00] HR: 郑远，这次是被动离职的情况，公司业务调整导致岗位裁撤。我想了解一下你的想法和感受。
+
+[10:01] 郑远: 说实话，心里不太好受。我在公司3年了，一直负责架构设计，贡献也不少。突然被告知岗位被裁，确实没有太多预期。我对公司战略方向一直不太确定，架构团队从8个人缩减到3个人，说明公司对这块的投入在降低。
+
+[10:03] HR: 裁员过程中你觉得公司做得怎么样？
+
+[10:04] 郑远: 过程不够透明。先是听到一些传闻，然后突然开会通知，中间没有正式的沟通和解释。赔偿方案虽然按法律标准给，但没有额外的过渡支持——比如推荐新机会、技能培训、猎头对接这些，大厂裁员通常都有的。
+
+[10:06] HR: 题目领导的情况？
+
+[10:07] 郑远: 题目领导自己也在被裁名单里，所以他也没法帮我争取什么。他也很无奈。
+
+[10:08] HR: 你会推荐朋友来吗？
+
+[10:09] 郑远: 不好说。公司业务不稳定是事实，但技术团队本身能力不错。关键看朋友看重什么。
+
+[10:10] HR: 建议公司怎么改善裁员过程？
+
+[10:11] 郑远: 裁员过程要更透明，提前沟通而不是突然通知；给被裁员工更好的过渡支持，包括猎头对接、推荐信、过渡期技能培训。`,
+    isNew: false
+  },
+  {
+    id:'huangmin', name:'黄敏', dept:'市场部', pos:'品牌经理', tenure:28,
+    date:'2025-10-01', type:'主动离职',
+    mainReason:'薪酬低于同行', secondReason:'预算削减工作推进困难',
+    companyEval:'品牌投入越来越少成就感低', leaderEval:'领导对品牌重视度下降',
+    recommend:'否', suggest:'恢复品牌预算、薪酬对标市场水平',
+    transcript:`[15:00] HR: 黄敏，你在品牌岗位待了28个月，离职主要原因是什么？
+
+[15:01] 黄敏: 两个问题：薪酬低于同行，和品牌预算持续削减。薪酬方面，品牌经理在深圳市场普遍22-28K，我现在17K，差距明显。更让我难受的是品牌预算一直在砍，从最初的每年200万到现在不到80万，项目越做越少，成就感越来越低。
+
+[15:03] HR: 题目领导的态度？
+
+[15:04] 黄敏: 题目领导对品牌的重视度明显下降了，更多精力放在短期销售转化上。品牌建设需要长期投入，但领导越来越偏向短期ROI，这让品牌团队很被动。
+
+[15:06] HR: 改善建议？
+
+[15:07] 黄敏: 恢复品牌预算到合理水平，品牌是长期资产不是短期支出；薪酬对标市场水平，品牌人才的薪酬不应比其他市场岗低这么多。`,
+    isNew: false
+  },
+  {
+    id:'linjie', name:'林杰', dept:'技术部', pos:'DevOps工程师', tenure:14,
+    date:'2025-10-15', type:'主动离职',
+    mainReason:'运维工作强度大', secondReason:'7x24值班制度不合理',
+    companyEval:'经常半夜被叫起来处理问题', leaderEval:'领导觉得这是正常的',
+    recommend:'否', suggest:'优化值班制度、引入自动化运维减少人工值守',
+    transcript:`[11:00] HR: 林杰，你在DevOps岗位14个月了，离职原因是什么？
+
+[11:01] 林杰: 运维工作强度太大了，7x24值班制度很不合理。我经常半夜被叫起来处理线上问题，有时候凌晨3点还在排查故障。一个月至少有5-6次夜间告警，严重影响睡眠和生活。
+
+[11:03] HR: 题目领导觉得这个情况怎么样？
+
+[11:04] 林杰: 题目领导觉得这是正常的，运维就是这样。但我觉得不正常，很多告警可以通过自动化处理，值班制度也应该优化——比如轮班而不是一个人持续值守，夜间低级别告警可以延迟到白天处理。
+
+[11:06] HR: 改善建议？
+
+[11:07] 林杰: 优化值班制度，合理轮班；引入自动化运维减少人工值守；夜间告警分级处理，不是所有问题都要立即响应。`,
+    isNew: false
+  },
+  {
+    id:'yangqian', name:'杨倩', dept:'产品部', pos:'数据分析师', tenure:20,
+    date:'2025-11-01', type:'主动离职',
+    mainReason:'数据分析成果不被决策层采纳', secondReason:'跨部门数据获取困难',
+    companyEval:'做了很多分析报告但没人看', leaderEval:'领导支持但上层决策不看数据',
+    recommend:'否', suggest:'建立数据驱动决策机制、打通数据权限壁垒',
+    transcript:`[14:00] HR: 杨倩，你在数据分析岗位20个月了，离职原因是什么？
+
+[14:01] 杨倩: 最让我心灰意冷的是，数据分析成果不被决策层采纳。我做了很多分析报告——用户行为分析、转化漏斗、留存趋势——投入大量精力，但决策层基本不看数据做决定，更多凭经验和直觉。
+
+[14:03] HR: 举个例子？
+
+[14:04] 杨倩: 比如去年我做了一份详细的用户流失分析报告，明确指出几个关键流失节点和原因。但产品规划的会议上，VP直接说"我觉得应该是另一个原因"，然后按他的判断走了，完全不看我的数据。花了三周做的报告，最后连参考都没被参考。
+
+[14:06] HR: 题目领导的态度？
+
+[14:07] 杨倩: 题目领导是支持数据驱动的，但他也承认上层决策很多时候不看数据。他自己也很无奈，说"我能帮你争取数据权限，但能不能影响决策不好说"。
+
+[14:08] HR: 还有别的困难吗？
+
+[14:09] 杨倩: 跨部门数据获取困难。不同部门的数据权限壁垒很严重，每次要拉数据都要走审批流程，效率太低。有时候分析需要的时效性很高，但数据审批就要两三天，报告出来的时候决策已经做了。
+
+[14:11] HR: 改善建议？
+
+[14:12] 杨倩: 建立数据驱动决策机制，决策层必须看数据再做决定；打通数据权限壁垒，给分析师合理的数据访问权限。`,
+    isNew: false
+  },
+  {
+    id:'mahao', name:'马浩', dept:'技术部', pos:'移动开发', tenure:16,
+    date:'2025-11-20', type:'主动离职',
+    mainReason:'移动端业务萎缩', secondReason:'技术成长停滞',
+    companyEval:'移动端项目越来越少', leaderEval:'领导已经转向其他方向',
+    recommend:'否', suggest:'明确移动端战略、或者给员工转型机会',
+    transcript:`[10:00] HR: 马浩，你在移动开发岗16个月，离职原因是什么？
+
+[10:01] 马浩: 移动端业务在萎缩。公司从去年开始重心转向Web和小程序，原生移动端项目越来越少。我的团队从6个人缩减到3个人，项目也只有维护性质的工作，没有新的功能开发。技术成长基本停滞了。
+
+[10:03] HR: 题目领导的态度？
+
+[10:04] 马浩: 题目领导自己也转向其他方向了，精力主要在Web端。移动端在他看来已经是"维护期"，不需要太多投入。但对我们来说，天天做维护没有成长空间。
+
+[10:06] HR: 改善建议？
+
+[10:07] 马浩: 要么明确移动端战略，告诉我们未来方向是什么；要么给移动开发人员转型机会，可以转去做Web或后端，而不是让团队慢慢萎缩。`,
+    isNew: false
+  },
+  {
+    id:'zhuying', name:'朱颖', dept:'运营部', pos:'内容运营', tenure:9,
+    date:'2025-12-01', type:'主动离职',
+    mainReason:'内容产出KPI不合理', secondReason:'领导对内容质量要求与数量要求矛盾',
+    companyEval:'要求又多又好但资源不够', leaderEval:'领导自己也很矛盾',
+    recommend:'否', suggest:'重新制定合理KPI、区分质量和数量的考核标准',
+    transcript:`[11:00] HR: 朱颖，你在内容运营岗位9个月，离职原因是什么？
+
+[11:01] 朱颖: KPI太不合理了。领导要求内容产出既要多又要好——每周至少10篇内容，同时每篇都要有创意和质量。但团队只有3个人，没有足够的素材和设计支持，根本做不到"又多又好"。
+
+[11:03] HR: 题目领导对此的态度？
+
+[11:04] 朱颖: 题目领导自己也矛盾，他知道资源不够但又不想降低KPI，因为上层对内容产出有量化要求。他经常说"我知道很难，但目标就是这样"，让我觉得既不被理解也不被支持。
+
+[11:06] HR: 改善建议？
+
+[11:07] 朱颖: 重新制定合理KPI，区分质量和数量的考核标准——要么追求高质量少产出，要么追求数量但允许质量波动；不要同时要求两个极端。`,
+    isNew: false
+  }
+];
+
+// ======== SAMPLE TRANSCRIPTS for Import tab ========
+const sampleTranscripts = {
+  zhoulei: interviews.find(i=>i.id==='zhoulei').transcript,
+  liufang: interviews.find(i=>i.id==='liufang').transcript,
+  yangqian: interviews.find(i=>i.id==='yangqian').transcript
+};
+
+// ======== STATE ========
+let filteredData = [...interviews];
+let selectedPerson = null;
+let chartInstances = {};
+let inputMode = 'upload'; // 'upload' or 'paste'
+let importedCount = 0;
+
+// ======== INPUT MODE ========
+function setInputMode(mode) {
+  inputMode = mode;
+  document.getElementById('modeUpload').classList.toggle('active', mode === 'upload');
+  document.getElementById('modePaste').classList.toggle('active', mode === 'paste');
+  document.getElementById('uploadZone').style.display = mode === 'upload' ? 'block' : 'none';
+  document.getElementById('uploadSuccess').style.display = mode === 'upload' ? (document.getElementById('uploadSuccess').innerHTML ? 'block' : 'none') : 'none';
+  document.getElementById('pasteArea').style.display = mode === 'paste' ? 'block' : 'none';
+}
+
+// ======== FILE UPLOAD ========
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.add('drag-over');
+}
+
+function handleDragLeave(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+}
+
+function processFile(file) {
+  const validTypes = ['.txt', '.csv', '.md', '.text'];
+  const ext = '.' + file.name.split('.').pop().toLowerCase();
+  if (!validTypes.includes(ext)) {
+    alert('仅支持 .txt / .csv / .md 格式文件');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    document.getElementById('transcriptInput').value = text;
+
+    // Show upload success
+    const sizeKB = (file.size / 1024).toFixed(1);
+    document.getElementById('uploadSuccess').innerHTML = `
+      <div class="upload-success">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div class="us-filename">${file.name}</div>
+        <div class="us-size">${sizeKB} KB · 已读取转录内容，点击下方"景能解析"开始分析</div>
+      </div>`;
+    document.getElementById('uploadSuccess').style.display = 'block';
+    document.getElementById('uploadZone').style.display = 'none';
+
+    // Auto-switch to paste mode to show content (but keep upload mode UI)
+    // Actually let's show the text in the paste area as well so user can review
+    setInputMode('paste');
+  };
+  reader.readAsText(file);
+}
+
+// ======== FILTER ========
+function applyFilters() {
+  const timeVal = document.getElementById('timeFilter').value;
+  const deptVal = document.getElementById('deptFilter').value;
+
+  const now = new Date('2025-12-15');
+  let cutoff = null;
+  if (timeVal !== 'all') cutoff = new Date(now.getTime() - parseInt(timeVal) * 30 * 24 * 3600 * 1000);
+
+  filteredData = interviews.filter(d => {
+    if (cutoff && new Date(d.date) < cutoff) return false;
+    if (deptVal !== 'all' && d.dept !== deptVal) return false;
+    return true;
+  });
+
+  const depts = [...new Set(filteredData.map(d => d.dept))];
+  document.getElementById('filterCount').textContent = filteredData.length;
+  document.getElementById('filterDept').textContent = depts.length;
+
+  // Show new badge if there are imported entries
+  const newEntries = filteredData.filter(d => d.isNew);
+  const badge = document.getElementById('newBadge');
+  if (newEntries.length > 0) {
+    badge.textContent = `+${newEntries.length} 新导入`;
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+
+  // Also update dept filter options dynamically
+  const allDepts = [...new Set(interviews.map(d => d.dept))].sort();
+  const deptSelect = document.getElementById('deptFilter');
+  const currentVal = deptSelect.value;
+  deptSelect.innerHTML = '<option value="all">全部部门</option>' +
+    allDepts.map(d => `<option value="${d}"${d===currentVal?' selected':''}>${d}</option>`).join('');
+
+  renderOverview();
+  renderPersonGrid();
+}
+
+// ======== TAB SWITCHING ========
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+}
+
+// ======== OVERVIEW RENDERING ========
+function renderOverview() {
+  const data = filteredData;
+  const total = data.length;
+  const voluntary = data.filter(d => d.type === '主动离职').length;
+  const avgTenure = total > 0 ? (data.reduce((s, d) => s + d.tenure, 0) / total).toFixed(1) : 0;
+  const recommendNo = data.filter(d => d.recommend === '否').length;
+  const recommendYes = data.filter(d => d.recommend !== '否').length;
+  const recommendRate = total > 0 ? (recommendYes / total * 100).toFixed(0) : 0;
+
+  // Flash KPI cards if there's new data
+  const hasNew = data.some(d => d.isNew);
+  ['kpiTotalCard','kpiVolCard','kpiTenCard','kpiRefCard'].forEach(id => {
+    const el = document.getElementById(id);
+    if (hasNew) { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1500); }
+  });
+
+  document.getElementById('kpiTotal').textContent = total;
+  document.getElementById('kpiVoluntary').textContent = total > 0 ? (voluntary/total*100).toFixed(0) + '%' : '0%';
+  document.getElementById('kpiTenure').textContent = avgTenure + '月';
+  document.getElementById('kpiRefer').textContent = recommendRate + '%';
+
+  // Dept chart
+  const deptMap = {};
+  data.forEach(d => { deptMap[d.dept] = (deptMap[d.dept] || 0) + 1; });
+  const deptLabels = Object.keys(deptMap).sort((a,b) => deptMap[b]-deptMap[a]);
+  const deptValues = deptLabels.map(k => deptMap[k]);
+  const deptColors = ['#378ADD','#7F77DD','#D85A30','#1D9E75','#BA7517','#888780','#EF9F27'];
+
+  if (chartInstances.dept) chartInstances.dept.destroy();
+  chartInstances.dept = new Chart(document.getElementById('deptChart'), {
+    type:'doughnut',
+    data:{ labels:deptLabels, datasets:[{ data:deptValues, backgroundColor:deptColors.slice(0,deptLabels.length), borderWidth:0, borderRadius:4 }] },
+    options:{ responsive:true, plugins:{ legend:{ position:'bottom', labels:{ font:{size:12}, padding:10 } } }, cutout:'55%' }
+  });
+
+  // Reason chart - categorized
+  const reasonCatMap = {};
+  const catMap = {
+    '薪酬竞争力不足': ['薪酬低于市场水平','薪酬偏低','薪酬低于同行','薪酬无竞争力','薪酬涨幅太慢','AI方向资源投入不足'],
+    '职业发展受限': ['职业发展天花板','技术栈陈旧无成长空间','技术成长停滞','技术自主权太小'],
+    '工作强度/加班': ['工作压力大加班多','加班严重影响生活质量','运维工作强度大','7x24值班制度不合理'],
+    '岗位/角色问题': ['岗位定位模糊','工作内容单一重复','内容产出KPI不合理'],
+    '创意自主权受限': ['创意空间受限'],
+    '成果不被重视': ['数据分析成果不被决策层采纳','测试岗位不受重视'],
+    '业务调整': ['业务收缩岗位被裁','移动端业务萎缩','预算削减工作推进困难']
+  };
+
+  data.forEach(d => {
+    let matched = false;
+    for (const [cat, reasons] of Object.entries(catMap)) {
+      if (reasons.includes(d.mainReason) || reasons.includes(d.secondReason)) {
+        reasonCatMap[cat] = (reasonCatMap[cat] || 0) + 1;
+        matched = true; break;
+      }
+    }
+    if (!matched) reasonCatMap[d.mainReason] = (reasonCatMap[d.mainReason] || 0) + 1;
+  });
+
+  const reasonLabels = Object.keys(reasonCatMap).sort((a,b) => reasonCatMap[b]-reasonCatMap[a]);
+  const reasonValues = reasonLabels.map(k => reasonCatMap[k]);
+  const reasonColors = ['#E24B4A','#BA7517','#378ADD','#7F77DD','#1D9E75','#888780','#5F5E5A','#EF9F27'];
+
+  if (chartInstances.reason) chartInstances.reason.destroy();
+  chartInstances.reason = new Chart(document.getElementById('reasonChart'), {
+    type:'bar',
+    data:{ labels:reasonLabels, datasets:[{ data:reasonValues, backgroundColor:reasonColors.slice(0,reasonLabels.length), borderWidth:0, borderRadius:6, barThickness:22 }] },
+    options:{ indexAxis:'y', responsive:true, plugins:{ legend:{display:false} }, scales:{ x:{beginAtZero:true,ticks:{stepSize:1}}, y:{ticks:{font:{size:12}}} } }
+  });
+
+  // Tenure chart
+  const tenureBuckets = {'6-8月':0,'9-12月':0,'13-18月':0,'19-24月':0,'25-36月':0};
+  data.forEach(d => {
+    if(d.tenure<=8) tenureBuckets['6-8月']++;
+    else if(d.tenure<=12) tenureBuckets['9-12月']++;
+    else if(d.tenure<=18) tenureBuckets['13-18月']++;
+    else if(d.tenure<=24) tenureBuckets['19-24月']++;
+    else tenureBuckets['25-36月']++;
+  });
+  const tenureColors = ['#FAC775','#EF9F27','#378ADD','#185FA5','#7F77DD'];
+
+  if (chartInstances.tenure) chartInstances.tenure.destroy();
+  chartInstances.tenure = new Chart(document.getElementById('tenureChart'), {
+    type:'bar',
+    data:{ labels:Object.keys(tenureBuckets), datasets:[{ data:Object.values(tenureBuckets), backgroundColor:tenureColors, borderWidth:0, borderRadius:6, barThickness:36 }] },
+    options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true,ticks:{stepSize:1}}} }
+  });
+
+  // Refer chart
+  const referMap = {};
+  data.forEach(d => { referMap[d.recommend] = (referMap[d.recommend]||0)+1; });
+  const referLabels = [];
+  const referValues = [];
+  const referColors2 = [];
+  if (referMap['否']) { referLabels.push(`否（${referMap['否']}人）`); referValues.push(referMap['否']); referColors2.push('#E24B4A'); }
+  if (referMap['不好说']) { referLabels.push(`不好说（${referMap['不好说']}人）`); referValues.push(referMap['不好说']); referColors2.push('#FAC775'); }
+
+  if (chartInstances.refer) chartInstances.refer.destroy();
+  chartInstances.refer = new Chart(document.getElementById('referChart'), {
+    type:'pie',
+    data:{ labels:referLabels, datasets:[{ data:referValues, backgroundColor:referColors2, borderWidth:0, borderRadius:4 }] },
+    options:{ responsive:true, plugins:{ legend:{ position:'bottom', labels:{font:{size:12},padding:10} } } }
+  });
+
+  // Insights
+  const techPct = total > 0 ? (deptMap['技术部']/total*100).toFixed(0) : 0;
+  const salaryPct = total > 0 ? ((reasonCatMap['薪酬竞争力不足']||0)/total*100).toFixed(0) : 0;
+  const devPct = total > 0 ? ((reasonCatMap['职业发展受限']||0)/total*100).toFixed(0) : 0;
+  const overtimePct = total > 0 ? ((reasonCatMap['工作强度/加班']||0)/total*100).toFixed(0) : 0;
+  const shortTenure = data.filter(d=>d.tenure<=12).length;
+  const shortPct = total > 0 ? (shortTenure/total*100).toFixed(0) : 0;
+
+  const insights = [
+    {cls:'red', text:`薪酬竞争力不足是第一离职原因，${salaryPct}%的人直接提及薪酬低于市场水平`},
+    {cls:'red', text:`技术部离职最严重，${techPct}%的离职来自技术部，涉及全栈技术岗位`},
+    {cls:'amber', text:`职业发展受限是第二大原因（${devPct}%），核心痛点是晋升通道不清晰、技能成长停滞`},
+    {cls:'amber', text:`工作强度/加班问题影响${overtimePct}%的人，且有员工明确提到"影响健康"`},
+    {cls:'red', text:`${recommendRate}%的主动离职者不愿推荐朋友来公司，雇主品牌严重受损`},
+    {cls:'teal', text:`1年以内离职占${shortPct}%，说明入职体验和早期融入存在系统性问题`}
+  ];
+
+  // If new data added, add a specific insight
+  const newEntries = data.filter(d => d.isNew);
+  if (newEntries.length > 0) {
+    const newNames = newEntries.map(d => d.name).join('、');
+    const newReason = newEntries[0].mainReason;
+    insights.unshift({cls:'teal', text:`新增导入：${newNames}（${newEntries[0].dept}），离职原因为"${newReason}"，数据已融入洞察看板`});
+  }
+
+  document.getElementById('insightList').innerHTML = insights.map(i =>
+    `<li class="${i.cls}">${i.text}</li>`).join('');
+
+  // Actions
+  const actions = [
+    {p:'P0 · 立即行动',t:'薪酬竞争力修复',d:'对标市场75分位，技术岗位优先调薪；建立年度薪酬回顾机制'},
+    {p:'P0 · 立即行动',t:'技术部稳定性专项',d:'开展一对一访谈；引入新技术栈路线图；改善测试岗位地位'},
+    {p:'P1 · 季度内',t:'加班管理制度化',d:'设定月加班上限；优化值班制度引入自动化运维'},
+    {p:'P1 · 季度内',t:'职业发展通道建设',d:'明确各序列晋升标准；增加管理层岗位'},
+    {p:'P1 · 季度内',t:'数据驱动决策机制',d:'建立决策层必看数据指标；打通数据权限壁垒'},
+    {p:'P2 · 半年内',t:'入职体验优化',d:'制定30天onboarding计划；明确岗位职责边界'}
+  ];
+
+  document.getElementById('actionGrid').innerHTML = actions.map(a =>
+    `<div class="action-item"><div class="ai-priority">${a.p}</div><div class="ai-title">${a.t}</div><div class="ai-desc">${a.d}</div></div>`).join('');
+}
+
+// ======== INDIVIDUAL TAB ========
+function renderPersonGrid() {
+  document.getElementById('personGrid').innerHTML = filteredData.map(d => {
+    const selClass = selectedPerson === d.id ? 'selected' : '';
+    const newClass = d.isNew ? 'new-entry' : '';
+    const newTag = d.isNew ? '<span class="pc-new">新导入</span>' : '';
+    const referClass = d.recommend === '否' ? 'no' : 'maybe';
+    const referText = d.recommend === '否' ? '不推荐' : '不好说';
+    return `<div class="person-card ${selClass} ${newClass}" onclick="selectPerson('${d.id}')">
+      <div class="pc-name">${d.name}${newTag}</div>
+      <div class="pc-info">${d.dept} · ${d.pos} · ${d.tenure}月</div>
+      <div class="pc-reason">${d.mainReason}</div>
+      <div class="pc-refer ${referClass}">${referText}朋友来</div>
+    </div>`;
+  }).join('');
+}
+
+function selectPerson(id) {
+  selectedPerson = id;
+  renderPersonGrid();
+  const d = interviews.find(i => i.id === id);
+
+  const lines = d.transcript.split('\n').filter(l => l.trim());
+  const empName = d.name;
+  const empLines = lines.filter(l => l.includes(empName) || l.includes('员工'));
+  const keyQuotes = empLines.slice(0, 5).map(l => {
+    const content = l.replace(/\[\d{2}:\d{2}\]\s*(HR|员工|[^:]+):\s*/, '');
+    return content.trim();
+  });
+
+  const newTag = d.isNew ? '<span style="background:#1D9E75;color:#fff;font-size:11px;padding:3px 10px;border-radius:10px;margin-left:8px">新导入</span>' : '';
+
+  const detailHTML = `
+    <div class="detail-header">
+      <div>
+        <div class="dh-name">${d.name} · ${d.dept}${newTag}</div>
+        <div class="dh-meta">${d.pos} · 在职${d.tenure}个月 · ${d.date}离职 · ${d.type}</div>
+      </div>
+      <button class="dh-close" onclick="closeDetail()">返回列表</button>
+    </div>
+    <div class="detail-body">
+      <div class="transcript-section">
+        <div class="ts-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          面谈语音转录原文
+        </div>
+        <div class="transcript-box">${formatTranscript(d.transcript)}</div>
+      </div>
+      <div class="summary-section">
+        <div class="summary-grid">
+          <div class="summary-item reason">
+            <div class="si-label">离职原因</div>
+            <div class="si-text">主因：${d.mainReason}<br>次因：${d.secondReason}</div>
+          </div>
+          <div class="summary-item evaluation">
+            <div class="si-label">评价</div>
+            <div class="si-text">对公司：${d.companyEval}<br>对领导：${d.leaderEval}</div>
+          </div>
+          <div class="summary-item suggest">
+            <div class="si-label">改善建议</div>
+            <div class="si-text">${d.suggest}</div>
+          </div>
+        </div>
+      </div>
+      <div class="transcript-section">
+        <div class="ts-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          原话金句（从语音转录中提取）
+        </div>
+        <div class="transcript-box">${keyQuotes.map(q => `<div style="margin:8px 0;padding:4px 0;border-bottom:1px solid #e5e5e7">"${q}"</div>`).join('')}</div>
+      </div>
+    </div>`;
+
+  document.getElementById('detailPanel').style.display = 'block';
+  document.getElementById('detailPanel').innerHTML = detailHTML;
+}
+
+function formatTranscript(text) {
+  return text.split('\n').filter(l => l.trim()).map(l => {
+    const match = l.match(/\[(\d{2}:\d{2})\]\s*(HR|员工|[^:]+):\s*(.*)/);
+    if (match) {
+      const [, time, speaker, content] = match;
+      const isHR = speaker === 'HR';
+      const speakerClass = isHR ? 'hr' : 'emp';
+      const highlights = ['太严重','影响健康','透支','心灰意冷','不被','不推荐','差距','受不了','不合理','矛盾','没有空间','不正常','不被重视','看不到','太低','没有投入','排队','锦上添花','被迫终止','稀缺','嘴上说','不尊重','坦诚'];
+      let formattedContent = content;
+      highlights.forEach(h => {
+        if (content.includes(h)) {
+          formattedContent = formattedContent.replace(new RegExp(h, 'g'), `<span class="ts-highlight">${h}</span>`);
+        }
+      });
+      return `<div style="margin:6px 0"><span class="ts-time">[${time}]</span> <span class="ts-speaker ${speakerClass}">${speaker}:</span> ${formattedContent}</div>`;
+    }
+    return `<div style="margin:6px 0">${l}</div>`;
+  }).join('');
+}
+
+function closeDetail() {
+  selectedPerson = null;
+  document.getElementById('detailPanel').style.display = 'none';
+  renderPersonGrid();
+}
+
+// ======== IMPORT TAB ========
+function fillSample(key) {
+  document.getElementById('transcriptInput').value = sampleTranscripts[key];
+  document.getElementById('parseResult').classList.remove('show');
+  document.getElementById('absorbedToast').style.display = 'none';
+  setInputMode('paste');
+}
+
+function clearInput() {
+  document.getElementById('transcriptInput').value = '';
+  document.getElementById('parseResult').classList.remove('show');
+  document.getElementById('absorbedToast').style.display = 'none';
+  document.getElementById('uploadSuccess').style.display = 'none';
+  document.getElementById('uploadSuccess').innerHTML = '';
+  setInputMode('upload');
+  // Reset file input
+  document.getElementById('fileInput').value = '';
+}
+
+function parseTranscript() {
+  const text = document.getElementById('transcriptInput').value;
+  if (!text.trim()) { alert('请先上传或粘贴面谈转录内容'); return; }
+
+  const parseResult = {
+    mainReason: extractReason(text),
+    secondReason: extractSecondReason(text),
+    companyEval: extractEval(text, ['公司','氛围','文化','环境','项目','业务','团队','算力','投入','重视','战略','尊重']),
+    leaderEval: extractEval(text, ['领导','他','管理','沟通','支持','争取','态度','方向']),
+    suggest: extractSuggest(text),
+    recommend: extractRecommend(text),
+    keyQuotes: extractQuotes(text),
+    name: extractName(text),
+    dept: extractDept(text),
+    pos: extractPos(text),
+    tenure: extractTenure(text),
+    date: extractDate(text)
+  };
+
+  const html = `
+    <div class="pr-title">解析完成 - 从语音转录中提取以下关键信息</div>
+    <div class="pr-fields">
+      <div class="pr-field"><div class="pf-label">员工姓名</div><div class="pf-val">${parseResult.name}</div></div>
+      <div class="pr-field"><div class="pf-label">部门 · 职位</div><div class="pf-val">${parseResult.dept} · ${parseResult.pos}</div></div>
+      <div class="pr-field"><div class="pf-label">主要离职原因</div><div class="pf-val">${parseResult.mainReason}</div></div>
+      <div class="pr-field"><div class="pf-label">次要原因</div><div class="pf-val">${parseResult.secondReason}</div></div>
+      <div class="pr-field"><div class="pf-label">对公司评价</div><div class="pf-val">${parseResult.companyEval}</div></div>
+      <div class="pr-field"><div class="pf-label">对领导评价</div><div class="pf-val">${parseResult.leaderEval}</div></div>
+      <div class="pr-field"><div class="pf-label">推荐意愿</div><div class="pf-val">${parseResult.recommend}</div></div>
+      <div class="pr-field"><div class="pf-label">在职时长</div><div class="pf-val">${parseResult.tenure}个月</div></div>
+    </div>
+    <div class="pr-quotes">
+      <div class="pq-label">提取的原话金句</div>
+      <div class="pq-text">${parseResult.keyQuotes.map(q => `"${q}"`).join('<br>')}</div>
+    </div>
+  `;
+
+  document.getElementById('parseResult').innerHTML = html;
+  document.getElementById('parseResult').classList.add('show');
+
+  // ======== ABSORB INTO DATA MODEL ========
+  const newId = 'imported_' + Date.now();
+  const newEntry = {
+    id: newId,
+    name: parseResult.name || '新导入员工',
+    dept: parseResult.dept || '技术部',
+    pos: parseResult.pos || '工程师',
+    tenure: parseResult.tenure || 12,
+    date: parseResult.date || '2025-12-10',
+    type: '主动离职',
+    mainReason: parseResult.mainReason,
+    secondReason: parseResult.secondReason || '综合因素',
+    companyEval: parseResult.companyEval,
+    leaderEval: parseResult.leaderEval,
+    recommend: parseResult.recommend,
+    suggest: parseResult.suggest,
+    transcript: text,
+    isNew: true
+  };
+
+  interviews.push(newEntry);
+  importedCount++;
+
+  // Show absorbed toast
+  document.getElementById('absorbedToast').innerHTML = `
+    <div class="absorbed-toast">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      新知识已吸收！${newEntry.name}的面谈数据已融入洞察看板
+      <div class="at-sub">总览图表、关键洞察、个人详情均已实时更新 · 点击"总览洞察"查看变化</div>
+    </div>`;
+  document.getElementById('absorbedToast').style.display = 'block';
+
+  // Refresh all views
+  applyFilters();
+}
+
+// ======== EXTRACT FUNCTIONS ========
+function extractName(text) {
+  const match = text.match(/面谈对象[：:]\s*(.+)/) || text.match(/姓名[：:]\s*(.+)/);
+  if (match) return match[1].trim();
+  // Try to find from transcript lines
+  const lines = text.split('\n');
+  for (const line of lines) {
+    const m = line.match(/\[\d{2}:\d{2}\]\s*([^:HR]+):\s/);
+    if (m && m[1].trim().length >= 2 && m[1].trim() !== 'HR') return m[1].trim();
+  }
+  return '新导入员工';
+}
+
+function extractDept(text) {
+  const match = text.match(/部门[：:]\s*(.+)/);
+  if (match) return match[1].trim();
+  return '技术部';
+}
+
+function extractPos(text) {
+  const match = text.match(/职位[：:]\s*(.+)/);
+  if (match) return match[1].trim();
+  return '工程师';
+}
+
+function extractTenure(text) {
+  const match = text.match(/在职时长[：:]\s*(\d+)/) || text.match(/(\d+)\s*个月/);
+  if (match) return parseInt(match[1]);
+  return 12;
+}
+
+function extractDate(text) {
+  const match = text.match(/面谈日期[：:]\s*(\d{4}-\d{2}-\d{2})/) || text.match(/(\d{4}-\d{2}-\d{2})/);
+  if (match) return match[1];
+  return '2025-12-10';
+}
+
+function extractReason(text) {
+  const reasons = [
+    {keywords:['薪酬','薪资','工资','K','薪资偏低','薪酬低','差距'], reason:'薪酬竞争力不足'},
+    {keywords:['加班','加班严重','加班影响','高强度','9点'], reason:'加班严重影响生活质量'},
+    {keywords:['压力','工作压力','扛不住'], reason:'工作压力大加班多'},
+    {keywords:['成长','发展','晋升','上升','天花板'], reason:'职业发展受限'},
+    {keywords:['技术栈','技术成长','技术方向','新技术'], reason:'技术栈陈旧无成长空间'},
+    {keywords:['岗位定位','打杂','模糊'], reason:'岗位定位模糊'},
+    {keywords:['创意','设计','审美','自主'], reason:'创意空间受限'},
+    {keywords:['预算','品牌投入'], reason:'预算削减工作推进困难'},
+    {keywords:['业务','裁员','萎缩','收缩'], reason:'业务调整/收缩'},
+    {keywords:['值班','运维','7x24','半夜'], reason:'运维工作强度大'},
+    {keywords:['数据','不被采纳','不看数据','决策'], reason:'数据分析成果不被决策层采纳'},
+    {keywords:['KPI','不合理','矛盾'], reason:'内容产出KPI不合理'},
+    {keywords:['算力','GPU','资源投入','AI方向','没有投入'], reason:'AI方向资源投入不足'},
+    {keywords:['自主权','实验','ROI','短期'], reason:'技术自主权太小'}
+  ];
+  for (const r of reasons) {
+    if (r.keywords.some(k => text.includes(k))) return r.reason;
+  }
+  return '综合因素';
+}
+
+function extractSecondReason(text) {
+  const lines = text.split('\n').filter(l => l.trim() && !l.includes('HR:'));
+  // Look for lines about secondary reasons
+  const secondary = [];
+  const reasonKeywords = ['薪酬','加班','压力','发展','技术','岗位','创意','预算','业务','值班','数据','KPI','算力','自主权','方向','兴趣'];
+  for (const line of lines) {
+    const content = line.replace(/\[\d{2}:\d{2}\]\s*(HR|员工|[^:]+):\s*/, '').trim();
+    if (reasonKeywords.some(k => content.includes(k)) && content.length > 5 && content.length < 60) {
+      secondary.push(content);
+    }
+  }
+  if (secondary.length >= 2) {
+    // Return a summary of the second most mentioned reason
+    const secondReason = extractReason(secondary[1] || secondary[0]);
+    if (secondReason !== extractReason(text)) return secondReason;
+  }
+  return '综合因素';
+}
+
+function extractEval(text, keywords) {
+  const lines = text.split('\n');
+  const evalLines = [];
+  for (const line of lines) {
+    const content = line.replace(/\[\d{2}:\d{2}\]\s*(HR|员工|[^:]+):\s*/, '').trim();
+    if (content.length > 8 && content.length < 100) {
+      for (const kw of keywords) {
+        if (content.includes(kw) && !line.includes('HR:')) {
+          evalLines.push(content);
+          break;
+        }
+      }
+    }
+  }
+  return evalLines.length > 0 ? evalLines[0] : '未明确提取';
+}
+
+function extractSuggest(text) {
+  const suggestLines = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    if (line.includes('建议') || line.includes('改善') || line.includes('应该') || line.includes('需要') || line.includes('控制') || line.includes('提升') || line.includes('优化') || line.includes('明确') || line.includes('增加') || line.includes('建立') || line.includes('恢复') || line.includes('减少') || line.includes('给') || line.includes('打通') || line.includes('给算力') || line.includes('实验空间') || line.includes('对标') || line.includes('坦诚')) {
+      const content = line.replace(/\[\d{2}:\d{2}\]\s*(HR|员工|[^:]+):\s*/, '').trim();
+      if (content.length > 5 && !line.includes('HR:')) suggestLines.push(content);
+    }
+  }
+  return suggestLines.length > 0 ? suggestLines.join('；') : '未明确提取';
+}
+
+function extractRecommend(text) {
+  if (text.includes('不推荐') || text.includes('不会推荐') || text.includes('不会') && text.includes('推荐') || text.includes('不建议')) return '否';
+  if (text.includes('不好说')) return '不好说';
+  return '否';
+}
+
+function extractQuotes(text) {
+  const lines = text.split('\n').filter(l => l.trim());
+  const strongPhrases = ['太严重','影响健康','透支','心灰意冷','不被','差距','受不了','不合理','矛盾','没有空间','不正常','不被重视','看不到','太低','没有投入','排队','锦上添花','被迫终止','稀缺','嘴上说','不尊重','坦诚','透支健康','不推荐','差距太大','停滞','萎缩','没有动静','不受重视','没位置'];
+  const quotes = [];
+  for (const line of lines) {
+    const content = line.replace(/\[\d{2}:\d{2}\]\s*(HR|员工|[^:]+):\s*/, '').trim();
+    if (!line.includes('HR:') && content.length > 10 && strongPhrases.some(p => content.includes(p))) {
+      quotes.push(content);
+    }
+  }
+  return quotes.length > 0 ? quotes.slice(0, 5) : ['未提取到显著金句'];
+}
+
+// ======== INIT ========
+applyFilters();
+</script>
+</body>
+</html>

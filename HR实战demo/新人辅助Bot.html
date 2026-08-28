@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新人辅助 Bot v2 — 管理者 & 新人双视角 · WorkBuddy</title>
+<script src="chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#f5f5f7;color:#1d1d1f;min-height:100vh}
+
+/* ===== ROLE SWITCH ===== */
+.role-bar{display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e5e5e7;padding:12px 24px;position:sticky;top:0;z-index:100}
+.role-btns{display:flex;gap:8px}
+.role-btn{padding:8px 20px;border-radius:20px;border:2px solid #e5e5e7;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.role-btn.active{background:#378ADD;color:#fff;border-color:#378ADD}
+.role-btn[data-role="employee"].active{background:#7F77DD;color:#fff;border-color:#7F77DD}
+.view-note{font-size:12px;color:#86868b;font-weight:500}
+.view-note .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1D9E75;margin-right:4px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== DEPT COLOR CODING ===== */
+.dept-csig{--dept:#378ADD;--dept-bg:#E6F1FB;--dept-light:#B3D9F5}
+.dept-pcg{--dept:#7F77DD;--dept-bg:#EDEBF8;--dept-light:#C4BDE8}
+.dept-teg{--dept:#1D9E75;--dept-bg:#E1F5EE;--dept-light:#A7DECE}
+
+/* ===== MANAGER / EMPLOYEE VIEW SWITCH ===== */
+#tab-manager{padding:20px 24px;animation:fadeIn .3s}
+#tab-manager:not(.active){display:none}
+#tab-employee{padding:20px 24px;animation:fadeIn .3s}
+#tab-employee:not(.active){display:none}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* FILTER BAR */
+.m-filter{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px 18px;border:1px solid #e5e5e7;margin-bottom:18px;flex-wrap:wrap}
+.m-filter label{font-size:12px;color:#86868b;font-weight:500}
+.m-filter select{font-size:13px;padding:8px 12px;border-radius:8px;border:1px solid #e5e5e7;background:#f5f5f7;color:#1d1d1f;outline:none;min-width:130px;transition:border .2s}
+.m-filter select:focus{border-color:#378ADD}
+.filter-result{font-size:13px;font-weight:600;padding:6px 14px;border-radius:16px;transition:all .3s;margin-left:8px}
+.filter-result.csig{background:#E6F1FB;color:#185FA5}
+.filter-result.pcg{background:#EDEBF8;color:#4A3FB5}
+.filter-result.teg{background:#E1F5EE;color:#085041}
+.filter-result.all{background:#f5f5f7;color:#1d1d1f}
+
+/* KPI */
+.m-kpi{display:flex;gap:14px;margin-bottom:18px}
+.m-kpi-item{flex:1;background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;text-align:center;transition:all .3s}
+.m-kpi-item.pulse{animation:kpiPulse .6s}
+@keyframes kpiPulse{0%{transform:scale(1);border-color:#e5e5e7}50%{transform:scale(1.05);border-color:#378ADD}100%{transform:scale(1);border-color:#e5e5e7}}
+.m-kpi-val{font-size:28px;font-weight:700;color:#1d1d1f}
+.m-kpi-label{font-size:11px;color:#86868b;margin-top:4px;font-weight:500}
+
+/* CHARTS */
+.m-charts{display:flex;gap:16px;margin-bottom:18px}
+.m-chart-box{flex:1;background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7}
+.m-chart-title{font-size:13px;font-weight:600;color:#1d1d1f;margin-bottom:12px}
+
+/* TEAM GRID */
+.m-team{margin-bottom:18px}
+.m-team-title{font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:12px}
+.m-team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.m-card{background:#fff;border-radius:12px;padding:16px;border:2px solid transparent;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.m-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;border-radius:12px 12px 0 0}
+.m-card.dept-csig::before{background:#378ADD}
+.m-card.dept-pcg::before{background:#7F77DD}
+.m-card.dept-teg::before{background:#1D9E75}
+.m-card:hover{transform:translateY(-2px);border-color:#d1d1d6}
+.m-card.new-import{border-color:#1D9E75;animation:slideIn .4s}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.mc-dept-tag{font-size:11px;padding:3px 8px;border-radius:10px;font-weight:600;display:inline-block;margin-bottom:6px}
+.mc-dept-tag.csig{background:#E6F1FB;color:#185FA5}
+.mc-dept-tag.pcg{background:#EDEBF8;color:#4A3FB5}
+.mc-dept-tag.teg{background:#E1F5EE;color:#085041}
+.mc-days{font-size:12px;color:#86868b;float:right}
+.mc-name{font-size:15px;font-weight:700;color:#1d1d1f}
+.mc-info{font-size:12px;color:#6e6e73;margin-top:2px}
+.mc-match-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.mc-match-score{font-size:20px;font-weight:700}
+.mc-match-label{font-size:11px;color:#86868b}
+.match-pct-bar{height:8px;background:#e5e5e7;border-radius:4px;width:100%}
+.mpb-fill{height:100%;border-radius:4px;transition:width .3s}
+.mc-skills-row{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+.mc-skill{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500}
+.mc-skill.match{background:#E1F5EE;color:#085041}
+.mc-skill.gap{background:#FAECE7;color:#712B13}
+.mc-progress{margin-top:8px}
+.mc-progress-bar{height:6px;background:#e5e5e7;border-radius:3px;transition:width .3s}
+.mc-progress-bar>div{height:100%;border-radius:3px;transition:width .3s}
+.mc-pct{font-size:11px;color:#86868b;margin-top:4px}
+.mc-alerts{font-size:12px;margin-top:6px;font-weight:500}
+.mc-alerts.overdue{color:#E24B4A}
+.mc-alerts.ok{color:#1D9E75}
+.new-badge{font-size:11px;padding:2px 8px;border-radius:10px;background:#1D9E75;color:#fff;font-weight:600;margin-left:6px}
+
+/* DETAIL PANEL */
+.m-detail{background:#fff;border-radius:12px;padding:20px;border:1px solid #e5e5e7;margin-bottom:18px;display:none}
+.m-detail.show{display:block;animation:fadeIn .3s}
+.md-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.md-name{font-size:18px;font-weight:700;color:#1d1d1f}
+.md-close{padding:6px 14px;border-radius:8px;border:1px solid #e5e5e7;background:#fff;cursor:pointer;font-size:13px}
+.md-stage-title{font-size:13px;font-weight:600;color:#6e6e73;margin:12px 0 6px;padding-bottom:4px;border-bottom:1px solid #f0f0f0}
+.md-task-list{list-style:none;padding-left:0}
+.md-task-list li{padding:8px 0;border-bottom:1px solid #f5f5f7;display:flex;align-items:center;gap:8px;font-size:13px}
+.md-task-list li.done{color:#86868b}
+.md-task-list li.pending{color:#1d1d1f}
+.md-check{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;font-size:12px;font-weight:700}
+.md-check.done{background:#1D9E75;color:#fff}
+.md-check.pending{background:#e5e5e7;color:#86868b}
+.ne-task-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500}
+.ne-task-tag.gap-task{background:#EDEBF8;color:#3C3489}
+.ne-task-tag.biz-task{background:#FDEBD0;color:#712B13}
+.ne-task-tag.required{background:#E6F1FB;color:#185FA5}
+.ne-task-tag.optional{background:#f5f5f7;color:#86868b}
+.ne-task-due{font-size:11px;color:#86868b;margin-left:4px}
+.ne-task-due.overdue{color:#E24B4A;font-weight:600}
+.ne-task-source{font-size:10px;color:#86868b;margin-left:4px}
+
+/* SKILL MATCH */
+.skill-match-grid{display:flex;gap:16px;margin-top:16px}
+.skill-match-panel{flex:1;border-radius:10px;padding:14px}
+.skill-match-panel.resume{background:#E1F5EE;border:1px solid #A7DECE}
+.skill-match-panel.jd{background:#E6F1FB;border:1px solid #B3D9F5}
+.smp-label{font-size:12px;font-weight:600;margin-bottom:8px;color:#1d1d1f}
+.smp-skill{font-size:11px;padding:3px 8px;border-radius:6px;margin:2px;display:inline-block;font-weight:500}
+.resume-box{background:#f5f5f7;border-radius:10px;padding:14px;margin-top:14px}
+.rb-label{font-size:12px;font-weight:600;color:#1d1d1f}
+.rb-content{font-size:12px;color:#6e6e73;margin-top:4px}
+
+/* INSIGHTS & ACTIONS */
+.m-insight{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.mi-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.m-insight ul{list-style:none;padding-left:0}
+.m-insight li{padding:8px 0;font-size:13px;border-bottom:1px solid #f5f5f7;display:flex;align-items:flex-start;gap:8px}
+.m-insight li:last-child{border-bottom:none}
+.m-insight li.red{color:#E24B4A}
+.m-insight li.amber{color:#BA7517}
+.m-insight li.teal{color:#085041}
+
+.m-actions{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7}
+.ma-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.ma-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ma-item{border-radius:10px;padding:12px;border:1px solid #f0f0f0;cursor:pointer;transition:all .2s}
+.ma-item:hover{background:#f5f5f7}
+.mai-priority{font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.mai-priority.P0{background:#FAECE7;color:#712B13}
+.mai-priority.P1{background:#E6F1FB;color:#185FA5}
+.mai-priority.P2{background:#f5f5f7;color:#86868b}
+.mai-title{font-size:13px;font-weight:600;color:#1d1d1f}
+.mai-desc{font-size:11px;color:#86868b;margin-top:4px}
+
+/* IMPORT SECTION */
+.m-import{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.m-import-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.m-import-title .kb-count{font-size:11px;font-weight:500;color:#1D9E75;background:#E1F5EE;padding:2px 8px;border-radius:10px}
+.import-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.import-tab{padding:6px 14px;border-radius:16px;border:1px solid #e5e5e7;background:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.import-tab.active{background:#378ADD;color:#fff;border-color:#378ADD}
+.import-tab.kb-tab.active{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.upload-zone{border:2px dashed #d1d1d6;border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:#f5f5f7}
+.upload-zone:hover{border-color:#378ADD;background:#E6F1FB}
+.upload-zone.dragover{border-color:#378ADD;background:#E6F1FB;transform:scale(1.02)}
+.upload-zone-icon{font-size:36px;margin-bottom:8px}
+.upload-zone-text{font-size:14px;color:#86868b;font-weight:500}
+.upload-zone-sub{font-size:11px;color:#86868b;margin-top:4px}
+.paste-zone textarea{width:100%;min-height:100px;border-radius:10px;border:1px solid #e5e5e7;padding:12px;font-size:13px;resize:vertical;font-family:inherit;outline:none;transition:border .2s}
+.paste-zone textarea:focus{border-color:#378ADD}
+.import-btn{padding:10px 24px;border-radius:10px;background:#378ADD;color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;margin-top:12px;transition:all .2s}
+.import-btn:hover{background:#2A6FBB}
+.import-btn:disabled{background:#d1d1d6;color:#fff;cursor:not-allowed}
+.import-btn.kb-btn{background:#1D9E75}
+.import-btn.kb-btn:hover{background:#178762}
+.import-result{margin-top:16px;display:none}
+.import-result.show{display:block;animation:fadeIn .3s}
+.pending-list{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.pending-list:empty{margin-top:0}
+.pending-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;background:#fff;border:1px solid #e5e5e7;font-size:12px;animation:fadeIn .2s}
+.pending-item.pending-kb{background:#E1F5EE;border-color:#A7DECE}
+.pending-item .pi-icon{font-size:18px;flex-shrink:0}
+.pending-item .pi-name{font-weight:600;color:#1d1d1f;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pending-item .pi-meta{color:#86868b;font-size:11px;flex-shrink:0}
+.pending-item .pi-type{padding:2px 8px;border-radius:6px;background:#f5f5f7;color:#1d1d1f;font-size:10px;font-weight:600;flex-shrink:0}
+.pending-item .pi-type.t-resume{background:#FFE5E5;color:#C92A2A}
+.pending-item .pi-type.t-jd{background:#E7F0FF;color:#2A6FBB}
+.pending-item .pi-type.t-workflow{background:#FFF4E5;color:#D9480F}
+.pending-item .pi-type.t-custom{background:#E1F5EE;color:#085041}
+.pending-item .pi-type.t-unknown{background:#f5f5f7;color:#86868b}
+.pending-item .pi-rm{flex-shrink:0;width:20px;height:20px;border-radius:50%;border:none;background:#f5f5f7;color:#86868b;cursor:pointer;font-size:14px;line-height:1;transition:all .2s}
+.pending-item .pi-rm:hover{background:#FF453A;color:#fff}
+.pending-banner{margin-top:10px;padding:8px 12px;border-radius:10px;background:#E7F0FF;color:#1d1d1f;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+.pending-banner.kb{background:#E1F5EE;color:#085041}
+.ir-card{background:#E1F5EE;border-radius:10px;padding:14px;border:1px solid #A7DECE}
+.ir-title{font-size:14px;font-weight:700;color:#085041}
+.ir-detail{font-size:13px;color:#1d1d1f;margin-top:8px}
+.ir-skills{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.ir-skill{font-size:11px;padding:3px 8px;border-radius:6px}
+.ir-skill.match{background:#E1F5EE;color:#085041}
+.ir-skill.gap{background:#FAECE7;color:#712B13}
+.ir-add-msg{font-size:13px;color:#1D9E75;font-weight:600;margin-top:12px;padding:8px 12px;background:#E1F5EE;border-radius:8px;text-align:center}
+
+/* KNOWLEDGE BASE */
+.kb-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.kb-doc{background:#f5f5f7;border-radius:10px;padding:12px;border:1px solid #e5e5e7;position:relative;transition:all .2s}
+.kb-doc:hover{background:#fff;border-color:#1D9E75}
+.kb-doc-icon{font-size:22px;margin-bottom:6px}
+.kb-doc-title{font-size:13px;font-weight:600;color:#1d1d1f;margin-bottom:4px;line-height:1.4}
+.kb-doc-meta{font-size:10px;color:#86868b;display:flex;gap:6px;align-items:center}
+.kb-doc-tag{background:#E1F5EE;color:#085041;padding:1px 6px;border-radius:6px;font-weight:600}
+.kb-doc-del{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:#fff;border:1px solid #e5e5e7;color:#86868b;cursor:pointer;font-size:11px;line-height:18px;text-align:center;transition:all .15s}
+.kb-doc-del:hover{background:#FAECE7;color:#E24B4A;border-color:#E24B4A}
+.kb-empty{text-align:center;padding:20px;color:#86868b;font-size:13px;background:#f5f5f7;border-radius:10px;border:1px dashed #d1d1d6}
+.kb-stats{display:flex;gap:16px;margin-top:12px;padding:12px;background:#E1F5EE;border-radius:10px;border:1px solid #A7DECE}
+.kb-stat{flex:1;text-align:center}
+.kb-stat-val{font-size:20px;font-weight:700;color:#085041}
+.kb-stat-label{font-size:11px;color:#085041;margin-top:2px}
+
+/* ===== EMPLOYEE VIEW ===== */
+.ne-hero{background:linear-gradient(135deg,#7F77DD 0%,#3C3489 100%);border-radius:16px;padding:28px;color:#fff;margin-bottom:18px;position:relative;overflow:hidden}
+.ne-hero::after{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:50%}
+.ne-hero::before{content:'';position:absolute;right:60px;bottom:-50px;width:120px;height:120px;background:rgba(255,255,255,.04);border-radius:50%}
+.ne-hero-name{font-size:22px;font-weight:700;position:relative}
+.ne-hero-info{font-size:13px;opacity:.9;margin-top:4px;position:relative}
+.ne-hero-day{font-size:15px;margin-top:8px;font-weight:500;position:relative}
+.ne-hero-day b{font-size:18px;background:rgba(255,255,255,.18);padding:2px 10px;border-radius:14px;margin-left:6px}
+.ne-hero-pct{font-size:28px;font-weight:700;margin-top:8px}
+.ne-hero-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;margin-top:8px}
+.ne-hero-bar>div{height:100%;background:#fff;border-radius:5px;transition:width .3s}
+
+/* ===== 📍 NOW CARD (核心) ===== */
+.now-card{background:linear-gradient(135deg,#FFF7E8 0%,#FFE4B5 100%);border-radius:16px;padding:20px;margin-bottom:18px;border:2px solid #FFB85C;box-shadow:0 4px 16px rgba(255,184,92,.15);position:relative;cursor:pointer;transition:all .25s;animation:nowHighlight 2s ease-in-out 1}
+.now-card:hover{box-shadow:0 6px 24px rgba(255,184,92,.25);transform:translateY(-1px)}
+@keyframes nowHighlight{0%,100%{box-shadow:0 4px 16px rgba(255,184,92,.15)}50%{box-shadow:0 4px 20px rgba(255,184,92,.35)}}
+.now-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.now-card-title{display:flex;align-items:center;gap:10px}
+.now-card-icon{font-size:28px;line-height:1}
+.now-card-label{font-size:11px;color:#B75D00;font-weight:600;background:#fff;padding:3px 10px;border-radius:12px;letter-spacing:1px}
+.now-card-h{font-size:18px;font-weight:700;color:#712B13;line-height:1.2}
+.now-card-sub{font-size:12px;color:#854F0B;margin-top:2px}
+.now-card-toggle{font-size:12px;color:#712B13;font-weight:600;background:#fff;padding:6px 14px;border-radius:16px;border:1px solid #FFB85C;transition:all .15s}
+.now-card-toggle:hover{background:#FFB85C;color:#fff}
+
+.now-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;margin-bottom:4px}
+.now-col{background:#fff;border-radius:12px;padding:14px;min-height:140px;position:relative;border:1px solid #FFE0B0}
+.now-col-title{font-size:12px;font-weight:700;color:#712B13;display:flex;align-items:center;gap:6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px dashed #FFE0B0}
+.now-col-title .num{background:#712B13;color:#fff;font-size:10px;padding:1px 6px;border-radius:8px;font-weight:700}
+
+.now-task-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:12.5px;border-bottom:1px solid #FFF3DC;cursor:pointer;transition:background .15s;border-radius:6px;margin:0 -4px;padding-left:4px;padding-right:4px}
+.now-task-item:hover{background:#FFF7E8}
+.now-task-item:last-child{border-bottom:none}
+.now-task-item.overdue{color:#E24B4A;font-weight:600}
+.now-task-item.urgent{color:#BA7517;font-weight:600}
+.now-task-item.normal{color:#1d1d1f}
+.now-task-prio{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;flex-shrink:0;margin-top:2px;letter-spacing:.5px}
+.now-task-prio.P0{background:#FAECE7;color:#712B13}
+.now-task-prio.P1{background:#E6F1FB;color:#185FA5}
+.now-task-prio.P2{background:#f5f5f7;color:#86868b}
+.now-task-name{flex:1;line-height:1.4}
+.now-task-due{font-size:10px;color:#86868b;flex-shrink:0}
+
+.now-gap-item{display:flex;align-items:center;gap:6px;padding:6px 0;font-size:12px;border-bottom:1px solid #FFF3DC}
+.now-gap-item:last-child{border-bottom:none}
+.now-gap-icon{width:22px;height:22px;border-radius:6px;background:#FAECE7;color:#712B13;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0}
+.now-gap-name{flex:1;color:#1d1d1f;font-weight:500}
+.now-gap-action{font-size:10px;color:#378ADD;cursor:pointer;font-weight:600}
+.now-gap-action:hover{text-decoration:underline}
+
+.now-cta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.now-cta-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:10px;background:#fff;border:1px solid #FFB85C;font-size:12px;font-weight:600;cursor:pointer;color:#712B13;transition:all .15s;display:flex;align-items:center;gap:6px;justify-content:center}
+.now-cta-btn:hover{background:#FFB85C;color:#fff;border-color:#FFB85C}
+.now-cta-btn.primary{background:#712B13;color:#fff;border-color:#712B13}
+.now-cta-btn.primary:hover{background:#854F0B;border-color:#854F0B}
+
+.now-empty{text-align:center;padding:20px;color:#86868b;font-size:12px}
+.now-tip{font-size:11px;color:#854F0B;background:#FFF3DC;padding:8px 10px;border-radius:8px;margin-top:8px;line-height:1.5;border-left:3px solid #FFB85C}
+
+/* ===== SKILL PROFILE ===== */
+.ne-profile{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-profile-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.ne-profile-grid{display:flex;gap:12px}
+.ne-profile-card{flex:1;border-radius:10px;padding:12px;text-align:center}
+.ne-profile-card.match{background:#E6F1FB;border:1px solid #B3D9F5}
+.ne-profile-card.gap{background:#FAECE7;border:1px solid #F0C4A8}
+.npc-val{font-size:24px;font-weight:700}
+.npc-label{font-size:11px;color:#6e6e73;margin-top:4px}
+.ne-skills-row{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+.ne-skill-tag{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:500}
+.ne-skill-tag.match{background:#E1F5EE;color:#085041}
+.ne-skill-tag.gap{background:#FAECE7;color:#712B13}
+.ne-resume{font-size:12px;color:#6e6e73;margin-top:10px;padding:10px;background:#f5f5f7;border-radius:8px}
+
+/* TASKS */
+.ne-task-section{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-phase-tabs{display:flex;gap:6px;margin-bottom:12px}
+.ne-phase-tab{padding:6px 14px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #e5e5e7;background:#fff;transition:all .2s}
+.ne-phase-tab.active{background:#7F77DD;color:#fff;border-color:#7F77DD}
+.ne-phase-pct{font-size:11px;color:#86868b;margin-bottom:10px}
+.ne-task-item{padding:10px 0;border-bottom:1px solid #f5f5f7;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.ne-task-item:hover{background:#f5f5f7}
+.ne-task-item:last-child{border-bottom:none}
+.ne-task-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;font-size:12px;font-weight:700;transition:all .2s}
+.ne-task-check.done{background:#1D9E75;color:#fff}
+.ne-task-check.pending{background:#e5e5e7;color:#86868b;border:1px solid #d1d1d6}
+.ne-task-name{font-size:13px;flex:1}
+.ne-task-name.done{color:#86868b;text-decoration:line-through}
+
+/* REMINDERS */
+.ne-remind{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-remind-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.ne-remind-item{padding:8px 0;font-size:13px;border-bottom:1px solid #f5f5f7;display:flex;align-items:flex-start;gap:8px}
+.ne-remind-item:last-child{border-bottom:none}
+.ne-remind-item.warn{color:#E24B4A;font-weight:500}
+.ne-remind-item.info{color:#378ADD}
+.ne-remind-item.ok{color:#1D9E75}
+
+/* CONTACTS */
+.ne-contacts{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-contacts-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.ne-contact{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f7}
+.ne-contact:last-child{border-bottom:none}
+.nc-avatar{font-size:28px}
+.nc-name{font-size:14px;font-weight:600;color:#1d1d1f}
+.nc-role{font-size:11px;color:#86868b}
+.nc-dept{font-size:11px;color:#378ADD;font-weight:500}
+
+/* FAQ */
+.ne-faq{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-faq-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.ne-faq-item{border-bottom:1px solid #f5f5f7;padding:10px 0;cursor:pointer}
+.ne-faq-item:last-child{border-bottom:none}
+.ne-faq-q{font-size:13px;font-weight:600;color:#1d1d1f;display:flex;align-items:center;gap:6px}
+.ne-faq-q::before{content:'Q';font-size:10px;padding:2px 6px;border-radius:4px;background:#7F77DD;color:#fff;font-weight:700}
+.ne-faq-a{font-size:12px;color:#6e6e73;margin-top:6px;display:none;padding-left:20px}
+.ne-faq-item.open .ne-faq-a{display:block}
+.ne-faq-item.open .ne-faq-q::after{content:' ▾'}
+
+/* KB QUOTE in chat */
+.ne-chat-msg .kb-quote{font-size:10px;background:#E1F5EE;color:#085041;padding:2px 6px;border-radius:4px;margin-top:4px;display:inline-block;font-weight:500}
+
+/* CHAT */
+.ne-chat{background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e5e7;margin-bottom:14px}
+.ne-chat-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ne-chat-title .kb-indicator{font-size:10px;background:#E1F5EE;color:#085041;padding:2px 8px;border-radius:10px;font-weight:500}
+.ne-chat-log{min-height:80px;max-height:200px;overflow-y:auto;margin-bottom:10px;padding:8px;background:#f5f5f7;border-radius:8px}
+.ne-chat-msg{padding:6px 0;font-size:13px}
+.ne-chat-msg.bot{color:#1D9E75;font-weight:500}
+.ne-chat-msg.user{color:#7F77DD;font-weight:600}
+.ne-chat-input{display:flex;gap:8px}
+.ne-chat-input input{flex:1;padding:10px 14px;border-radius:8px;border:1px solid #e5e5e7;font-size:13px;outline:none}
+.ne-chat-input input:focus{border-color:#7F77DD}
+.ne-chat-input button{padding:10px 16px;border-radius:8px;background:#7F77DD;color:#fff;font-size:13px;font-weight:600;cursor:pointer;border:none}
+
+.footer-note{text-align:center;font-size:12px;color:#86868b;margin-top:40px;padding-top:16px;border-top:1px solid #e5e5e7}
+</style>
+</head>
+<body>
+
+<!-- ROLE BAR -->
+<div class="role-bar">
+  <div class="role-btns">
+    <button class="role-btn active" data-role="manager" onclick="switchRole('manager')">👤 管理者视角</button>
+    <button class="role-btn" data-role="employee" onclick="switchRole('employee')">🎓 新人视角</button>
+  </div>
+  <div class="view-note" id="viewNote"><span class="live-dot"></span>当前：管理者视角 · 实时同步中</div>
+</div>
+
+<!-- MANAGER TAB -->
+<div id="tab-manager" class="active">
+
+  <!-- FILTER -->
+  <div class="m-filter">
+    <label>筛选部门</label>
+    <select id="mDeptFilter" onchange="renderManager()">
+      <option value="all">全部部门</option>
+    </select>
+    <label>入职阶段</label>
+    <select id="mStageFilter" onchange="renderManager()">
+      <option value="all">全部阶段</option>
+      <option value="week1">第1周</option>
+      <option value="week2-4">第2-4周</option>
+      <option value="week5-30">第5-30天</option>
+    </select>
+    <span class="filter-result all" id="filterResult">显示 0 / 0 人</span>
+  </div>
+
+  <!-- KPI -->
+  <div class="m-kpi">
+    <div class="m-kpi-item" id="kpi1"><div class="m-kpi-val" id="mkAvgPct">0%</div><div class="m-kpi-label">平均任务完成率</div></div>
+    <div class="m-kpi-item" id="kpi2"><div class="m-kpi-val" id="mkAvgMatch">0%</div><div class="m-kpi-label">平均JD匹配度</div></div>
+    <div class="m-kpi-item" id="kpi3"><div class="m-kpi-val" id="mkGaps">0</div><div class="m-kpi-label">团队技能缺口数</div></div>
+    <div class="m-kpi-item" id="kpi4"><div class="m-kpi-val" id="mkAlert">0</div><div class="m-kpi-label">需关注人数</div></div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="m-charts">
+    <div class="m-chart-box"><div class="m-chart-title">技能分类匹配雷达图</div><canvas id="radarChart"></canvas></div>
+    <div class="m-chart-box"><div class="m-chart-title">JD匹配度 vs 任务完成率</div><canvas id="matchRankChart"></canvas></div>
+  </div>
+
+  <!-- TEAM GRID -->
+  <div class="m-team">
+    <div class="m-team-title">团队成员</div>
+    <div class="m-team-grid" id="mTeamGrid"></div>
+  </div>
+
+  <!-- IMPORT (含知识库) -->
+  <div class="m-import">
+    <div class="m-import-title">
+      📥 导入知识（简历 / JD / 工作流 / 知识库）
+      <span class="kb-count" id="kbCountBadge">知识库 0 份</span>
+    </div>
+    <div class="import-tabs">
+      <button class="import-tab active" data-tab="upload" onclick="switchImportTab('upload')">📄 上传文件</button>
+      <button class="import-tab" data-tab="paste" onclick="switchImportTab('paste')">✏️ 粘贴文本</button>
+      <button class="import-tab kb-tab" data-tab="kb" onclick="switchImportTab('kb')">📚 知识库</button>
+    </div>
+    <div id="importUpload">
+      <div class="upload-zone" id="uploadZone">
+        <div class="upload-zone-icon">📄</div>
+        <div class="upload-zone-text">拖拽文件到此处，或点击选择（可多选）</div>
+        <div class="upload-zone-sub">支持 .txt / .csv / .md — 一次可上传简历 + JD + 工作流，AI 自动识别</div>
+      </div>
+      <input type="file" id="fileInput" accept=".txt,.csv,.md" multiple style="display:none">
+      <div id="pendingFiles" class="pending-list"></div>
+    </div>
+    <div id="importPaste" style="display:none">
+      <div class="paste-zone"><textarea id="pasteText" placeholder="粘贴简历、JD或工作流文本内容..."></textarea></div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <button style="padding:4px 10px;border-radius:8px;border:1px solid #e5e5e7;background:#fff;font-size:11px;cursor:pointer" onclick="fillSample('resume')">📋 填入简历示例</button>
+        <button style="padding:4px 10px;border-radius:8px;border:1px solid #e5e5e7;background:#fff;font-size:11px;cursor:pointer" onclick="fillSample('jd')">🎯 填入JD示例</button>
+        <button style="padding:4px 10px;border-radius:8px;border:1px solid #e5e5e7;background:#fff;font-size:11px;cursor:pointer" onclick="fillSample('workflow')">📅 填入工作流示例</button>
+      </div>
+    </div>
+    <div id="importKB" style="display:none">
+      <div class="upload-zone" id="kbUploadZone" style="border-color:#A7DECE;background:#E1F5EE">
+        <div class="upload-zone-icon">📚</div>
+        <div class="upload-zone-text" style="color:#085041">拖拽培训文档/FAQ/SOP到此处，或点击选择（可多选）</div>
+        <div class="upload-zone-sub" style="color:#085041">上传后新人 Bot 问答会引用 · 例：入职手册、安全规范、报销流程</div>
+      </div>
+      <input type="file" id="kbFileInput" accept=".txt,.csv,.md" multiple style="display:none">
+      <div id="pendingKBFiles" class="pending-list" style="--accent:#1D9E75;--accent-bg:#E1F5EE"></div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+        <button style="padding:6px 12px;border-radius:8px;border:1px solid #A7DECE;background:#fff;font-size:12px;cursor:pointer;color:#085041;font-weight:600" onclick="fillKBFAQ()">❓ 填入常见 FAQ</button>
+        <button style="padding:6px 12px;border-radius:8px;border:1px solid #A7DECE;background:#fff;font-size:12px;cursor:pointer;color:#085041;font-weight:600" onclick="fillKBOnboarding()">📖 填入入职手册</button>
+        <button style="padding:6px 12px;border-radius:8px;border:1px solid #A7DECE;background:#fff;font-size:12px;cursor:pointer;color:#085041;font-weight:600" onclick="fillKBExpense()">💰 填入报销流程</button>
+        <button style="padding:6px 12px;border-radius:8px;border:1px solid #A7DECE;background:#fff;font-size:12px;cursor:pointer;color:#085041;font-weight:600" onclick="fillKBSecurity()">🔒 填入安全规范</button>
+      </div>
+      <button class="import-btn kb-btn" onclick="confirmKBImport()" style="margin-top:14px">📚 智能解析 & 加入知识库</button>
+      <div class="kb-stats">
+        <div class="kb-stat"><div class="kb-stat-val" id="kbDocCount">0</div><div class="kb-stat-label">已收录文档</div></div>
+        <div class="kb-stat"><div class="kb-stat-val" id="kbChunkCount">0</div><div class="kb-stat-label">知识片段</div></div>
+        <div class="kb-stat"><div class="kb-stat-val" id="kbHitCount">0</div><div class="kb-stat-label">被引用次数</div></div>
+      </div>
+      <div class="kb-list" id="kbList"></div>
+    </div>
+    <button class="import-btn" id="importBtn" onclick="doImport()">智能解析 & 加入系统</button>
+    <div class="import-result" id="importResult"></div>
+  </div>
+
+  <!-- DETAIL PANEL -->
+  <div class="m-detail" id="mDetail"></div>
+
+  <!-- INSIGHTS -->
+  <div class="m-insight">
+    <div class="mi-title">💡 团队洞察</div>
+    <ul id="mInsightList"></ul>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="m-actions">
+    <div class="ma-title">🎯 建议操作</div>
+    <div class="ma-grid" id="mActionGrid"></div>
+  </div>
+</div>
+
+<!-- EMPLOYEE TAB -->
+<div id="tab-employee">
+  <div id="empContent"></div>
+</div>
+
+<div class="footer-note">新人辅助 Bot v2 · WorkBuddy · 数据基于桌面素材预填 + 模拟生成，仅供演示</div>
+
+<script>
+// ============================== DATA MODEL ==============================
+// 基于桌面真实素材预填：陈思远 · 解决方案开发实习生 · 智慧出行
+const newEmployees = [
+  {
+    id:'chensiyuan', name:'陈思远', dept:'CSIG智慧出行', pos:'解决方案开发实习生',
+    startDate:'2026-07-01', mentor:'王导师', hr:'李HR', currentDay:1,
+    resume:{summary:'华南理工软工本科·2027届·GPA 3.7。Java/Python/Spring Boot 熟练，有校园智能停车系统+A*导航小程序两个出行相关项目经验。技术基础扎实，但企业级开发经验和微服务实战不足，对智能出行领域有浓厚兴趣。',education:'华南理工大学 · 软件工程 · 本科 · 2027届 · GPA 3.7/4.0',experience:['【1】校园智能停车系统（Spring Boot + MySQL + Redis）· 2025.3-2025.6 · 后端核心开发（3人团队）','【2】基于A*算法的校园导航小程序（Python Flask + 微信小程序）· 2024.9-2024.12 · 全栈个人项目','【3】学生会活动报名系统维护（Java + MySQL）· 2024.3-2024.8 · 技术维护（响应时间3s→0.5s）'],skills:['Java','Python','Spring Boot','Flask','MySQL','Redis','Git','Linux','Docker','Maven','算法','数据结构','路径规划算法','SQL','微服务架构','RESTful API','CI/CD']},
+    jd:{title:'解决方案开发实习生（智慧出行方向）',required:['Java','Spring Boot','微服务架构','车载系统开发','Map SDK','智慧出行业务理解','RESTful API','Git','Linux','问题分析与解决'],preferred:['Python','腾讯云服务','敏捷开发','CI/CD','路径规划算法','数据可视化']},
+    matchResult:null,
+    tasks:{
+      week1:[
+        {name:'完成入职手续（合同、证件、照片采集）',done:true,tag:'required',due:'第1天',source:'通用'},
+        {name:'领取工卡、配置电脑和VPN',done:true,tag:'required',due:'第1天',source:'通用'},
+        {name:'认识导师，了解团队架构和分工',done:true,tag:'required',due:'第1天',source:'通用'},
+        {name:'阅读新员工入职手册',done:true,tag:'required',due:'第1天',source:'通用'},
+        {name:'参加新员工入职培训（B3培训室）',done:true,tag:'required',due:'第2天',source:'通用'},
+        {name:'与导师1对1面谈（学习目标）',done:true,tag:'required',due:'第2天',source:'通用'},
+        {name:'安装办公软件（企业微信、OA、邮箱）',done:true,tag:'required',due:'第2天',source:'通用'},
+        {name:'认识团队成员，了解分工',done:true,tag:'required',due:'第4天',source:'通用'},
+        {name:'安装开发环境（IDE、Git、内网工具）',done:false,tag:'required',due:'第3天',source:'通用'},
+        {name:'阅读《智慧出行业务全景图》',done:false,tag:'gap-task',due:'第3天',source:'缺口:智慧出行业务理解'},
+        {name:'完成信息安全培训（在线+保密协议）',done:false,tag:'required',due:'第5天',source:'通用'},
+        {name:'总结第1周学习收获，提交周报',done:false,tag:'required',due:'第7天',source:'通用'}
+      ],
+      week2_4:[
+        {name:'参与第一个需求评审会议',done:false,tag:'biz-task',due:'第10天',source:'业务:出行解决方案'},
+        {name:'提交第一个PR（Demo或小功能）',done:false,tag:'biz-task',due:'第14天',source:'业务:实战上手'},
+        {name:'学习微服务架构（服务拆分/注册发现）',done:false,tag:'gap-task',due:'第14天',source:'缺口:微服务架构'},
+        {name:'了解车载系统开发基础架构',done:false,tag:'gap-task',due:'第14天',source:'缺口:车载系统开发'},
+        {name:'Map SDK 入门教程（Demo跑通）',done:false,tag:'gap-task',due:'第10天',source:'缺口:Map SDK'},
+        {name:'与导师完成第二次正式面谈',done:false,tag:'required',due:'第14天',source:'通用'},
+        {name:'与导师完成第三次正式面谈',done:false,tag:'required',due:'第21天',source:'通用'},
+        {name:'参加团队周会并做5分钟分享',done:false,tag:'optional',due:'第14天',source:'通用'}
+      ],
+      week5_30:[
+        {name:'独立负责一个完整功能模块/项目',done:false,tag:'biz-task',due:'第25天',source:'业务:独立担当'},
+        {name:'输出一份技术方案文档',done:false,tag:'biz-task',due:'第25天',source:'业务:方案撰写'},
+        {name:'完成30天入职自评（在线问卷）',done:false,tag:'required',due:'第30天',source:'通用'},
+        {name:'导师完成30天评估报告',done:false,tag:'required',due:'第30天',source:'通用'},
+        {name:'HR发起转正评估流程',done:false,tag:'required',due:'第30天',source:'通用'}
+      ]
+    }
+  },
+  // 其他 demo 员工（保留少量用于管理者端展示对比）
+  {
+    id:'wangxue', name:'王雪', dept:'PCG社交平台', pos:'前端开发实习生',
+    startDate:'2026-06-01', mentor:'赵导师', hr:'陈HR', currentDay:30,
+    resume:{summary:'软件工程本科，专注前端方向，React/Vue熟练，组件化开发经验丰富。',education:'某大学 · 软件工程 · 本科 · 2026届',experience:['校园社交平台前端开发（React+TS）核心开发者','全国大学生前端竞赛二等奖'],skills:['React','Vue','TypeScript','JavaScript','CSS','Webpack','Node.js','性能优化']},
+    jd:{title:'前端开发实习生（社交平台方向）',required:['React','TypeScript','CSS','组件化开发','Git','性能优化','社交产品业务理解','Node.js'],preferred:['Vue','Webpack','小程序开发','WebRTC']},
+    matchResult:null,
+    tasks:{
+      week1:[{name:'完成入职手续',done:true,tag:'required',due:'第1天',source:'通用'},{name:'配置前端环境',done:true,tag:'required',due:'第3天',source:'通用'},{name:'跑通第一个Demo',done:true,tag:'required',due:'第5天',source:'通用'}],
+      week2_4:[{name:'完成第一个组件开发',done:true,tag:'biz-task',due:'第10天',source:'业务:前端实战'},{name:'性能优化实战',done:true,tag:'required',due:'第14天',source:'通用'},{name:'导师面谈',done:true,tag:'required',due:'第7天',source:'通用'}],
+      week5_30:[{name:'独立完成完整功能模块',done:false,tag:'biz-task',due:'第25天',source:'业务:完整开发'},{name:'30天自评',done:false,tag:'required',due:'第30天',source:'通用'}]
+    }
+  },
+  {
+    id:'zhaoyang', name:'赵阳', dept:'TEG技术工程', pos:'后端开发实习生',
+    startDate:'2026-06-05', mentor:'李导师', hr:'王HR', currentDay:26,
+    resume:{summary:'计算机硕士，专注分布式系统和云原生，Kubernetes运维经验。',education:'某大学 · 计算机科学 · 硕士 · 2025届',experience:['某云服务商实习：K8s集群运维 4个月','硕士论文：Service Mesh流量调度','Prometheus exporter 2个PR'],skills:['Go','Kubernetes','Docker','Prometheus','Grafana','Linux','分布式系统','gRPC']},
+    jd:{title:'后端开发实习生（技术工程方向）',required:['Go','Kubernetes','微服务架构','分布式系统','监控告警','Linux','Git','gRPC','问题分析与解决'],preferred:['Docker','Prometheus','Service Mesh','CI/CD']},
+    matchResult:null,
+    tasks:{
+      week1:[{name:'完成入职手续',done:true,tag:'required',due:'第1天',source:'通用'},{name:'配置开发环境',done:true,tag:'required',due:'第2天',source:'通用'}],
+      week2_4:[{name:'参与微服务迁移',done:true,tag:'biz-task',due:'第14天',source:'业务:微服务实战'},{name:'搭建Prometheus面板',done:true,tag:'biz-task',due:'第10天',source:'业务:监控实战'},{name:'导师面谈',done:true,tag:'required',due:'第7天',source:'通用'}],
+      week5_30:[{name:'独立完成微服务模块',done:false,tag:'biz-task',due:'第25天',source:'业务:微服务开发'},{name:'30天自评',done:false,tag:'required',due:'第30天',source:'通用'}]
+    }
+  }
+];
+
+// ============================== KNOWLEDGE BASE ==============================
+// 预填 2 份知识库文档演示
+const knowledgeBase = [
+  {
+    id:'kb_onboarding_v2', title:'CSIG智慧出行 · 新人入职手册（v2.0）', type:'onboarding', icon:'📖',
+    source:'预填演示', addedAt:'2026-07-01', hits:0,
+    chunks:[
+      {kw:['工卡','门禁','卡'], text:'工卡领取：入职当天到 B1 综合服务台，凭身份证领取。工卡即门禁卡，进出办公区、餐厅、停车场均需刷卡。遗失请立即到服务台挂失补办（30元/张）。'},
+      {kw:['VPN','内网','网络','连不上'], text:'VPN配置：下载 TencentVPN → 工卡号+初始密码（HR邮件发送）→ 绑定手机号。连不上请打 IT 服务台 8888 转 1，或到 TEG 工位现场支持（B3-12号）。'},
+      {kw:['OA','流程','审批','报销'], text:'OA 入口：oa.tencent.com → 工号登录。常用流程：费用报销、加班申请、请假、考勤补卡、外出申请。所有流程先经导师审批后转 HR 备案。'},
+      {kw:['转正','考核','条件'], text:'转正条件：① 任务完成率≥80% ② 导师评估≥B级 ③ 30天自评+导师报告提交完整 ④ JD缺口补齐率≥70%（匹配度从初始值提升至少15%）。'},
+      {kw:['餐补','食堂','吃饭'], text:'餐补：30元/天。B1员工餐厅（11:30-13:00），过时不补。加班晚餐可订企业微信"加班餐"（20元额度）。'},
+      {kw:['导师','mentor','带教'], text:'导师制度：1对1全程带教，第1/2/3周各一次正式面谈。导师负责：技术方向指导、任务分配、阶段评估、问题解答。紧急事项可直接企业微信联系。'}
+    ]
+  },
+  {
+    id:'kb_faq_security', title:'信息安全与保密规范（FAQ）', type:'faq', icon:'🔒',
+    source:'预填演示', addedAt:'2026-07-01', hits:0,
+    chunks:[
+      {kw:['保密','信息','涉密','敏感'], text:'保密原则：客户数据、未公开产品规划、内部架构文档均为机密。禁止截图外传、禁止上传到公网工具（含个人版ChatGPT）、禁止在社交媒体讨论。违反按《信息安全奖惩办法》处理。'},
+      {kw:['密码','账号','MFA','双因素'], text:'账号安全：所有内部系统必须开启 MFA 双因素（OTP或企业微信扫码）。密码强度≥12位含大小写数字符号，90天强制更换。'},
+      {kw:['U 盘','USB','外设','拷贝'], text:'外设管理：办公电脑 USB 口默认禁用。如需使用 U 盘传输内部数据，提交《外设使用申请》给信息安全组审批（3工作日）。'},
+      {kw:['邮件','钓鱼','可疑'], text:'钓鱼邮件识别：① 警惕"账号异常""立即验证"等紧迫语气 ② 检查发件人域名（tencent.com 才是内部） ③ 不点可疑链接。误点请立即改密码并报告安全团队。'}
+    ]
+  }
+];
+let kbHitCounter = 0;
+
+// ============================== MATCH SCORE ==============================
+function calcMatch(emp) {
+  const resumeSkills = emp.resume.skills;
+  const jdRequired = emp.jd.required;
+  const jdPreferred = emp.jd.preferred;
+  const matchedRequired = jdRequired.filter(s => resumeSkills.some(rs => rs.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(rs.toLowerCase())));
+  const matchedPreferred = jdPreferred.filter(s => resumeSkills.some(rs => rs.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(rs.toLowerCase())));
+  const gaps = jdRequired.filter(s => !resumeSkills.some(rs => rs.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(rs.toLowerCase())));
+  const preferredGaps = jdPreferred.filter(s => !resumeSkills.some(rs => rs.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(rs.toLowerCase())));
+  const requiredPct = Math.round(matchedRequired.length / jdRequired.length * 100);
+  const preferredPct = Math.round(matchedPreferred.length / jdPreferred.length * 100);
+  const overallPct = Math.round((requiredPct * 0.7 + preferredPct * 0.3));
+  emp.matchResult = {matchedRequired, matchedPreferred, gaps, preferredGaps, requiredPct, preferredPct, overallPct};
+  return emp.matchResult;
+}
+newEmployees.forEach(calcMatch);
+
+// ============================== HELPERS ==============================
+function calcProgress(emp) {
+  const all = [...emp.tasks.week1,...emp.tasks.week2_4,...emp.tasks.week5_30];
+  const done = all.filter(t=>t.done).length;
+  return {total:all.length, done, pct:Math.round(done/all.length*100)};
+}
+function calcPhaseProgress(emp, phase) {
+  const tasks = phase==='week1'?emp.tasks.week1:phase==='week2_4'?emp.tasks.week2_4:emp.tasks.week5_30;
+  return Math.round(tasks.filter(t=>t.done).length/tasks.length*100);
+}
+function getOverdueCount(emp) {
+  const all = [...emp.tasks.week1,...emp.tasks.week2_4,...emp.tasks.week5_30];
+  return all.filter(t => !t.done && t.due.match(/第(\d+)天/) && parseInt(t.due.match(/第(\d+)天/)[1]) < emp.currentDay).length;
+}
+function getStage(emp) { return emp.currentDay<=7?'第1周':emp.currentDay<=28?'第2-4周':'第5-30天'; }
+function getMatchColor(pct) { return pct>=80?'#1D9E75':pct>=60?'#378ADD':pct>=40?'#BA7517':'#E24B4A'; }
+function getDeptClass(dept) { return dept==='CSIG智慧出行'?'dept-csig':dept==='PCG社交平台'?'dept-pcg':'dept-teg'; }
+function getDeptTagClass(dept) { return dept==='CSIG智慧出行'?'csig':dept==='PCG社交平台'?'pcg':'dept-teg'; }
+function getDeptColor(dept) { return dept==='CSIG智慧出行'?'#378ADD':dept==='PCG社交平台'?'#7F77DD':'#1D9E75'; }
+function getCurrentPhase(emp) { return emp.currentDay<=7?'week1':emp.currentDay<=28?'week2_4':'week5_30'; }
+function findCommonGaps(filtered) {
+  const gc = {};
+  filtered.forEach(e=>e.matchResult.gaps.forEach(g=>{gc[g]=(gc[g]||0)+1}));
+  return Object.entries(gc).sort((a,b)=>b[1]-a[1]).filter(([_,c])=>c>=2).map(([g])=>g);
+}
+
+// ============================== STATE ==============================
+let currentRole = 'manager';
+let currentEmployee = newEmployees[0];  // 默认陈思远
+let currentPhase = 'week1';
+let selectedMEmployee = null;
+let chartInstances = {};
+let nowCardExpanded = true;
+
+// ============================== ROLE SWITCH ==============================
+function switchRole(role) {
+  currentRole = role;
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role === role));
+  document.getElementById('tab-manager').classList.toggle('active', role === 'manager');
+  document.getElementById('tab-employee').classList.toggle('active', role === 'employee');
+  document.getElementById('viewNote').innerHTML = role === 'manager' 
+    ? '<span class="live-dot"></span>当前：管理者视角 · 实时同步中' 
+    : `<span class="live-dot"></span>当前：新人视角（${currentEmployee.name} · 入职第${currentEmployee.currentDay}天）`;
+  if (role === 'manager') renderManager();
+  if (role === 'employee') renderEmployee();
+}
+
+// ============================== 📍 NOW CARD ==============================
+function renderNowCard(emp) {
+  const match = emp.matchResult;
+  const prog = calcProgress(emp);
+  const phaseKey = getCurrentPhase(emp);
+  const phaseTitle = phaseKey==='week1'?'第1周 · 入职融入':phaseKey==='week2_4'?'第2-4周 · 实战上手':'第5-30天 · 独立担当';
+  
+  // 今日重点：基于当前阶段+当前天数
+  const currentPhaseTasks = emp.tasks[phaseKey] || [];
+  const allTasks = [...emp.tasks.week1, ...emp.tasks.week2_4, ...emp.tasks.week5_30];
+  
+  // 优先级排序：逾期 > 紧急（<=3天内）> 当前阶段未做 > 缺口任务
+  const todayTasks = allTasks.filter(t => !t.done).map(t => {
+    const dueMatch = t.due.match(/第(\d+)天/);
+    const dueDay = dueMatch ? parseInt(dueMatch[1]) : 999;
+    const overdue = dueDay < emp.currentDay;
+    const urgent = dueDay >= emp.currentDay && dueDay <= emp.currentDay + 3;
+    let priority = 'P2', cls = 'normal';
+    if (overdue) { priority = 'P0'; cls = 'overdue'; }
+    else if (urgent || t.tag === 'gap-task') { priority = 'P1'; cls = 'urgent'; }
+    return {...t, overdue, urgent, priority, cls, dueDay};
+  }).sort((a,b) => {
+    const pa = a.priority==='P0'?0:a.priority==='P1'?1:2;
+    const pb = b.priority==='P0'?0:b.priority==='P1'?1:2;
+    if (pa !== pb) return pa-pb;
+    return a.dueDay - b.dueDay;
+  }).slice(0, 5);
+  
+  // 紧急项：第1列
+  const urgentHTML = todayTasks.length === 0 
+    ? `<div class="now-empty">🎉 当前所有任务已完成！</div>`
+    : todayTasks.map(t => `
+        <div class="now-task-item ${t.cls}" onclick="quickToggleTask('${emp.id}','${phaseKey}','${allTasks.indexOf(t)}')">
+          <span class="now-task-prio ${t.priority}">${t.priority}</span>
+          <span class="now-task-name">${t.name}</span>
+          <span class="now-task-due">${t.due}${t.overdue?' · 已逾期':t.urgent?' · 即将到期':''}</span>
+        </div>
+      `).join('');
+  
+  // 缺口技能：第2列
+  const topGaps = match.gaps.slice(0, 4);
+  const gapsHTML = topGaps.length === 0
+    ? `<div class="now-empty">✨ 核心技能已全部覆盖</div>`
+    : topGaps.map((g, i) => `
+        <div class="now-gap-item">
+          <div class="now-gap-icon">${i+1}</div>
+          <div class="now-gap-name">${g}</div>
+          <div class="now-gap-action" onclick="askBot('怎么快速上手 ${g}')">→ 问 Bot</div>
+        </div>
+      `).join('');
+  
+  // 匹配度提升路径：第3列
+  const improvePct = Math.min(match.overallPct + 15, 95);
+  const matchHTML = `
+    <div style="text-align:center;padding:8px 0 12px">
+      <div style="font-size:32px;font-weight:700;color:${getMatchColor(match.overallPct)}">${match.overallPct}%</div>
+      <div style="font-size:11px;color:#86868b">JD 匹配度</div>
+      <div style="font-size:11px;color:#1D9E75;margin-top:4px">↑ 补齐缺口后预计达 ${improvePct}%</div>
+    </div>
+    <div style="font-size:12px;font-weight:600;color:#712B13;margin-bottom:6px">📈 本周冲刺路径</div>
+    <div style="font-size:11.5px;color:#1d1d1f;line-height:1.7;padding:8px;background:#FFF3DC;border-radius:8px">
+      ① 完成缺口任务 ${topGaps[0]||'核心技能'}<br>
+      ② 提交第 1 个 PR<br>
+      ③ 与导师第 2 次面谈<br>
+      ④ 复盘 30 天评估
+    </div>
+  `;
+  
+  // 智能提示
+  const tipText = match.gaps.length > 0 
+    ? `💡 <b>智能建议</b>：当前你入职第 <b>${emp.currentDay}</b> 天，正处于「${phaseTitle.split(' · ')[1]||phaseTitle}」阶段。优先完成上方 <b>P0/P1</b> 任务 + 补齐 <b>${topGaps[0]||'核心技能'}</b> 缺口，可将匹配度从 <b>${match.overallPct}%</b> 提升到 <b>${improvePct}%</b>。`
+    : `🎉 你的核心技能已全部覆盖，专注业务实战和面谈即可。`;
+  
+  return `
+    <div class="now-card" id="nowCard">
+      <div class="now-card-header" onclick="toggleNowCard()">
+        <div class="now-card-title">
+          <div class="now-card-icon">📍</div>
+          <div>
+            <div class="now-card-label">NOW · 此刻该做什么</div>
+            <div class="now-card-h">${emp.name} · 入职第 ${emp.currentDay} 天 · ${phaseTitle.split(' · ')[1]||phaseTitle}</div>
+            <div class="now-card-sub">基于你当前的进度、缺口、紧急度实时计算 · 点击收起/展开</div>
+          </div>
+        </div>
+        <div class="now-card-toggle" id="nowCardToggle">${nowCardExpanded?'收起 ▴':'展开 ▾'}</div>
+      </div>
+      <div id="nowCardBody" ${nowCardExpanded?'':'style="display:none"'}>
+        <div class="now-grid">
+          <div class="now-col">
+            <div class="now-col-title"><span class="num">${todayTasks.length}</span> 今日重点任务</div>
+            ${urgentHTML}
+          </div>
+          <div class="now-col">
+            <div class="now-col-title"><span class="num">${match.gaps.length}</span> 优先补齐缺口</div>
+            ${gapsHTML}
+          </div>
+          <div class="now-col">
+            <div class="now-col-title"><span class="num">↗</span> 匹配度提升路径</div>
+            ${matchHTML}
+          </div>
+        </div>
+        <div class="now-tip">${tipText}</div>
+        <div class="now-cta">
+          <button class="now-cta-btn primary" onclick="scrollToSection('ne-task-section')">📋 打开任务清单</button>
+          <button class="now-cta-btn" onclick="askBot('我下一步该做什么？')">💬 问 Bot 下一步</button>
+          <button class="now-cta-btn" onclick="scrollToSection('ne-chat')">🤖 智能问答</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleNowCard() {
+  nowCardExpanded = !nowCardExpanded;
+  document.getElementById('nowCardBody').style.display = nowCardExpanded ? '' : 'none';
+  document.getElementById('nowCardToggle').textContent = nowCardExpanded ? '收起 ▴' : '展开 ▾';
+}
+
+function quickToggleTask(empId, phase, taskIdx) {
+  toggleTask(empId, phase, taskIdx);
+}
+
+function scrollToSection(className) {
+  const el = document.querySelector('.' + className);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function askBot(text) {
+  // 滚动到 chat 并填入
+  scrollToSection('ne-chat');
+  setTimeout(() => {
+    const input = document.getElementById('chatInput');
+    if (input) {
+      input.value = text;
+      input.focus();
+    }
+  }, 300);
+}
+
+// ============================== MANAGER RENDER ==============================
+function renderManager() {
+  const deptVal = document.getElementById('mDeptFilter').value;
+  const stageVal = document.getElementById('mStageFilter').value;
+  const total = newEmployees.length;
+
+  let filtered = [...newEmployees];
+  if (deptVal !== 'all') filtered = filtered.filter(e => e.dept === deptVal);
+  if (stageVal !== 'all') {
+    if (stageVal==='week1') filtered = filtered.filter(e => e.currentDay<=7);
+    else if (stageVal==='week2-4') filtered = filtered.filter(e => e.currentDay>7 && e.currentDay<=28);
+    else filtered = filtered.filter(e => e.currentDay>28);
+  }
+
+  const fr = document.getElementById('filterResult');
+  fr.textContent = `显示 ${filtered.length} / ${total} 人`;
+  fr.className = 'filter-result ' + (deptVal==='all'?'all':getDeptTagClass(deptVal));
+
+  const avgPct = filtered.length>0?Math.round(filtered.reduce((s,e)=>s+calcProgress(e).pct,0)/filtered.length):0;
+  const avgMatch = filtered.length>0?Math.round(filtered.reduce((s,e)=>s+e.matchResult.overallPct,0)/filtered.length):0;
+  const totalGaps = filtered.reduce((s,e)=>s+e.matchResult.gaps.length,0);
+  const needAttention = filtered.filter(e=>getOverdueCount(e)>1||calcProgress(e).pct<40||e.matchResult.overallPct<50).length;
+
+  document.getElementById('mkAvgPct').textContent = avgPct+'%';
+  document.getElementById('mkAvgMatch').textContent = avgMatch+'%';
+  document.getElementById('mkGaps').textContent = totalGaps;
+  document.getElementById('mkAlert').textContent = needAttention;
+
+  document.querySelectorAll('.m-kpi-item').forEach(k => { k.classList.remove('pulse'); setTimeout(()=>k.classList.add('pulse'),50); });
+
+  // Radar
+  const skillCategories = ['编程语言','框架/工具','业务理解','架构设计','数据能力','协作沟通'];
+  if (chartInstances.radar) chartInstances.radar.destroy();
+  chartInstances.radar = new Chart(document.getElementById('radarChart'), {
+    type:'radar',
+    data:{
+      labels:skillCategories,
+      datasets:filtered.map((e,i)=>({
+        label:e.name,
+        data:[
+          Math.round(e.matchResult.matchedRequired.filter(s=>['Java','Python','React','Vue','TypeScript','JavaScript','CSS','Go','Node.js','SQL','R'].some(k=>s.includes(k)||k.includes(s))).length/Math.max(1,e.jd.required.filter(s=>['Java','Python','React','Vue','TypeScript','JavaScript','CSS','Go','Node.js','SQL','R'].some(k=>s.includes(k)||k.includes(s))).length)*100),
+          Math.round(e.matchResult.matchedRequired.filter(s=>['Spring Boot','Flask','Figma','Sketch','Webpack','Git','MySQL','Redis','Kubernetes','Map SDK','微服务架构','RESTful API','组件化开发','监控告警','gRPC','Selenium','pytest','MyBatis'].some(k=>s.includes(k)||k.includes(s))).length/Math.max(1,e.jd.required.filter(s=>['Spring Boot','Flask','Figma','Sketch','Webpack','Git','MySQL','Redis','Kubernetes','Map SDK','微服务架构','RESTful API','组件化开发','监控告警','gRPC','Selenium','pytest','MyBatis'].some(k=>s.includes(k)||k.includes(s))).length)*100),
+          Math.round(e.matchResult.matchedRequired.filter(s=>s.includes('业务')||s.includes('出行')||s.includes('社交')||s.includes('运营')||s.includes('产品')).length/Math.max(1,e.jd.required.filter(s=>s.includes('业务')||s.includes('出行')||s.includes('社交')||s.includes('运营')||s.includes('产品')).length)*100),
+          Math.round(e.matchResult.matchedRequired.filter(s=>s.includes('架构')||s.includes('分布式')||s.includes('微服务')||s.includes('设计')||s.includes('系统')).length/Math.max(1,e.jd.required.filter(s=>s.includes('架构')||s.includes('分布式')||s.includes('微服务')||s.includes('设计')||s.includes('系统')).length)*100),
+          Math.round(e.matchResult.matchedRequired.filter(s=>['SQL','数据分析','Excel','A/B测试','数据可视化','Redis','MySQL','ElasticSearch','Pandas','数据建模','统计分析'].some(k=>s.includes(k)||k.includes(s))).length/Math.max(1,e.jd.required.filter(s=>['SQL','数据分析','Excel','A/B测试','数据可视化','Redis','MySQL','ElasticSearch','Pandas','数据建模','统计分析'].some(k=>s.includes(k)||k.includes(s))).length)*100),
+          Math.round(e.matchResult.matchedRequired.filter(s=>s.includes('协作')||s.includes('沟通')||s.includes('问题分析')).length/Math.max(1,e.jd.required.filter(s=>s.includes('协作')||s.includes('沟通')||s.includes('问题分析')).length)*100)],
+        borderColor:getDeptColor(e.dept),
+        backgroundColor:getDeptColor(e.dept)+'15',
+        borderWidth:2,pointRadius:3}))
+    },
+    options:{responsive:true,scales:{r:{beginAtZero:true,max:100,ticks:{stepSize:25,callback:v=>v+'%'}}},plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}
+  });
+
+  // Match vs Progress
+  if (chartInstances.matchRank) chartInstances.matchRank.destroy();
+  const names = filtered.map(e=>e.name);
+  const matchPcts = filtered.map(e=>e.matchResult.overallPct);
+  const progressPcts = filtered.map(e=>calcProgress(e).pct);
+  chartInstances.matchRank = new Chart(document.getElementById('matchRankChart'), {
+    type:'bar',
+    data:{labels:names,datasets:[
+      {label:'JD匹配度',data:matchPcts,backgroundColor:filtered.map(e=>getDeptColor(e.dept)+'99'),borderWidth:0,borderRadius:6,barThickness:14},
+      {label:'任务完成率',data:progressPcts,backgroundColor:progressPcts.map(p=>p>=80?'#1D9E7599':p>=50?'#378ADD99':'#BA751799'),borderWidth:0,borderRadius:6,barThickness:14}
+    ]},
+    options:{responsive:true,scales:{x:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}}},plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},indexAxis:'y'}
+  });
+
+  // Team cards
+  document.getElementById('mTeamGrid').innerHTML = filtered.map(e => {
+    const prog = calcProgress(e);
+    const overdue = getOverdueCount(e);
+    const match = e.matchResult;
+    const barColor = getMatchColor(match.overallPct);
+    const alertClass = overdue>0||match.overallPct<50?'overdue':'ok';
+    const alertText = overdue>0?`⚠ ${overdue}项逾期`:match.overallPct<50?'⚠ 匹配度低':'✓ 正常';
+    const showSkills = [...match.matchedRequired.slice(0,2).map(s=>({s,type:'match'})),...match.gaps.slice(0,2).map(s=>({s,type:'gap'}))];
+    const isNew = e._isNew;
+    return `<div class="m-card ${getDeptClass(e.dept)}${isNew?' new-import':''}" onclick="showMDetail('${e.id}')">
+      <span class="mc-dept-tag ${getDeptTagClass(e.dept)}">${e.dept}</span>${isNew?'<span class="new-badge">新导入</span>':''}
+      <div class="mc-days">第${e.currentDay}天</div>
+      <div class="mc-name">${e.name}</div>
+      <div class="mc-info">${e.pos} · ${e.mentor}</div>
+      <div class="mc-match-row">
+        <div class="mc-match-score" style="color:${barColor}">${match.overallPct}%</div>
+        <div class="mc-match-label">JD匹配 · ${match.gaps.length}缺口</div>
+        <div style="flex:1"><div class="match-pct-bar"><div class="mpb-fill" style="width:${match.overallPct}%;background:${barColor}"></div></div></div>
+      </div>
+      <div class="mc-skills-row">${showSkills.map(sk=>`<span class="mc-skill ${sk.type}">${sk.type==='match'?'✓':'⚠'} ${sk.s}</span>`).join('')}</div>
+      <div class="mc-progress" style="margin-top:8px"><div class="mc-progress-bar"><div style="width:${prog.pct}%;height:100%;background:${prog.pct>=80?'#1D9E75':prog.pct>=50?'#378ADD':'#BA7517'};border-radius:3px"></div></div></div>
+      <div class="mc-pct" style="color:${prog.pct>=80?'#1D9E75':prog.pct>=50?'#378ADD':'#BA7517'}">任务 ${prog.done}/${prog.total}（${prog.pct}%） · ${getStage(e)}</div>
+      <div class="mc-alerts ${alertClass}">${alertText}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('mDetail').classList.remove('show');
+
+  if (filtered.length === 0) {
+    document.getElementById('mInsightList').innerHTML = '<li class="amber">当前筛选无结果，请调整筛选条件</li>';
+    document.getElementById('mActionGrid').innerHTML = '';
+    return;
+  }
+  const lowestMatch = [...filtered].sort((a,b)=>a.matchResult.overallPct-b.matchResult.overallPct)[0];
+  const lowMatchEmps = filtered.filter(e=>e.matchResult.overallPct<60);
+  const allOverdues = filtered.filter(e=>getOverdueCount(e)>0);
+  const commonGaps = findCommonGaps(filtered);
+
+  const insights = [];
+  insights.push({cls:'amber',text:`${deptVal==='all'?'团队':deptVal}平均JD匹配度${avgMatch}%，最低${lowestMatch.name}（${lowestMatch.matchResult.overallPct}%），缺口：${lowestMatch.matchResult.gaps.join('、')}`});
+  if (lowMatchEmps.length>0) insights.push({cls:'red',text:`${lowMatchEmps.length}位匹配度<60%：${lowMatchEmps.map(e=>e.name+'('+e.matchResult.overallPct+'%)').join('、')}`});
+  if (commonGaps.length>0) insights.push({cls:'teal',text:`共性缺口：${commonGaps.join('、')}，建议组织统一培训`});
+  if (allOverdues.length>0) insights.push({cls:'red',text:`${allOverdues.length}位新人逾期：${allOverdues.map(e=>e.name).join('、')}`});
+  insights.push({cls:'teal',text:`知识库已收录 ${knowledgeBase.length} 份文档（${knowledgeBase.reduce((s,d)=>s+d.chunks.length,0)} 个知识片段），新人 Bot 问答可即时引用`});
+
+  document.getElementById('mInsightList').innerHTML = insights.map(i=>`<li class="${i.cls}">${i.text}</li>`).join('');
+
+  const actions = [];
+  if (lowMatchEmps.length>0) actions.push({p:'P0',t:'安排技能补齐',d:`给${lowMatchEmps.map(e=>e.name).join('、')}安排1对1辅导，重点：${commonGaps.slice(0,3).join('、')}`});
+  if (allOverdues.length>0) actions.push({p:'P0',t:'催办逾期任务',d:`给${allOverdues.map(e=>e.name).join('、')}发送提醒`});
+  if (commonGaps.length>0) actions.push({p:'P1',t:'组织团队培训',d:`共性缺口${commonGaps.slice(0,3).join('、')}可组织统一培训`});
+  actions.push({p:'P1',t:'调整业务任务难度',d:'根据匹配度差异调整任务难度和节奏'});
+  actions.push({p:'P2',t:'更新JD要求',d:'根据实际背景评估JD是否过于理想化'});
+  actions.push({p:'P2',t:'匹配度中期评估',d:'第14天重新评估匹配度变化'});
+  document.getElementById('mActionGrid').innerHTML = actions.map(a=>`<div class="ma-item"><div class="mai-priority">${a.p}</div><div class="mai-title">${a.t}</div><div class="mai-desc">${a.d}</div></div>`).join('');
+}
+
+// ============================== DETAIL PANEL ==============================
+function showMDetail(id) {
+  selectedMEmployee = id;
+  const e = newEmployees.find(emp=>emp.id===id);
+  const prog = calcProgress(e);
+  const match = e.matchResult;
+
+  const phases = [{title:'第1周 · 入职融入',tasks:e.tasks.week1},{title:'第2-4周 · 实战上手 + 缺口补齐',tasks:e.tasks.week2_4},{title:'第5-30天 · 独立担当 + 业务实战',tasks:e.tasks.week5_30}];
+
+  let taskHTML = '';
+  phases.forEach(phase => {
+    const pd = phase.tasks.filter(t=>t.done).length;
+    taskHTML += `<div class="md-stage-title">${phase.title}（${pd}/${phase.tasks.length}）</div>`;
+    taskHTML += `<ul class="md-task-list">${phase.tasks.map(t=>{
+      const cls = t.done?'done':'pending';
+      const dueOverdue = !t.done && t.due.match(/第(\d+)天/) && parseInt(t.due.match(/第(\d+)天/)[1]) < e.currentDay;
+      const tagLabel = t.tag==='gap-task'?'缺口补齐':t.tag==='biz-task'?'业务实战':t.tag==='required'?'必做':'可选';
+      return `<li class="${cls}">
+        <span class="md-check ${cls}">${t.done?'✓':''}</span>
+        <span class="md-task-name" style="${t.tag==='gap-task'?'color:#3C3489;font-weight:500':t.tag==='biz-task'?'color:#712B13;font-weight:500':''}">${t.name}</span>
+        <span class="ne-task-tag ${t.tag}">${tagLabel}</span>
+        <span class="ne-task-due ${dueOverdue?'overdue':''}">${t.due}${dueOverdue?' · 已逾期':''}</span>
+        <span class="ne-task-source">${t.source}</span>
+      </li>`;
+    }).join('')}</ul>`;
+  });
+
+  const skillContent = `
+    <div class="skill-match-grid">
+      <div class="skill-match-panel resume">
+        <div class="smp-label">📋 简历提取的技能</div>
+        <div>${e.resume.skills.map(s=>{
+          const isMatch = match.matchedRequired.some(m=>m.toLowerCase().includes(s.toLowerCase())||s.toLowerCase().includes(m.toLowerCase()));
+          return `<span class="smp-skill" style="background:${isMatch?'#E1F5EE;color:#085041':'#f5f5f7;color:#3a3a3c'}">${isMatch?'✓':''} ${s}</span>`;
+        }).join('')}</div>
+      </div>
+      <div class="skill-match-panel jd">
+        <div class="smp-label">🎯 JD要求的技能</div>
+        <div>${e.jd.required.map(s=>{
+          const isMatch = match.matchedRequired.includes(s);
+          return `<span class="smp-skill" style="background:${isMatch?'#E6F1FB;color:#185FA5':'#FAECE7;color:#712B13'}">${isMatch?'✓':'⚠'} ${s}</span>`;
+        }).join('')}</div>
+      </div>
+    </div>
+    <div class="resume-box">
+      <div class="rb-label">简历摘要</div>
+      <div class="rb-content">${e.resume.summary}</div>
+      <div class="rb-label" style="margin-top:12px">教育背景</div>
+      <div class="rb-content">${e.resume.education}</div>
+      <div class="rb-label" style="margin-top:12px">项目经历</div>
+      <div class="rb-content">${e.resume.experience.map(ex=>`• ${ex}`).join('<br>')}</div>
+    </div>`;
+
+  const detailDiv = document.getElementById('mDetail');
+  detailDiv.innerHTML = `
+    <div class="md-header">
+      <div><div class="md-name">${e.name} · ${e.dept} · ${e.pos}</div>
+      <div style="font-size:12px;color:#86868b;margin-top:4px">导师: ${e.mentor} | HR: ${e.hr} | 入职第${e.currentDay}天 | 匹配度 ${match.overallPct}% | 完成 ${prog.pct}%</div></div>
+      <button class="md-close" onclick="document.getElementById('mDetail').classList.remove('show')">关闭</button>
+    </div>
+    ${taskHTML}
+    ${skillContent}`;
+  detailDiv.classList.add('show');
+}
+
+// ============================== IMPORT (员工) ==============================
+let importMode = 'upload';
+
+function switchImportTab(mode) {
+  importMode = mode;
+  document.querySelectorAll('.import-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === mode));
+  document.getElementById('importUpload').style.display = mode==='upload'?'block':'none';
+  document.getElementById('importPaste').style.display = mode==='paste'?'block':'none';
+  document.getElementById('importKB').style.display = mode==='kb'?'block':'none';
+  document.getElementById('importBtn').style.display = mode==='kb'?'none':'block';
+}
+
+// File upload (员工) — 多文件支持
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('fileInput');
+let pendingFiles = []; // [{name, text, size, type, icon}]
+
+uploadZone.addEventListener('click', ()=>fileInput.click());
+uploadZone.addEventListener('dragover', e=>{e.preventDefault();uploadZone.classList.add('dragover');});
+uploadZone.addEventListener('dragleave', ()=>uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e=>{
+  e.preventDefault();uploadZone.classList.remove('dragover');
+  const files = Array.from(e.dataTransfer.files);
+  if(files.length>0) handleFiles(files);
+});
+fileInput.addEventListener('change', e=>{if(e.target.files.length>0) handleFiles(Array.from(e.target.files));});
+
+function detectDocType(text) {
+  if(text.includes('必备技能') || text.includes('加分技能') || text.includes('岗位名称') || text.includes('任职要求') || text.includes('岗位职责')) return {type:'jd', icon:'🎯'};
+  if(text.includes('项目经历') || text.includes('技能标签') || text.includes('教育背景')) return {type:'resume', icon:'👤'};
+  if(text.includes('入职工作流') || text.includes('第1周') || text.includes('第2-4周') || text.includes('Week')) return {type:'workflow', icon:'📅'};
+  return {type:'unknown', icon:'📄'};
+}
+
+function handleFiles(files) {
+  // 批量读取，追加到 pendingFiles
+  let toRead = files.length;
+  let added = 0, skipped = 0;
+  files.forEach(file => {
+    // 防重复
+    if(pendingFiles.find(p => p.name === file.name)) { skipped++; toRead--; checkDone(); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const text = e.target.result || '';
+      const det = detectDocType(text);
+      pendingFiles.push({name:file.name, text, size:file.size, type:det.type, icon:det.icon});
+      added++;
+      checkDone();
+    };
+    reader.onerror = () => { toRead--; checkDone(); };
+    reader.readAsText(file);
+  });
+
+  function checkDone() {
+    if(added + skipped === toRead) {
+      renderPendingFiles();
+      if(added > 0) {
+        // 弹个轻提示，不阻断
+        const banner = document.createElement('div');
+        banner.className = 'pending-banner';
+        banner.innerHTML = `✅ 已读取 <b>${added}</b> 个文件${skipped?`（${skipped} 个重名已跳过）`:''}，识别为 ${pendingFiles.map(p=>p.type).filter((v,i,a)=>a.indexOf(v)===i).join(' / ')} · 点下方「智能解析 & 加入系统」批量入库`;
+        const host = document.getElementById('pendingFiles');
+        if (host && host.parentNode) host.parentNode.insertBefore(banner, host.nextSibling);
+        setTimeout(()=>banner.remove(), 4000);
+      }
+    }
+  }
+}
+
+function renderPendingFiles() {
+  const el = document.getElementById('pendingFiles');
+  if(pendingFiles.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = pendingFiles.map((p, i) => {
+    const typeLabel = {resume:'简历', jd:'JD', workflow:'工作流', unknown:'文档'}[p.type] || '文档';
+    const sizeKB = Math.round(p.size/1024);
+    return `<div class="pending-item">
+      <div class="pi-icon">${p.icon}</div>
+      <div class="pi-name" title="${p.name}">${p.name}</div>
+      <div class="pi-type t-${p.type}">${typeLabel}</div>
+      <div class="pi-meta">${sizeKB}KB · ${p.text.length}字</div>
+      <button class="pi-rm" onclick="removePendingFile(${i})" title="移除">×</button>
+    </div>`;
+  }).join('');
+}
+
+function removePendingFile(idx) {
+  pendingFiles.splice(idx, 1);
+  renderPendingFiles();
+}
+
+function clearPendingFiles() {
+  pendingFiles = [];
+  renderPendingFiles();
+}
+
+function fillSample(type) {
+  const samples = {
+    resume: `姓名：何志远
+部门：TEG技术工程
+岗位：运维开发实习生
+教育背景：某大学 · 计算机科学与技术 · 本科 · 2026届
+项目经历：
+• 校园服务器集群管理（Linux + Ansible自动化运维）
+• 容器化部署实验（Docker + Kubernetes模拟集群）
+• 参加云原生技术竞赛 - 校级三等奖
+技能标签：Linux、Ansible、Docker、Kubernetes、Python、Shell脚本、监控告警、Nginx、CI/CD、Git`,
+    jd: `岗位名称：运维开发实习生（技术工程方向）
+部门：TEG技术工程
+必备技能：Linux、Kubernetes、Docker、Python、监控告警、Ansible、CI/CD、Nginx、Git、问题分析与解决
+加分技能：Service Mesh、Prometheus、高并发运维、安全运维、自动化巡检、故障自愈`,
+    workflow: `入职工作流模板：运维开发实习生30天计划
+第1周：
+- 完成入职手续（合同签署、证件提交）
+- 领取工卡、配置电脑和VPN
+- 参加新员工入职培训
+- 配置运维工具环境（Ansible、Docker、kubectl）
+- 阅读《TEG基础设施架构》文档
+- 认识导师和团队
+第2-4周：
+- 学习Ansible Playbook编写实战
+- 参与服务器巡检自动化脚本开发
+- 搭建Prometheus监控面板
+- 与导师完成第一次正式面谈
+- 参加运维周会
+第5-30天：
+- 独立完成一个运维自动化模块开发
+- 输出运维改进方案文档
+- 完成30天入职自评`
+  };
+  document.getElementById('pasteText').value = samples[type];
+}
+
+function doImport() {
+  // 优先批量处理 pendingFiles（多文件上传场景）
+  if (pendingFiles.length > 0) {
+    const results = [];
+    const types = {resume:0, jd:0, workflow:0, unknown:0};
+    pendingFiles.forEach(pf => {
+      const text = pf.text;
+      const type = pf.type;
+      types[type] = (types[type] || 0) + 1;
+      try {
+        importOneDoc(text, type, pf.name);
+        results.push({name:pf.name, type, ok:true});
+      } catch(err) {
+        results.push({name:pf.name, type, ok:false, err:err.message});
+      }
+    });
+    const okCount = results.filter(r=>r.ok).length;
+    const failCount = results.length - okCount;
+    // 清空队列
+    pendingFiles = [];
+    renderPendingFiles();
+    // 汇总提示
+    const summary = `✅ 批量解析完成：${okCount} 个成功${failCount?`、${failCount} 个失败`:''}（${types.resume}简历 · ${types.jd}JD · ${types.workflow}工作流${types.unknown?` · ${types.unknown}未知`:''}）`;
+    // 在 importResult 显示
+    const ir = document.getElementById('importResult');
+    ir.innerHTML = `<div class="ir-card"><div class="ir-title">${summary}</div><div class="ir-add-msg">🎉 已加入系统！团队人数 ${newEmployees.length} 人 · 切回总览查看变化</div></div>`;
+    ir.classList.add('show');
+    renderManager();
+    return;
+  }
+  // fallback：单文本框（粘贴文本场景）
+  const text = document.getElementById('pasteText').value.trim();
+  if(!text) { alert('⚠️ 没有可解析的内容。请先上传文件或粘贴文本'); return; }
+  let type = 'unknown';
+  if(text.includes('必备技能') || text.includes('加分技能') || text.includes('岗位名称') || text.includes('任职要求') || text.includes('岗位职责')) type = 'jd';
+  else if(text.includes('项目经历') || text.includes('技能标签') || text.includes('教育背景')) type = 'resume';
+  else if(text.includes('入职工作流') || text.includes('第1周') || text.includes('第2-4周')) type = 'workflow';
+  importOneDoc(text, type, null);
+}
+
+// 把原来 doImport 内部的解析逻辑抽成 importOneDoc
+function importOneDoc(text, type, fileName) {
+
+  const allSkillPatterns = text.match(/[\u4e00-\u9fa5a-zA-Z0-9+/.#\-]+/g) || [];
+  const knownSkills = ['Java','Python','Go','React','Vue','TypeScript','JavaScript','CSS','Spring Boot','Flask','MyBatis','Figma','Sketch','Webpack','Git','MySQL','Redis','Kubernetes','Docker','Map SDK','微服务架构','RESTful API','组件化开发','监控告警','gRPC','Selenium','pytest','Ansible','Nginx','Shell','Linux','算法','数据结构','数据可视化','A/B测试','SQL','数据分析','Excel','用户增长','内容运营','活动策划','微信生态运营','车载场景运营','地图POI运营','智慧出行业务理解','社交产品业务理解','运营策略','腾讯云数据平台','Tableau','Pandas','R','数据建模','统计分析','机器学习','性能优化','Node.js','交互设计','用户研究','设计规范','设计系统维护','品牌设计','UI设计','渗透测试','漏洞分析','Web安全','安全合规','网络安全','密码学','云安全','容器安全','自动化测试','接口测试','性能测试','CI/CD','Jenkins','分布式系统','问题分析与解决','协作','沟通'];
+  const foundSkills = knownSkills.filter(sk => text.toLowerCase().includes(sk.toLowerCase()));
+
+  const nameMatch = text.match(/姓名[：:]\s*(.+)/);
+  const resumeName = nameMatch ? nameMatch[1].trim() : '新导入员工';
+
+  const deptMatch = text.match(/部门[：:]\s*(.+)/);
+  const resumeDept = deptMatch ? deptMatch[1].trim() : 'CSIG智慧出行';
+
+  const jdTitleMatch = text.match(/岗位名称[：:]\s*(.+)/);
+  const jdTitle = jdTitleMatch ? jdTitleMatch[1].trim() : '新岗位';
+
+  const reqMatch = text.match(/必备技能[：:]\s*(.+)/);
+  const prefMatch = text.match(/加分技能[：:]\s*(.+)/);
+  const jdRequired = reqMatch ? reqMatch[1].split(/[、,，]/).map(s=>s.trim()).filter(Boolean) : foundSkills.slice(0,8);
+  const jdPreferred = prefMatch ? prefMatch[1].split(/[、,，]/).map(s=>s.trim()).filter(Boolean) : foundSkills.slice(8,14);
+
+  const expLines = text.match(/[•\-\*]\s*(.+)/g) || [];
+  const experiences = expLines.map(l=>l.replace(/[•\-\*]\s*/,'').trim());
+
+  const eduMatch = text.match(/教育背景[：:]\s*(.+)/);
+  const education = eduMatch ? eduMatch[1].trim() : '未知';
+
+  let finalJdRequired, finalJdPreferred, finalJdTitle;
+  if (type === 'jd') {
+    finalJdRequired = jdRequired;
+    finalJdPreferred = jdPreferred;
+    finalJdTitle = jdTitle;
+  } else if (type === 'resume') {
+    const deptJds = newEmployees.filter(e=>e.dept===resumeDept);
+    if (deptJds.length>0) {
+      const closest = deptJds[0];
+      finalJdRequired = closest.jd.required;
+      finalJdPreferred = closest.jd.preferred;
+      finalJdTitle = closest.jd.title;
+    } else {
+      finalJdRequired = jdRequired.length>0?jdRequired:foundSkills.slice(0,6);
+      finalJdPreferred = jdPreferred.length>0?jdPreferred:foundSkills.slice(6,10);
+      finalJdTitle = jdTitle;
+    }
+  } else {
+    finalJdRequired = foundSkills.slice(0,6);
+    finalJdPreferred = foundSkills.slice(6,10);
+    finalJdTitle = jdTitle;
+  }
+
+  const newId = 'import_' + Date.now();
+  const newEmp = {
+    id: newId,
+    name: resumeName,
+    dept: resumeDept,
+    pos: finalJdTitle,
+    startDate: '2026-07-01',
+    mentor: '待分配',
+    hr: '李HR',
+    currentDay: 1,
+    resume: {
+      summary: type==='resume'?text.split('\n').filter(l=>!l.includes('姓名')&&!l.includes('技能标签')&&!l.includes('项目经历')&&!l.includes('教育背景')&&!l.match(/[•\-\*]/)).join(' ').trim().slice(0,100):'新导入',
+      education: education,
+      experience: experiences.slice(0,3),
+      skills: foundSkills
+    },
+    jd: {title:finalJdTitle,required:finalJdRequired,preferred:finalJdPreferred},
+    matchResult: null,
+    tasks: {
+      week1: [{name:'完成入职手续',done:true,tag:'required',due:'第1天',source:'通用'}, {name:'配置开发环境',done:false,tag:'required',due:'第2天',source:'通用'}, {name:'阅读业务全景图文档',done:false,tag:'gap-task',due:'第3天',source:'缺口:业务理解'}],
+      week2_4: [{name:'与导师面谈',done:false,tag:'required',due:'第7天',source:'通用'}],
+      week5_30: [{name:'完成30天自评',done:false,tag:'required',due:'第30天',source:'通用'}]
+    },
+    _isNew: true
+  };
+
+  calcMatch(newEmp);
+  newEmp.matchResult.gaps.slice(0,4).forEach(g => {
+    newEmp.tasks.week2_4.push({name:`学习${g}（阅读培训文档+导师辅导）`,done:false,tag:'gap-task',due:'第14天',source:`缺口:${g}`});
+  });
+  newEmp.tasks.week5_30.push({name:`独立完成${finalJdTitle.split('（')[0]}实战任务`,done:false,tag:'biz-task',due:'第25天',source:`业务:${finalJdTitle}`});
+
+  newEmployees.push(newEmp);
+  updateDeptFilterOptions();
+
+  const ir = document.getElementById('importResult');
+  const fileTag = fileName ? ` <span style="font-size:11px;color:#86868b;font-weight:400">📎 ${fileName}</span>` : '';
+  ir.innerHTML = `
+    <div class="ir-card">
+      <div class="ir-title">✅ 智能解析完成 — ${type==='jd'?'JD文档':type==='resume'?'简历文档':'工作流模板'}${fileTag}</div>
+      <div class="ir-detail">
+        <div>姓名：<b>${resumeName}</b> | 部门：<b>${resumeDept}</b> | 岗位：<b>${finalJdTitle}</b></div>
+        <div>提取技能 ${foundSkills.length} 项 | JD匹配度 <b style="color:${getMatchColor(newEmp.matchResult.overallPct)}">${newEmp.matchResult.overallPct}%</b> | 缺口 ${newEmp.matchResult.gaps.length} 项</div>
+        <div>已自动生成 ${newEmp.matchResult.gaps.length+2} 项个性化缺口补齐任务</div>
+      </div>
+      <div class="ir-skills">${foundSkills.slice(0,10).map(s=>{
+        const isMatch = finalJdRequired.some(r=>r.toLowerCase().includes(s.toLowerCase())||s.toLowerCase().includes(r.toLowerCase()));
+        return `<span class="ir-skill ${isMatch?'match':'gap'}">${isMatch?'✓':'○'} ${s}</span>`;
+      }).join('')}</div>
+      <div class="ir-add-msg">🎉 已加入系统！团队人数 ${newEmployees.length} 人 · 切回总览查看变化</div>
+    </div>`;
+  ir.classList.add('show');
+
+  renderManager();
+}
+
+function updateDeptFilterOptions() {
+  const deptCounts = {};
+  newEmployees.forEach(e => { deptCounts[e.dept] = (deptCounts[e.dept]||0)+1; });
+  const select = document.getElementById('mDeptFilter');
+  const currentVal = select.value;
+  select.innerHTML = `<option value="all">全部部门 (${newEmployees.length}人)</option>` +
+    Object.entries(deptCounts).map(([dept,count])=>`<option value="${dept}">${dept} (${count}人)</option>`).join('');
+  select.value = currentVal;
+}
+
+// ============================== KNOWLEDGE BASE ==============================
+const KB_SAMPLES = {
+  faq: {
+    title:'CSIG 常见问题 FAQ（管理员上传）', type:'faq', icon:'❓',
+    chunks:[
+      {kw:['加班','调休'], text:'加班申请流程：OA → 考勤管理 → 加班申请 → 填写预计时长 → 导师审批 → HR备案。实习生月加班不超过 20 小时。'},
+      {kw:['报销','发票','差旅'], text:'差旅报销：出差前提交《出差申请单》→ 出差后 5 个工作日内提交报销单（OA → 费用管理）→ 上传电子发票 → 导师审批 → 5-7 工作日打款。'},
+      {kw:['年假','休假','事假','病假'], text:'假期类型：实习生暂无年假。事假按日扣除日薪；病假需提供医院证明，当月累计不超 3 天。'},
+      {kw:['健身房','健身','福利'], text:'员工福利：B1 健身房（早 7:00-9:00、晚 18:00-22:00 开放），免费；季度团建经费 200 元/人；节日礼品。'},
+      {kw:['培训','学习','课程'], text:'学习资源：内部学习平台 iLearn（含 5000+ 课程）；导师 1对1 辅导；部门技术分享会（每周三 16:00）。'}
+    ]
+  },
+  onboarding: {
+    title:'新员工入职手册（管理员上传）', type:'onboarding', icon:'📖',
+    chunks:[
+      {kw:['入职','第一天','报道'], text:'入职第一天：上午 9:00 到 B1 综合服务台办理入职手续（合同签署、证件提交、照片采集），领取工卡和电脑，下午参加部门见面会。'},
+      {kw:['工资','薪资','发薪'], text:'薪资发放：每月 15 号发放上月薪资，实习生日薪 150-200 元（根据面试评级），通过银行卡转账。'},
+      {kw:['电脑','设备','配发'], text:'设备配发：标准 MacBook Pro 14 寸 + Dell 27 寸显示器。如需外接键盘鼠标，可在工位自助柜领用。'},
+      {kw:['同事','沟通','会议'], text:'沟通工具：企业微信（日常沟通）+ 腾讯会议（远程会议）+ 邮件（正式通知）。所有正式沟通建议使用邮件留痕。'}
+    ]
+  },
+  expense: {
+    title:'费用报销流程（管理员上传）', type:'expense', icon:'💰',
+    chunks:[
+      {kw:['报销','发票','流程'], text:'费用报销流程：① OA → 费用管理 → 新建报销单 ② 填写明细 + 上传电子发票（PDF/OFD 格式）③ 提交导师审批 ④ HR 复核 ⑤ 财务打款（5-7 工作日）。'},
+      {kw:['打车','滴滴','交通'], text:'市内交通：滴滴企业版直接扣公司额度，无需垫付。跨城出差需提前申请，火车/机票按职级标准。'},
+      {kw:['团建','聚餐','活动'], text:'团建经费：季度人均 200 元，由部门 HRBP 统一管理，组长审批后可用于聚餐、KTV、户外活动等。'},
+      {kw:['培训','会议','差旅'], text:'出差补贴：一线城市 200 元/天，其他城市 150 元/天。含餐费，不再单独报销。'}
+    ]
+  },
+  security: {
+    title:'信息安全规范（管理员上传）', type:'security', icon:'🔒',
+    chunks:[
+      {kw:['代码','仓库','开源'], text:'代码管理：内部代码禁止上传到个人 GitHub/GitLab。所有代码必须推送到公司内网 GitLab（git.tencent.com）。开源贡献需提交《开源申请》。'},
+      {kw:['客户','数据','隐私'], text:'数据隐私：客户数据严禁离开公司环境。截图需打码处理（手机号、身份证、订单号）。'},
+      {kw:['离职','交接','权限'], text:'离职交接：最后工作日完成代码 Review + 文档交接 + 权限回收（系统自动 24 小时内禁用账号）。'},
+      {kw:['合规','审计','日志'], text:'合规审计：所有生产操作有日志记录，禁止使用他人账号或共享账号。异常操作 5 分钟内告警安全团队。'}
+    ]
+  }
+};
+
+let pendingKBText = null;
+
+function pushKBToPending(sample, label) {
+  // 把内置示例也加入待入库列表，统一走入库流程
+  pendingKBDocs.push({
+    name: sample.title + '.txt',
+    text: sample.chunks.map(c => c.text).join('\n\n'),
+    size: sample.chunks.reduce((s,c)=>s+c.text.length, 0),
+    chunks: sample.chunks.map(c => ({kw: c.kw, text: c.text}))
+  });
+  renderPendingKBDocs();
+  flashBtn(event);
+  const banner = document.createElement('div');
+  banner.className = 'pending-banner kb';
+  banner.innerHTML = `✅ 已填入「${label}」示例 · 共 <b>${sample.chunks.length}</b> 个片段 · 点下方「加入知识库」生效`;
+  const host = document.getElementById('pendingKBFiles');
+  if (host && host.parentNode) host.parentNode.insertBefore(banner, host.nextSibling);
+  setTimeout(()=>banner.remove(), 4000);
+}
+
+function fillKBFAQ() { pushKBToPending(KB_SAMPLES.faq, '常见问题 FAQ'); }
+function fillKBOnboarding() { pushKBToPending(KB_SAMPLES.onboarding, '入职手册'); }
+function fillKBExpense() { pushKBToPending(KB_SAMPLES.expense, '报销流程'); }
+function fillKBSecurity() { pushKBToPending(KB_SAMPLES.security, '安全规范'); }
+function flashBtn(e) { if (e && e.target) { e.target.style.background='#1D9E75'; e.target.style.color='#fff'; setTimeout(()=>{e.target.style.background=''; e.target.style.color='';}, 600); } }
+
+// KB File upload — 多文件 + 可视化排队
+const kbUploadZone = document.getElementById('kbUploadZone');
+const kbFileInput = document.getElementById('kbFileInput');
+let pendingKBDocs = []; // [{name, text, size, chunks}]
+
+function resetKBUploadZone() {
+  kbUploadZone.innerHTML = `
+    <div class="upload-zone-icon">📚</div>
+    <div class="upload-zone-text" style="color:#085041">拖拽培训文档/FAQ/SOP到此处，或点击选择（可多选）</div>
+    <div class="upload-zone-sub" style="color:#085041">上传后新人 Bot 问答会引用 · 例：入职手册、安全规范、报销流程</div>
+  `;
+}
+
+kbUploadZone.addEventListener('click', ()=>kbFileInput.click());
+kbUploadZone.addEventListener('dragover', e=>{e.preventDefault();kbUploadZone.classList.add('dragover');});
+kbUploadZone.addEventListener('dragleave', ()=>kbUploadZone.classList.remove('dragover'));
+kbUploadZone.addEventListener('drop', e=>{
+  e.preventDefault();kbUploadZone.classList.remove('dragover');
+  const files = Array.from(e.dataTransfer.files);
+  if(files.length>0) handleKBFiles(files);
+});
+kbFileInput.addEventListener('change', e=>{if(e.target.files.length>0) handleKBFiles(Array.from(e.target.files));});
+
+function handleKBFiles(files) {
+  let toRead = files.length;
+  let added = 0, skipped = 0;
+  files.forEach(file => {
+    if(pendingKBDocs.find(p => p.name === file.name)) { skipped++; toRead--; checkDone(); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const text = ev.target.result || '';
+      const chunks = parseKBText(text, file.name);
+      pendingKBDocs.push({name:file.name, text, size:file.size, chunks});
+      added++;
+      checkDone();
+    };
+    reader.onerror = () => { toRead--; checkDone(); };
+    reader.readAsText(file);
+  });
+
+  function checkDone() {
+    if(added + skipped === toRead && toRead > 0) {
+      renderPendingKBDocs();
+      const totalChunks = pendingKBDocs.reduce((s,d)=>s+d.chunks.length, 0);
+      // 视觉提示
+      const banner = document.createElement('div');
+      banner.className = 'pending-banner kb';
+      banner.innerHTML = `✅ 已读取 <b>${added}</b> 份文档${skipped?`（${skipped} 份重名已跳过）`:''}，共解析出 <b>${totalChunks}</b> 个知识片段 · 点下方「加入知识库」生效`;
+      const host = document.getElementById('pendingKBFiles');
+      if (host && host.parentNode) host.parentNode.insertBefore(banner, host.nextSibling);
+      setTimeout(()=>banner.remove(), 4000);
+    }
+  }
+}
+
+function renderPendingKBDocs() {
+  const el = document.getElementById('pendingKBFiles');
+  if(pendingKBDocs.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = pendingKBDocs.map((d, i) => {
+    const sizeKB = Math.round(d.size/1024);
+    return `<div class="pending-item pending-kb">
+      <div class="pi-icon">📄</div>
+      <div class="pi-name" title="${d.name}">${d.name}</div>
+      <div class="pi-type t-custom">知识库</div>
+      <div class="pi-meta">${sizeKB}KB · ${d.chunks.length} 片段</div>
+      <button class="pi-rm" onclick="removePendingKB(${i})" title="移除">×</button>
+    </div>`;
+  }).join('');
+}
+
+function removePendingKB(idx) {
+  pendingKBDocs.splice(idx, 1);
+  renderPendingKBDocs();
+}
+
+function clearPendingKB() {
+  pendingKBDocs = [];
+  renderPendingKBDocs();
+}
+
+function parseKBText(text, title) {
+  // 鲁棒分块：先按段落，再按列表项，再按中英文句号
+  let segments = [];
+  // 1) 双换行分段
+  const paras = text.split(/\n\s*\n+/).map(s => s.trim()).filter(Boolean);
+  paras.forEach(p => {
+    if (p.length <= 200) { segments.push(p); return; }
+    // 2) 单换行（多行可能是列表项）
+    const lines = p.split(/\n/).map(l => l.trim()).filter(Boolean);
+    if (lines.length > 1) { lines.forEach(l => segments.push(l)); return; }
+    // 3) 单段过长：按句号/分号切
+    const sentences = p.split(/(?<=[。！？；.!?])\s*/).filter(s => s.length > 5);
+    if (sentences.length > 1) { sentences.forEach(s => segments.push(s)); return; }
+    segments.push(p);
+  });
+  // 清洗：去掉列表前缀
+  segments = segments.map(s => s.replace(/^[•\-\*·\d]+[.、)]\s*/,'').trim()).filter(s => s.length > 8);
+  // 去重
+  const seen = new Set();
+  segments = segments.filter(s => { if (seen.has(s)) return false; seen.add(s); return true; });
+  // 限制最多 30 块
+  return segments.slice(0, 30).map(p => {
+    const chineseWords = p.match(/[\u4e00-\u9fa5]{2,6}/g) || [];
+    const englishWords = p.match(/[A-Za-z]{3,}/g) || [];
+    const kw = [...new Set([...chineseWords.slice(0,4), ...englishWords.slice(0,3)])].slice(0,5);
+    return {kw, text: p.slice(0,260)};
+  });
+}
+
+function addKBDoc(doc) {
+  doc.id = 'kb_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  doc.addedAt = new Date().toISOString().slice(0,10);
+  doc.hits = 0;
+  knowledgeBase.push(doc);
+  updateKBBadges();
+}
+
+function confirmKBImport() {
+  // 优先处理上传的待解析文件
+  if (pendingKBDocs.length > 0) {
+    pendingKBDocs.forEach(d => {
+      const title = d.name.replace(/\.[^.]+$/, '');
+      addKBDoc({title: title + '（管理员上传）', type:'custom', icon:'📄', source:d.name, chunks: d.chunks});
+    });
+    const total = pendingKBDocs.length;
+    const totalChunks = pendingKBDocs.reduce((s,d)=>s+d.chunks.length, 0);
+    pendingKBDocs = [];
+    renderPendingKBDocs();
+    renderKBList();
+    alert(`✅ 已将 ${total} 份文档加入知识库（${totalChunks} 个知识片段）\n\n现在切到「新人视角」试试问 Bot：工卡、VPN、报销、加班 等问题，Bot 会引用知识库回答。`);
+    return;
+  }
+  // fallback：示例填入
+  if (!pendingKBText) {
+    alert('⚠️ 没有可入库的内容\n\n方式 1：拖拽 .txt / .csv / .md 文档到上方绿色上传区\n方式 2：点「填入常见 FAQ / 入职手册 / 报销流程 / 安全规范」按钮');
+    return;
+  }
+  addKBDoc({...pendingKBText, source:'管理员填入示例'});
+  renderKBList();
+  const t = pendingKBText.title;
+  pendingKBText = null;
+  alert(`✅ 「${t}」已加入知识库！\n\n现在切到「新人视角」试试问 Bot：工卡、VPN、报销、加班 等问题，Bot 会引用知识库回答。`);
+}
+
+function renderKBList() {
+  const list = document.getElementById('kbList');
+  if (knowledgeBase.length === 0) {
+    list.innerHTML = '<div class="kb-empty">📚 知识库为空 · 上传或填入文档让 Bot 学习</div>';
+  } else {
+    list.innerHTML = knowledgeBase.map(d => `
+      <div class="kb-doc">
+        <div class="kb-doc-del" onclick="deleteKBDoc('${d.id}')">×</div>
+        <div class="kb-doc-icon">${d.icon||'📄'}</div>
+        <div class="kb-doc-title">${d.title}</div>
+        <div class="kb-doc-meta">
+          <span class="kb-doc-tag">${d.type}</span>
+          <span>${d.chunks.length} 片段</span>
+          <span>· 引用 ${d.hits} 次</span>
+        </div>
+        <div class="kb-doc-meta" style="margin-top:4px">📅 ${d.addedAt} · ${d.source||'手动'}</div>
+      </div>
+    `).join('');
+  }
+  updateKBBadges();
+}
+
+function deleteKBDoc(id) {
+  if (!confirm('确认从知识库删除此文档？')) return;
+  knowledgeBase = knowledgeBase.filter(d => d.id !== id);
+  renderKBList();
+}
+
+function updateKBBadges() {
+  const totalChunks = knowledgeBase.reduce((s,d)=>s+d.chunks.length,0);
+  const totalHits = knowledgeBase.reduce((s,d)=>s+d.hits,0);
+  document.getElementById('kbCountBadge').textContent = `知识库 ${knowledgeBase.length} 份`;
+  document.getElementById('kbDocCount').textContent = knowledgeBase.length;
+  document.getElementById('kbChunkCount').textContent = totalChunks;
+  document.getElementById('kbHitCount').textContent = totalHits;
+  const chatInd = document.getElementById('kbChatIndicator');
+  if (chatInd) chatInd.textContent = `📚 已引用 ${totalChunks} 知识片段`;
+}
+
+// ============================== CHAT (含 KB 引用) ==============================
+function searchKB(query) {
+  const q = query.toLowerCase();
+  const results = [];
+  knowledgeBase.forEach(doc => {
+    doc.chunks.forEach(chunk => {
+      if (chunk.kw.some(k => q.includes(k.toLowerCase())) || chunk.text.toLowerCase().includes(q)) {
+        results.push({doc, chunk, score: chunk.kw.filter(k => q.includes(k.toLowerCase())).length});
+        doc.hits++;
+        kbHitCounter++;
+      }
+    });
+  });
+  results.sort((a,b) => b.score - a.score);
+  if (results.length > 0) updateKBBadges();
+  return results.slice(0, 2); // 最多返回 2 个引用
+}
+
+// ============================== EMPLOYEE VIEW ==============================
+function renderEmployee() {
+  const e = currentEmployee;
+  const prog = calcProgress(e);
+  const match = e.matchResult;
+  const overdue = getOverdueCount(e);
+  const deptCls = getDeptTagClass(e.dept);
+  currentPhase = getCurrentPhase(e);  // 同步到当前阶段
+
+  // Reminders
+  const reminders = [];
+  if(overdue>0) reminders.push({cls:'warn',icon:'⚠️',text:`你有 ${overdue} 项逾期任务，请尽快完成！点击「现在」查看详情`});
+  if(match.overallPct<60) reminders.push({cls:'info',icon:'💡',text:`JD匹配度 ${match.overallPct}%，优先补齐：${match.gaps.slice(0,3).join('、')}`});
+  reminders.push({cls:'info',icon:'📋',text:`本周重点：${e.tasks.week2_4.filter(t=>!t.done&&t.tag==='gap-task').slice(0,2).map(t=>t.name).join('、')||'按计划推进'}`});
+  reminders.push({cls:'ok',icon:'📅',text:`导师面谈提醒：${e.tasks.week2_4.find(t=>t.name.includes('面谈'))?'第7天与 '+e.mentor+' 面谈':'按计划安排'}`});
+  if(prog.pct<30) reminders.push({cls:'warn',icon:'📊',text:`任务完成率仅 ${prog.pct}%，注意节奏！`});
+
+  const faqs = getPersonalizedFaq(e);
+
+  const contacts = [
+    {avatar:'👨‍💻',name:e.mentor,role:'导师 · 技术指导',dept:e.dept},
+    {avatar:'👩‍💼',name:e.hr,role:'HR · 入职流程',dept:'人力资源'},
+    {avatar:'🛠️',name:'IT服务台',role:'技术支持 · VPN/设备',dept:'TEG'},
+  ];
+
+  const phases = [
+    {key:'week1',title:'第1周 · 入职融入',tasks:e.tasks.week1},
+    {key:'week2_4',title:'第2-4周 · 实战+补齐',tasks:e.tasks.week2_4},
+    {key:'week5_30',title:'第5-30天 · 独立担当',tasks:e.tasks.week5_30}
+  ];
+
+  const contentDiv = document.getElementById('empContent');
+  contentDiv.innerHTML = `
+    ${renderNowCard(e)}
+    
+    <!-- HERO -->
+    <div class="ne-hero">
+      <div class="ne-hero-name">${e.name}</div>
+      <div class="ne-hero-info">${e.dept} · ${e.pos}</div>
+      <div class="ne-hero-day">你正在实习 · 今天是入职第 <b>${e.currentDay}</b> 天</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:10px">
+        <div><div class="ne-hero-pct">${prog.pct}%</div><div style="font-size:11px;opacity:.8">任务完成率</div></div>
+        <div><div class="ne-hero-pct">${match.overallPct}%</div><div style="font-size:11px;opacity:.8">JD匹配度</div></div>
+        <div style="flex:1"><div class="ne-hero-bar"><div style="width:${prog.pct}%;height:100%;background:#fff;border-radius:5px"></div></div></div>
+      </div>
+    </div>
+
+    <!-- SKILL PROFILE -->
+    <div class="ne-profile">
+      <div class="ne-profile-title">🎯 我的技能画像</div>
+      <div class="ne-profile-grid">
+        <div class="ne-profile-card match"><div class="npc-val" style="color:#185FA5">${match.overallPct}%</div><div class="npc-label">JD匹配度</div></div>
+        <div class="ne-profile-card gap"><div class="npc-val" style="color:#712B13">${match.gaps.length}</div><div class="npc-label">技能缺口数</div></div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;font-weight:600;color:#1d1d1f">已匹配技能</div>
+      <div class="ne-skills-row">${match.matchedRequired.map(s=>`<span class="ne-skill-tag match">✓ ${s}</span>`).join('')}</div>
+      <div style="margin-top:8px;font-size:12px;font-weight:600;color:#1d1d1f">缺口技能</div>
+      <div class="ne-skills-row">${match.gaps.map(s=>`<span class="ne-skill-tag gap">⚠ ${s}</span>`).join('')}</div>
+      <div class="ne-resume">简历摘要：${e.resume.summary}</div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="ne-task-section">
+      <div style="font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:12px">📋 我的任务清单</div>
+      <div class="ne-phase-tabs">${phases.map(p=>{
+        const ppct = Math.round(p.tasks.filter(t=>t.done).length/p.tasks.length*100);
+        return `<button class="ne-phase-tab${currentPhase===p.key?' active':''}" onclick="currentPhase='${p.key}';renderEmployee()">${p.title.split('·')[0]}（${ppct}%）</button>`;
+      }).join('')}</div>
+      ${(() => {
+        const cp = phases.find(p=>p.key===currentPhase);
+        const cpct = Math.round(cp.tasks.filter(t=>t.done).length/cp.tasks.length*100);
+        return `<div class="ne-phase-pct">${cp.title} — 完成 ${cpct}%</div>
+        ${cp.tasks.map(t=>{
+          const tagLabel = t.tag==='gap-task'?'缺口补齐':t.tag==='biz-task'?'业务实战':t.tag==='required'?'必做':'可选';
+          return `<div class="ne-task-item" onclick="toggleTask('${e.id}','${currentPhase}',${cp.tasks.indexOf(t)})">
+            <span class="ne-task-check ${t.done?'done':'pending'}">${t.done?'✓':''}</span>
+            <span class="ne-task-name ${t.done?'done':''}">${t.name}</span>
+            <span class="ne-task-tag ${t.tag}">${tagLabel}</span>
+            <span class="ne-task-due" style="font-size:11px;color:#86868b">${t.due}</span>
+          </div>`;
+        }).join('')}`;
+      })()}
+    </div>
+
+    <!-- REMINDERS -->
+    <div class="ne-remind">
+      <div class="ne-remind-title">🔔 每日提醒</div>
+      ${reminders.map(r=>`<div class="ne-remind-item ${r.cls}">${r.icon} ${r.text}</div>`).join('')}
+    </div>
+
+    <!-- CONTACTS -->
+    <div class="ne-contacts">
+      <div class="ne-contacts-title">👥 重要联系人</div>
+      ${contacts.map(c=>`<div class="ne-contact"><div class="nc-avatar">${c.avatar}</div><div><div class="nc-name">${c.name}</div><div class="nc-role">${c.role}</div><div class="nc-dept">${c.dept}</div></div></div>`).join('')}
+    </div>
+
+    <!-- FAQ -->
+    <div class="ne-faq">
+      <div class="ne-faq-title">❓ 常见问题（个性化）</div>
+      ${faqs.map(f=>`<div class="ne-faq-item" onclick="this.classList.toggle('open')"><div class="ne-faq-q">${f.q}</div><div class="ne-faq-a">${f.a}</div></div>`).join('')}
+    </div>
+
+    <!-- CHAT -->
+    <div class="ne-chat">
+      <div class="ne-chat-title">💬 智能问答 <span class="kb-indicator" id="kbChatIndicator">📚 已学习 ${knowledgeBase.length} 份知识</span></div>
+      <div class="ne-chat-log" id="chatLog"></div>
+      <div class="ne-chat-input">
+        <input id="chatInput" placeholder="试试问：工卡怎么办？VPN 连不上？报销流程？" onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">发送</button>
+      </div>
+    </div>`;
+}
+
+function toggleTask(empId, phase, taskIdx) {
+  const emp = newEmployees.find(e=>e.id===empId);
+  const tasks = phase==='week1'?emp.tasks.week1:phase==='week2_4'?emp.tasks.week2_4:emp.tasks.week5_30;
+  tasks[taskIdx].done = !tasks[taskIdx].done;
+  renderEmployee();
+  if(currentRole==='manager') renderManager();
+}
+
+function getPersonalizedFaq(emp) {
+  const match = emp.matchResult;
+  const baseFaq = [
+    {q:'年假怎么算？',a:'实习生没有年假。转正后按入职时间计算：满1年起每年5天，满5年起10天，满10年起15天。'},
+    {q:'入职体检报告怎么交？',a:'入职后5天内提交到HR系统 → oa.tencent.com → 我的入职 → 体检报告上传。'},
+    {q:'VPN怎么配置？',a:'下载TencentVPN → 工卡号+初始密码 → 绑定手机号。连不上打8888。'},
+    {q:'加班怎么申请？',a:'OA考勤管理 → 加班申请 → 导师审批。实习生月不超过20小时。'},
+    {q:'转正需要什么条件？',a:'任务完成率≥80%、导师评估≥B级、30天自评+导师报告提交完整。'},
+    {q:'公司食堂在哪？',a:'B1层员工餐厅，午餐11:30-13:00。实习生每天30元餐补。'},
+    {q:'报销流程是什么？',a:'OA → 费用管理 → 报销申请 → 上传发票 → 导师审批 → 5-7天打款。'},
+    {q:'如何提交代码PR？',a:'创建feature分支 → 开发 → Pull Request → 导师Review → 合并。'},
+  ];
+  const gapFaqs = match.gaps.slice(0,3).map(g => ({q:`「${g}」怎么快速上手？`,a:`这是你JD中的核心技能缺口。建议：阅读内部培训文档 → 跟导师1对1 → 完成任务清单的缺口补齐任务。目前匹配度${match.overallPct}%。`}));
+  const bizFaqs = [{q:`「${emp.dept}」的核心业务是什么？`,a:`${emp.jd.title}岗位要求你深入理解${emp.dept}的业务场景。建议先读《业务全景图》文档，再跟导师了解当前重点项目。`}];
+  return [...gapFaqs, ...bizFaqs, ...baseFaq.slice(0,5)];
+}
+
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const q = input.value.trim();
+  if(!q) return;
+  input.value = '';
+  const log = window._chatLog || [];
+  log.push({role:'user', text:q});
+  
+  // 先查知识库
+  const kbResults = searchKB(q);
+  let answer;
+  let quotedChunks = [];
+  
+  if (kbResults.length > 0) {
+    // 有 KB 命中
+    answer = `📚 根据知识库回答：\n\n${kbResults.map(r => r.chunk.text).join('\n\n')}`;
+    quotedChunks = kbResults.map(r => ({text: r.chunk.text.slice(0,60)+'...', title: r.doc.title}));
+  } else {
+    // 退回到规则匹配
+    const e = currentEmployee;
+    const match = e.matchResult;
+    const responses = {
+      '年假':'实习生暂无年假。转正后按入职时间计算。',
+      'VPN':'下载TencentVPN → 工卡号+初始密码 → 绑定手机号。',
+      '加班':'OA考勤管理 → 加班申请 → 导师审批。',
+      '导师':`你的导师是${e.mentor}，主要负责技术方向指导、任务分配和面谈评估。`,
+      '匹配':`当前JD匹配度${match.overallPct}%。核心缺口：${match.gaps.join('、')}。补齐后预计提升到${Math.min(match.overallPct+25,95)}%。`,
+      '缺口':`技能缺口：${match.gaps.join('、')}。优先补齐：${match.gaps.slice(0,2).join(' → ')}，对业务产出影响最大。`,
+      '任务':'个性化任务来自：通用入职流程、JD缺口补齐、业务实战分配。',
+      '现在':`你当前入职第 ${e.currentDay} 天，建议优先：\n1. 完成上方 P0 紧急任务\n2. 补齐 ${match.gaps[0]||'核心缺口'}\n3. 查看「现在」卡片有完整建议`
+    };
+    answer = responses['默认'] = `暂时没有标准答案，建议咨询${e.mentor}或${e.hr}。我已记录，后续会补充到知识库。\n\n💡 提示：你可以在管理者端「📚 知识库」tab 上传 FAQ/培训文档/工作手册，Bot 就能基于这些内容精准回答。`;
+    // 简单匹配
+    for (const key in responses) {
+      if (q.toLowerCase().includes(key.toLowerCase())) { answer = responses[key]; break; }
+    }
+  }
+  
+  log.push({role:'bot', text:answer, quoted:quotedChunks});
+  window._chatLog = log;
+  
+  const logDiv = document.getElementById('chatLog');
+  logDiv.innerHTML = log.map(m => {
+    const quoteHTML = m.quoted && m.quoted.length > 0 
+      ? `<div class="kb-quote">📎 引用：${m.quoted.map(q => q.title).join('、')}</div>` 
+      : '';
+    return `<div class="ne-chat-msg ${m.role}">${m.role==='user'?'我：':'Bot：'}${m.text.replace(/\n/g, '<br>')}${quoteHTML}</div>`;
+  }).join('');
+  logDiv.scrollTop = logDiv.scrollHeight;
+}
+
+// ============================== INIT ==============================
+updateDeptFilterOptions();
+renderKBList();
+renderManager();
+</script>
+</body>
+</html>
