@@ -784,7 +784,7 @@
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <span style="font-size:12.5px;font-weight:800;color:var(--blue);background:var(--bg2);padding:4px 11px;border-radius:999px;flex:none">客户真正在乎</span>
           <div style="display:flex;gap:12px;flex:1;flex-wrap:wrap">
-            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">合规</b><span style="font-size:11.5px;color:var(--gray)"> · 等保2.0二级+ / TARA</span></div>
+            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">合规</b><span style="font-size:11.5px;color:var(--gray)"> · 等保2.0二级 / 支持TARA落地</span></div>
             <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">算力</b><span style="font-size:11.5px;color:var(--gray)"> · OpenVLA / GPU 利用率</span></div>
             <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">实时数据</b><span style="font-size:11.5px;color:var(--gray)"> · 零长效凭证 / 阻断入站</span></div>
             <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">成本 SLA</b><span style="font-size:11.5px;color:var(--gray)"> · 20TB→2PB / 最小计量</span></div>
@@ -992,7 +992,7 @@
               <span class="chip" style="font-size:9.5px">TCLake + Lance</span>
             </div>
             <div style="margin-top:auto;font-size:10.5px;color:var(--dark);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px">
-              <b style="color:var(--cyan)">阿里/火山目前无此能力</b>，但友商强在训练工具链；客户 3–4 月已试用，加分项
+              <b style="color:var(--cyan)">友商也有同角色平台</b>（阿里 PAI / 火山百炼），各有所长；客户 3–4 月已试用艾欧，加分项
             </div>
           </div>
 
@@ -1045,7 +1045,7 @@
               <b style="font-size:14px;color:var(--dark)">从数据量反推工程规模：先立标尺，再比方案</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">量化 = 议价能力</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">320GB/天 → 255 视频小时 → 91.6 万张/天 → <b style="color:var(--blue)">31.8 QPS（8h 窗口）</b>作统一验收标尺，5 个候选方案同标尺配台数再比价。SA9e 靠 AVX-512 + 4.1GHz 全核睿频，POC 实测端到端吞吐 <b style="color:var(--blue)">+53.1%</b>、P99 <b style="color:var(--blue)">-34.4%</b>、达标台数 4→3。立了标尺才看清<b style="color:var(--blue)">最大降本杠杆在业务侧</b>：抽帧 1fps→0.2fps，脱敏费 34.4 万→6.9 万。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">320GB/天 → 255 视频小时 → 91.6 万张/天 → <b style="color:var(--blue)">31.8 QPS（8h 处理窗口）</b>作统一验收标尺，5 个候选方案同标尺配台数再比价。SA9e 靠 AVX-512 + 4.1GHz 全核睿频，POC 实测端到端吞吐 <b style="color:var(--blue)">+53.1%</b>、P99 <b style="color:var(--blue)">-34.4%</b>、达标台数 4→3。立了标尺才看清<b style="color:var(--blue)">最大降本杠杆在业务侧</b>：抽帧 1fps→0.2fps，脱敏费 34.4 万→6.9 万。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
@@ -1080,7 +1080,7 @@
               <b style="font-size:14px;color:var(--dark)">护城河在生态绑定，不在算法精度</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">Robotics X 实验室 7 年</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">核心优势不是 COS 存储本身，而是盖在它上面的<b style="color:var(--blue)">多模态数据湖</b>（视频/点云/传感器统一纳管 + 索引 + 向量检索 + Lance）。打码算法与友商、开源基本持平，<b style="color:var(--dark)">打码只是数据湖的一个环节亮点</b>（上传即自动触发脱敏）；实验室 7 年用自家产品打磨出垂直场景能力——<b>友商强在训练工具链，腾讯强在多模态数据湖 + 垂直场景</b>。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">核心优势是 COS 存储基础上的<b style="color:var(--blue)">多模态数据湖</b>（视频/点云/传感器统一纳管 + 索引 + 向量检索 + Lance）。打码算法与友商、开源基本持平，<b style="color:var(--dark)">只是数据湖的环节亮点</b>（上传触发脱敏）；同时，腾讯也强在<b style="color:var(--dark)">实验室 7 年用自家产品打磨出垂直场景能力</b>。</p>
           </div>
 
         </div>
@@ -1104,7 +1104,7 @@
               </div>
             </div>
             <div style="font-size:11px;color:var(--gray);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:7px">
-              具身模型实测：PI0.5 达 A800 <b style="color:var(--dark)">83%</b>、LingBot-VLA 与 H20 持平、ACT 单卡推理超 H20 <b style="color:var(--dark)">12%</b>；OpenVLA-7B MFU <b style="color:var(--dark)">38%–48%</b> <span style="color:#B8860B;font-weight:800">（★ 预估，非 SLA 承诺值）</span>
+              具身模型实测（海光 BW1000）：PI0.5 达 A800 的 <b style="color:var(--dark)">83%</b>、LingBot-VLA 与 H20 持平、ACT 单卡推理超 H20 <b style="color:var(--dark)">12%</b>；OpenVLA-7B MFU <b style="color:var(--dark)">38%–48%</b> <span style="color:#B8860B;font-weight:800">（★ 预估，非 SLA 承诺值）</span>
             </div>
             <div style="font-size:10.5px;color:var(--dark);line-height:1.5;background:var(--bg2);border-radius:8px;padding:7px 9px">
               <b style="color:var(--blue)">本期为四卡规模、走 VPC 而非 RDMA</b>：因是小模型微调而非大模型预训练，通信不构成瓶颈；3.2Tbps RDMA 机型作规模化预留 —— <b>按负载选型，不是能力缺失</b>
@@ -1119,7 +1119,7 @@
             </div>
             <div class="krow" style="gap:9px">
               <span class="klabel" style="min-width:52px;font-size:11px">定 SLA</span>
-              <span class="kval" style="font-size:11.5px;line-height:1.45">S1 响应 ≤30min / 2h 止损 / 5 工作日复盘；<b>产品 SLA 与服务 SLA 分开签</b></span>
+              <span class="kval" style="font-size:11.5px;line-height:1.45">S1 响应 ≤30min / 2h 止损 / 4h 恢复 / 5 工作日复盘；<b>产品 SLA 与服务 SLA 分开签</b></span>
             </div>
             <div class="krow" style="gap:9px">
               <span class="klabel" style="min-width:52px;font-size:11px">排里程碑</span>
