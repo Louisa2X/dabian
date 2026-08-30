@@ -1045,7 +1045,7 @@
               <b style="font-size:14px;color:var(--dark)">从数据量反推工程规模：先立标尺，再比方案</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">量化 = 议价能力</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">320GB/天 → 255 视频小时 → 91.6 万张/天 → <b style="color:var(--blue)">31.8 QPS（按 8h 处理窗口折算）</b>作统一验收标尺，5 个候选方案同标尺配台数再比价。SA9e 靠 AVX-512 + 4.1GHz 全核睿频，POC 实测端到端吞吐 <b style="color:var(--blue)">+53.1%</b>、P99 <b style="color:var(--blue)">-34.4%</b>、达标台数 4→3。立了标尺才看清<b style="color:var(--blue)">最大降本杠杆在业务侧</b>：抽帧 1fps→0.2fps，脱敏费 34.4 万→6.9 万。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">320GB/天 → 255 视频小时 → 91.6 万张/天 → <b style="color:var(--blue)">31.8 QPS（按 8h 处理窗口折算）</b>作统一验收标尺，5 个候选方案同标尺配台数再比价。SA9e 靠 AVX-512 + 4.1GHz 全核睿频，POC 实测端到端吞吐 <b style="color:var(--blue)">+53.1%</b>、P99 <b style="color:var(--blue)">-34.4%</b>、达标台数 4→3（单实例吞吐 8.1→12.4 帧/s）。立了标尺才看清<b style="color:var(--blue)">最大降本杠杆在业务侧</b>：抽帧 1fps→0.2fps，脱敏费 34.4 万→6.9 万。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
