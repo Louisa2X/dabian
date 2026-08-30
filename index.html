@@ -1157,20 +1157,20 @@
         <div class="cols" style="flex:none">
           <div class="col" style="flex:1">
             <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
-              <div style="font-size:13px;font-weight:800;color:var(--blue)">① 下层 · 数据湖存储</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">COS 底座 + Iceberg / Lance + TCLake；Ray / Spark / Trino 等 8 场景全跑通，S3A 绕行 cosn。</p>
+              <div style="font-size:13px;font-weight:800;color:var(--blue)">① 下层 · 存储与数据组织</div>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">COS 承载数据，Iceberg / Lance 组织表格式，TCLake 管理元数据与权限；Ray 训练 / Spark ETL / Trino 交互查询等 8 类负载已验证，经 S3A 兼容协议接入（PyIceberg 不兼容 cosn）。</p>
             </div>
           </div>
           <div class="col" style="flex:1">
             <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
               <div style="font-size:13px;font-weight:800;color:var(--blue)">② 中层 · 流湖一体升级</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">Setats + Doris，替代「Parquet 直写 + ClickHouse 孤岛」，流批统一、秒级联邦查询。</p>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">Setats + Doris 替代「Parquet 直写 + ClickHouse 孤岛」：流批统一处理实时与离线，联邦查询跨湖仓与外部数据源。</p>
             </div>
           </div>
           <div class="col" style="flex:1">
             <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
               <div style="font-size:13px;font-weight:800;color:var(--blue)">③ 上层 · 黑灯工厂 DataBuddy</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模让 NL2SQL 65%→95%。</p>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模让 NL2SQL 结果一致率 65%→95%。</p>
             </div>
           </div>
         </div>
@@ -1179,7 +1179,7 @@
           <div class="fnode">
             <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">存</div>
             <div class="t" style="font-size:15px">COS 对象存储</div>
-            <div style="font-size:12px;color:var(--gray)">S3A 绕行 cosn</div>
+            <div style="font-size:12px;color:var(--gray)">S3A 兼容接入</div>
           </div>
           <div class="farrow" style="font-size:20px">›</div>
           <div class="fnode">
@@ -1219,28 +1219,28 @@
           <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
             <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">6万<span style="font-size:14px">QPS</span></div>
             <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">Lance 随机读能力</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">客户诉求 · 高性能层 Range Get</div>
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">高性能层读取目标</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">客户 6 万 QPS 诉求 · 非实测</div>
             </div>
           </div>
           <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
             <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">9.1万<span style="font-size:14px">TPS</span></div>
             <div style="flex:1;line-height:1.35;min-width:0">
               <div style="font-size:12.5px;font-weight:800;color:var(--dark)">Setats 写入吞吐</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">阿维塔车机信号实测</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">阿维塔实测 · 5731 字段 / 20 亿行分 4 表</div>
             </div>
           </div>
           <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
             <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">+30<span style="font-size:14px">pt</span></div>
             <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 准确率跃迁</div>
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 结果一致率跃迁</div>
               <div style="font-size:10.5px;color:var(--gray);margin-top:2px">本体建模 65% → 95%</div>
             </div>
           </div>
         </div>
 
         <div class="gradbar" style="background:transparent;padding:0;margin-top:14px">
-          <p style="color:#0F6E56;font-size:15px;line-height:1.6"><b>黑灯工厂（DataBuddy）</b>是上层 AI 工作台，<b>数据湖（COS/TCLake）</b>是下层存储底座，<b>语义层</b>是串起两者的统一口径——一套底座同时支撑业务查询与 AI 训练。</p>
+          <p style="color:#0F6E56;font-size:15px;line-height:1.6"><b>以 COS 承载数据</b>，以 <b>Iceberg/Lance 组织不同访问模式的数据集</b>，以 <b>TCLake 统一管理目录、权限与计算</b>，再通过<b>语义层</b>向业务查询与 AI 训练提供一致的数据口径。</p>
         </div>
       </div>
     </div>
@@ -1284,14 +1284,14 @@
               <h3 style="font-size:16px;font-weight:800;color:var(--dark)">研发：数据闭环</h3>
             </div>
             <div style="flex:none;background:var(--bg2);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--dark);line-height:1.4">
-              三阶段痛点：采集/标注低效 → 场景难积累 → <b>99%→99.99% corner case 难采</b>；人工标注 <b>17 元/帧·3 帧/人天，50W 帧≈850 万·16.7W 人天</b>
+              三阶段痛点：采集/标注低效 → 场景难积累 → 常见场景覆盖至 99% 后长尾样本边际成本快速上升，向 99.99% 迈进时瓶颈转向 <b>corner case 发现与筛选</b>；人工标注 <b>17 元/帧·3 帧/人天，50W 帧≈850 万·16.7W 人天</b>
             </div>
             <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-height:0;font-size:11.5px;color:var(--dark)">
               <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--cyan);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">1</span><span><b>4D 动态标注</b><span style="color:var(--gray)"> 激光+视觉融合，160→300 帧/人天</span></span></div>
-              <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--cyan);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">2</span><span><b>激光分割 / OCC 真值</b><span style="color:var(--gray)"> 点云语义 / 占有网络 GT</span></span></div>
+              <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--cyan);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">2</span><span><b>激光分割 / OCC 真值</b><span style="color:var(--gray)"> 点云语义生成 OCC GT（自动预标注 · 经复核）</span></span></div>
               <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--cyan);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">3</span><span><b>静态真值生成</b><span style="color:var(--gray)"> HD Map 母库，10×效率·90%↓成本</span></span></div>
               <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--cyan);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">4</span><span><b>场景样本挖掘</b><span style="color:var(--gray)"> 文搜图/视频 + VLM 行为分析</span></span></div>
-              <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--gold);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">★</span><span><b>场景重建编辑</b><span style="color:var(--gray)"> 3DGS 静态 + 4DGS 动态 + NVS（重点补讲）</span></span></div>
+              <div style="display:flex;align-items:center;gap:7px"><span style="flex:none;width:17px;height:17px;border-radius:5px;background:var(--gold);color:#fff;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center">★</span><span><b>场景重建编辑</b><span style="color:var(--gray)"> 3DGS 静态 + 4DGS 动态 + NVS 视觉重建；闭环仿真另需几何/语义/动力学/传感器模型</span></span></div>
             </div>
             <div style="flex:none;font-size:11px;color:var(--gray);line-height:1.4">核心价值：<b style="color:var(--cyan)">自主可控</b>——全自研闭环 + 领先自动标注/挖掘。</div>
           </div>
@@ -1305,7 +1305,7 @@
               文眼：研发解决<b>「能不能造出来」</b>；运营解决<b>「能不能变现 & 长期安全跑」</b>。
             </div>
             <div style="flex:none;display:grid;grid-template-columns:1fr 1fr;gap:3px 14px;font-size:10.5px;color:var(--dark)">
-              <div><b>回传</b> GB/TB→<b>PB/EB·百万并发</b></div>
+              <div><b>回传</b> 单车 GB/TB 级→<b>车队 PB 级治理</b></div>
               <div><b>算力</b> 百卡→<b>万卡池化</b></div>
               <div><b>处理</b> 人工→<b>大模型流水线</b></div>
               <div><b>分析</b> 规则→<b>Agent 洞察</b></div>
@@ -1349,7 +1349,7 @@
               </div>
               <div style="font-size:11.5px;color:var(--gray);line-height:1.55">
                 <b style="color:var(--dark)">「双进」</b> 专线（实时）<b style="color:var(--dark)"> + </b>硬盘上云（批量，几十 TB/次）
-                <br/><b style="color:var(--dark)">「单出」</b> 专线回流 → <b>HIL</b>（硬件在环）= 算法上车前的最后一道关卡
+                <br/><b style="color:var(--dark)">「单出」</b> 专线回流 → <b>HIL</b>（硬件在环）= 算法进入实车测试与发布流程前的重要验证环节之一
               </div>
             </div>
           </div>
@@ -1358,7 +1358,7 @@
 
       <!-- 底部一行：心得 -->
       <div class="gradbar" style="background:transparent;padding:0;margin-top:10px">
-        <p style="color:#0F6E56;font-size:15px;line-height:1.6">数据闭环平台<b style="font-weight:800">把数据高效变模型</b>，自动驾驶运营<b style="font-weight:800">让量产车持续迭代</b>，全程由合规云（专线 / CVD / CAAS / 双进单出）<b style="font-weight:800">兜底</b>。</p>
+        <p style="color:#0F6E56;font-size:15px;line-height:1.6">数据闭环平台<b style="font-weight:800">把数据高效变模型</b>，自动驾驶运营<b style="font-weight:800">让量产车持续迭代</b>，通过专线、CVD 脱敏处理、CAAS 合规专区及受控数据回流机制，为全链路数据安全与合规提供基础设施支撑。</p>
       </div>
     </div>
   </section>
