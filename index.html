@@ -1388,10 +1388,10 @@
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
             <div style="display:flex;align-items:baseline;gap:8px">
               <span style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:1px">01</span>
-              <b style="font-size:14px;color:var(--dark)">架构怎么读：1 核心 + 2 双脑 + 3 维感知 + 4 项支撑</b>
+              <b style="font-size:14px;color:var(--dark)">架构怎么读：1 个协同核心 + 端云双脑 + 3 类感知输入 + 4 项平台支撑</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">先找大脑，再看派单</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">端云协同为核心；端侧 Master 管离线 NLU、云侧 Master 管意图仲裁与长期记忆；语音（声纹）+ 视觉（DMS/OMS）+ 车身数据三维感知；芯片适配 / DAG 编排 / S2S 情感语音 / TI-One 四项支撑。<b style="color:var(--cyan)">子 Agent 各自独立记忆、互不干扰</b>是 2.0 的核心架构升级。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">端云协同为核心；端侧 Master 负责低时延、离线可完成的意图识别与控制，云侧 Master 负责复杂意图编排、跨服务协同与长期记忆；语音（声纹）+ 视觉（DMS/OMS）+ 车身数据三维感知；芯片适配 / DAG 编排 / S2S 情感语音 / TI-One 四项支撑。<b style="color:var(--cyan)">子 Agent 各自拥有独立记忆空间、相互隔离</b>是 2.0 的核心架构升级。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
@@ -1400,7 +1400,7 @@
               <b style="font-size:14px;color:var(--dark)">能力 vs 边界：升级了体验，没突破天花板</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">本次最大洞察</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">2.0 真升级：TTS 更拟人 · <b>并行任务（ASR 与执行解耦）</b> · 反应快很多。但能力边界没变 —— 根因是微信小程序框架<b style="color:var(--cyan)">不开放「拿元素 + 坐标 + 主动点击」</b>，只能模拟人操作走写死路径，页面一改版就得人工后台改。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">2.0 真升级：TTS 更拟人 · <b>并行任务（ASR 与执行解耦）</b> · 反应快很多。但能力边界没变 —— 根因是微信小程序框架<b style="color:var(--cyan)">受沙箱、页面结构暴露程度与主动交互权限限制，难以稳定获取可操作元素、坐标与主动点击能力</b>，只能模拟人操作走写死路径，页面一改版就得人工后台改。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
@@ -1409,7 +1409,7 @@
               <b style="font-size:14px;color:var(--dark)">两条路径的取舍：GUI 模拟 vs API 直连</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">能上 API 就上 API</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">路径 A 小程序 GUI 模拟：拉起页面逐步抓坐标点击，慢、易被改版破坏，覆盖电影/生活/出行（当前主流）。路径 B <b style="color:var(--cyan)">API 后台直连</b>：绕过页面直调商家接口，快且可一次说完，目前仅瑞幸/麦当劳/肯德基三家（未来主攻）。生活类仍需 GUI 作补充。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">路径 A 小程序 GUI 模拟：覆盖面广（电影/生活/出行，当前主流），但对页面改版敏感、稳定性与可审计性较弱。路径 B <b style="color:var(--cyan)">API 后台直连</b>：需逐家完成商务与接口接入，但链路更稳定、可明确授权与结果确认，目前仅瑞幸/麦当劳/肯德基三家（未来主攻）。生活类场景可用 GUI 作补充。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
@@ -1418,7 +1418,7 @@
               <b style="font-size:14px;color:var(--dark)">放回竞争格局看：边界是选出来的</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">战略选择 ≠ 能力短板</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">腾讯公开战略是<b style="color:var(--cyan)">「尊重边界：不碰车控、不做 OS」</b>，用生态独占 + 开放接口换更广连接。斑马能细粒度调用，是因为 AliOS 与支付宝小程序同属<b>阿里系</b>、权限自主 —— 差距在<b>「权限链」</b>，不在技术水平。三家 Agent 架构已趋同（都是 1 总控 + N 垂域）。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">腾讯当前战略是<b style="color:var(--cyan)">「尊重边界：不碰车控」</b>，座舱领域以生态服务、智能体、地图内容及云能力为核心定位，不以自研整车操作系统作为主攻路径，用生态独占 + 开放接口换更广连接。斑马能细粒度调用，是因为 AliOS 与支付宝小程序同属<b>阿里系</b>、权限自主 —— 差距在<b>「权限链」</b>，不在技术水平。三家 Agent 架构已趋同（都是 1 总控 + N 垂域）。</p>
           </div>
         </div>
 
@@ -1476,7 +1476,7 @@
       </div>
 
       <div style="margin-top:11px;flex:none;font-size:15px;line-height:1.6;color:#0F6E56">
-        <b style="font-weight:800">微信生态是最大优势，也是最大天花板</b> —— 同一个东西既是护城河又是枷锁。
+        <b style="font-weight:800">微信生态构成腾讯座舱的重要差异化优势，但其开放边界也决定了部分 Agent 能力的实现上限</b>。
       </div>
     </div>
   </section>
