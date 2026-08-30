@@ -1051,7 +1051,7 @@
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
             <div style="display:flex;align-items:baseline;gap:8px">
               <span style="font-size:11px;font-weight:800;color:var(--blue);letter-spacing:1px">03</span>
-              <b style="font-size:14px;color:var(--dark)">按负载选表格式：Lance 而非 Iceberg</b>
+              <b style="font-size:14px;color:var(--dark)">按负载选表格式：训练采样用 Lance，分析用 Iceberg</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">训练要随机采样</span>
             </div>
             <p style="font-size:12px;color:var(--gray);line-height:1.5">Parquet 的 row group 为顺序扫优化，而 ML 训练每 step 随机采样。Lance 零散单行随机读<b style="color:var(--blue)">快约 100×</b>，向量索引原生内嵌、多模态为一等公民类型。结构化 PLC 数据仍交 Iceberg —— <b>同一 Catalog 下分工互补</b>。</p>
