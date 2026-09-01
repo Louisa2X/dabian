@@ -1054,7 +1054,7 @@
               <b style="font-size:14px;color:var(--dark)">按负载选表格式：训练采样用 Lance，分析用 Iceberg</b>
               <span style="font-size:10.5px;color:var(--gray);margin-left:auto">训练要随机采样</span>
             </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">Parquet 的 row group 为顺序扫优化，而 ML 训练每 step 随机采样。Lance 零散单行随机读<b style="color:var(--blue)">快约 100×</b>，向量索引原生内嵌、多模态为一等公民类型。结构化 PLC 数据仍交 Iceberg —— <b>同一 Catalog 下分工互补</b>。</p>
+            <p style="font-size:12px;color:var(--gray);line-height:1.5">Parquet 的 row group 为顺序扫优化，而 ML 训练每 step 随机采样。Lance 零散单行随机读<b style="color:var(--blue)">接近本地 NVMe SSD 性能</b>，向量索引原生内嵌、多模态为一等公民类型。结构化 PLC 数据仍交 Iceberg —— <b>同一 Catalog 下分工互补</b>。</p>
           </div>
 
           <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
@@ -1170,7 +1170,7 @@
           <div class="col" style="flex:1">
             <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
               <div style="font-size:13px;font-weight:800;color:var(--blue)">③ 上层 · 黑灯工厂 DataBuddy</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模让 NL2SQL 结果一致率 65%→95%。</p>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模建立统一语义口径，显著提升 NL2SQL 查询准确率、降低幻觉。</p>
             </div>
           </div>
         </div>
@@ -1231,10 +1231,10 @@
             </div>
           </div>
           <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">+30<span style="font-size:14px">pt</span></div>
+            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">↓<span style="font-size:14px">幻觉</span></div>
             <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 结果一致率跃迁</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">本体建模 65% → 95%</div>
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 查数更准</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">本体建模统一语义口径 · 降幻觉</div>
             </div>
           </div>
         </div>
