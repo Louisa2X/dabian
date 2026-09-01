@@ -959,6 +959,9 @@
             <div style="font-size:10.5px;color:var(--gray);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px;margin-top:6px;flex:none">
               数据<b style="color:var(--blue)">只进不出</b>：端侧盲写 + 出站轮询，云侧无需开放入站端口；双桶隔离依赖 IAM/CAM 权限与 KMS 密钥，对外交付走<b style="color:#0F6E56">独立暂存桶的脱敏副本</b>，源数据桶不外露
             </div>
+            <div style="font-size:12.5px;line-height:1.55;color:#0F6E56;margin-top:7px;flex:none;font-weight:700">
+              客户买的不是存储和 GPU，是把工厂数据变成可训练资产的这条流水线 —— 所以方案骨架必须沿用客户自己画的链路。
+            </div>
           </div>
         </div>
 
@@ -967,7 +970,6 @@
           <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--blue)">
             <div style="display:flex;align-items:baseline;gap:6px">
               <div style="font-size:13px;font-weight:800;color:var(--blue)">WP1 通用云底座</div>
-              <span style="font-size:10px;color:var(--gray);margin-left:auto">14 条</span>
             </div>
             <div class="chips" style="gap:4px">
               <span class="chip" style="font-size:9.5px">TKE + 超级节点</span>
@@ -983,7 +985,6 @@
           <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--cyan)">
             <div style="display:flex;align-items:baseline;gap:6px">
               <div style="font-size:13px;font-weight:800;color:var(--cyan)">WP2 具身数据平台</div>
-              <span style="font-size:10px;color:var(--gray);margin-left:auto">16 条</span>
             </div>
             <div class="chips" style="gap:4px">
               <span class="chip" style="font-size:9.5px;background:#E4FBFB;color:#0A8A8A;font-weight:800">艾欧平台（加分项）</span>
@@ -992,14 +993,13 @@
               <span class="chip" style="font-size:9.5px">7 年机器人实验室</span>
             </div>
             <div style="margin-top:auto;font-size:10.5px;color:var(--dark);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px">
-              <b style="color:var(--cyan)">友商也有同角色平台</b>（阿里 PAI / 火山百炼），各有所长；客户 3–4 月已试用艾欧，加分项
+              <b style="color:var(--cyan)">阿里 PAI</b>：训练界较知名；<b style="color:var(--cyan)">火山百炼</b>：封装 MCP 突出、可自然语言干预训练参数（如 8 卡改 16 卡）。客户 3–4 月已试用艾欧，加分项
             </div>
           </div>
 
           <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--gold)">
             <div style="display:flex;align-items:baseline;gap:6px">
               <div style="font-size:13px;font-weight:800;color:#B8860B">WP3 GPU + 训练平台</div>
-              <span style="font-size:10px;color:var(--gray);margin-left:auto">7 条</span>
             </div>
             <div class="chips" style="gap:4px">
               <span class="chip" style="font-size:9.5px">N50P / BW1000 / H20</span>
@@ -1010,12 +1010,16 @@
               <b style="color:#B8860B">按负载选型</b>：本期四卡走 VPC 即可（小模型微调非预训练）；3.2T RDMA 机型为规模化预留
             </div>
           </div>
+
+          <div class="card" style="flex:none;padding:11px 13px;display:flex;flex-direction:column;gap:4px;border-left:3px solid #7C3AED">
+            <div style="font-size:13px;font-weight:800;color:#7C3AED">项目背景 · 合作历程</div>
+            <div style="font-size:10.5px;color:var(--dark);line-height:1.5">
+              2020 年签署 MOU → 2022–23 地图 / 货仓等特定项目 → 2024 年深化战略合作 → 2025 年进入新阶段（计划 2026.10 会面 G ONE 团队）。博世公有云目前仅阿里云等 2 个案例，<b style="color:#7C3AED">本次竞标是关键切入契机</b>。
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style="margin-top:11px;flex:none;font-size:15px;line-height:1.6;color:#0F6E56">
-        客户买的不是存储和 GPU，是<b style="font-weight:800">把工厂数据变成可训练资产的这条流水线</b> —— 所以方案的骨架必须沿用客户自己画的链路。
-      </div>
     </div>
   </section>
 
