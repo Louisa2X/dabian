@@ -1078,14 +1078,6 @@
             </div>
             <p style="font-size:12px;color:var(--gray);line-height:1.5">Spec 原文要求「提供类似 <b style="color:var(--blue)">OSS 数据流动</b>与按需拉起的极速文件系统（如 <b style="color:var(--blue)">CPFS</b>）联合方案」—— 这两个都是<b>阿里云产品名</b>，说明客户已按阿里云方案建立预期。应答不能只答「我们也有」，而要给出对位关系：<b style="color:var(--blue)">CFS Turbo 承接并行文件层 + GooseFS 承接按需拉起缓存</b>，逐条对上客户心里那把尺。</p>
           </div>
-          <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
-            <div style="display:flex;align-items:baseline;gap:8px">
-              <span style="font-size:11px;font-weight:800;color:var(--blue);letter-spacing:1px">06</span>
-              <b style="font-size:14px;color:var(--dark)">护城河在生态绑定，不在算法精度</b>
-              <span style="font-size:10.5px;color:var(--gray);margin-left:auto">Robotics X 实验室 7 年</span>
-            </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">核心优势是 COS 存储基础上的<b style="color:var(--blue)">多模态数据湖</b>（视频/点云/传感器统一纳管 + 索引 + 向量检索 + Lance）。打码算法与友商、开源基本持平，<b style="color:var(--dark)">只是数据湖的环节亮点</b>（上传触发脱敏）；同时，腾讯也强在<b style="color:var(--dark)">实验室 7 年用自家产品打磨出垂直场景能力</b>。</p>
-          </div>
 
         </div>
 
@@ -1108,10 +1100,7 @@
               </div>
             </div>
             <div style="font-size:11px;color:var(--gray);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:7px">
-              具身模型实测（海光 BW1000）：PI0.5 达 A800 的 <b style="color:var(--dark)">83%</b>、LingBot-VLA 与 H20 持平、ACT 单卡推理超 H20 <b style="color:var(--dark)">12%</b>；OpenVLA-7B MFU <b style="color:var(--dark)">38%–48%</b> <span style="color:#B8860B;font-weight:800">（★ 预估，非 SLA 承诺值）</span>
-            </div>
-            <div style="font-size:10.5px;color:var(--dark);line-height:1.5;background:var(--bg2);border-radius:8px;padding:7px 9px">
-              <b style="color:var(--blue)">本期为四卡规模、走 VPC 而非 RDMA</b>：因是小模型微调而非大模型预训练，通信不构成瓶颈；3.2Tbps RDMA 机型作规模化预留 —— <b>按负载选型，不是能力缺失</b>
+              国产卡（海光 BW1000）：PI0.5 达 A800 <b style="color:var(--dark)">83%</b>、LingBot-VLA 与 H20 持平、ACT 推理超 H20 <b style="color:var(--dark)">12%</b>；MFU <b style="color:var(--dark)">38–48%</b> <span style="color:#B8860B;font-weight:800">（★预估）</span>
             </div>
           </div>
 
@@ -1135,6 +1124,13 @@
             </div>
             <div style="margin-top:auto;font-size:11px;color:var(--dark);line-height:1.5;background:var(--bg2);border-radius:8px;padding:8px 10px">
               知识转移验收 = <b style="color:var(--blue)">让参训人员独立做一遍</b>（独立提交并完成一次训练任务），而非签到打卡
+            </div>
+          </div>
+
+          <div class="card" style="flex:none;padding:12px 16px;display:flex;flex-direction:column;gap:6px;border-left:3px solid #7C3AED">
+            <div style="font-size:13px;font-weight:800;color:#7C3AED">腾讯优势分析：护城河在生态绑定，不在算法精度</div>
+            <div style="font-size:11px;color:var(--gray);line-height:1.5">
+              核心是 COS 之上的<b style="color:#7C3AED">多模态数据湖</b>（视频/点云/传感器统一纳管 + 索引 + 向量检索 + Lance）；打码算法与友商及开源<b style="color:var(--dark)">基本持平</b>，只是数据湖的环节亮点（上传即触发脱敏）。另一层是 <b style="color:#7C3AED">Robotics X 实验室 7 年</b>用自家产品打磨出的垂直场景能力。
             </div>
           </div>
         </div>
