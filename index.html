@@ -290,91 +290,96 @@
         <h1>个人简介</h1>
       </div>
 
-      <div class="cols" style="flex:1;gap:16px;min-height:0">
-        <!-- 左栏：基本信息 + 教育背景 -->
-        <div class="col" style="flex:3;gap:12px">
-          <div class="card" style="flex:none;padding:20px 24px;display:flex;flex-direction:row;align-items:center;gap:22px">
-            <img src="profile.jpg" alt="张卓涵" style="width:200px;height:200px;flex:none;border-radius:18px;object-fit:cover;box-shadow:0 4px 16px rgba(0,82,217,.16)">
-            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;align-items:baseline;gap:12px">
-                <span style="font-size:15.5px;color:var(--gray);flex:none;width:48px">姓名</span>
-                <span style="font-size:23px;color:var(--dark);font-weight:700">张卓涵</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:12px">
-                <span style="font-size:15.5px;color:var(--gray);flex:none;width:48px">部门</span>
-                <span style="font-size:18.5px;color:var(--dark)">CSIG 智慧出行 · 解决方案二中心</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:12px">
-                <span style="font-size:15.5px;color:var(--gray);flex:none;width:48px">岗位</span>
-                <span style="font-size:18.5px;color:var(--dark)">售前解决方案实习生</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:12px">
-                <span style="font-size:15.5px;color:var(--gray);flex:none;width:48px">驻点</span>
-                <span style="font-size:18.5px;color:var(--dark)">外企项目组 ｜ AI 与云产品</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:12px">
-                <span style="font-size:15.5px;color:var(--gray);flex:none;width:48px">导师</span>
-                <span style="font-size:18.5px;color:var(--dark)">丁亚奇</span>
-              </div>
-            </div>
+      <!-- 顶部身份条 -->
+      <div class="card" style="flex:none;padding:24px 30px;display:flex;flex-direction:row;align-items:center;gap:28px;margin-bottom:18px">
+        <img src="profile.jpg" alt="张卓涵" style="width:158px;height:158px;flex:none;border-radius:16px;object-fit:cover;box-shadow:0 4px 16px rgba(0,82,217,.16)">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+            <span style="font-size:36px;font-weight:800;color:var(--dark);letter-spacing:.5px">张卓涵</span>
+            <span style="font-size:25px;font-weight:700;color:var(--blue)">Louisa</span>
           </div>
+          <div style="font-size:20px;color:var(--gray);line-height:1.6">
+            CSIG 智慧出行 · 解决方案二中心 · <b style="color:var(--dark)">解决方案一组实习生</b>
+            <span style="color:#C8CEDA;margin:0 10px">｜</span>
+            导师：<b style="color:var(--dark)">丁亚奇</b>
+          </div>
+          <div style="font-size:18px;color:var(--gray);line-height:1.55">
+            驻点外企项目组，方向为 <b style="color:var(--blue)">AI 与云产品</b> 的售前解决方案 —— <b style="color:var(--dark)">连接产品、销售与客户的桥梁</b>。
+          </div>
+        </div>
+      </div>
 
-          <div class="card" style="flex:1;padding:24px 28px;display:flex;flex-direction:column;gap:18px;justify-content:center">
-            <div style="font-size:21px;font-weight:800;color:var(--blue)">教育背景</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="font-size:24px;font-weight:800;color:var(--dark)">加州大学洛杉矶分校 UCLA</div>
-              <div style="font-size:19.5px;color:var(--purple);font-weight:700">认知科学（计算方向）· 辅修数字人文</div>
+      <!-- 三栏并列，等高填满 -->
+      <div class="cols" style="flex:1;gap:18px;min-height:0">
+
+        <!-- ① 教育背景 -->
+        <div class="card" style="flex:1;padding:26px 26px;display:flex;flex-direction:column;gap:16px;min-width:0">
+          <div style="font-size:21px;font-weight:800;color:var(--blue);flex:none">教育背景</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:center">
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <div style="font-size:25px;font-weight:800;color:var(--dark);line-height:1.35">加州大学洛杉矶分校<br>UCLA</div>
+              <div style="font-size:19px;color:var(--purple);font-weight:700;line-height:1.5">认知科学（计算方向）<br>· 辅修数字人文</div>
             </div>
-            <p style="font-size:17.5px;color:var(--gray);line-height:1.75">算法与复杂性、人工智能、认知心理学、用户体验、行为神经科学 —— <b style="color:var(--dark)">既学习技术实现，也学习「人怎么理解信息」</b>。</p>
+            <p style="font-size:17.5px;color:var(--gray);line-height:1.85">算法与复杂性、人工智能、认知心理学、用户体验、行为神经科学。</p>
+          </div>
+          <div style="flex:none;font-size:17.5px;color:var(--dark);line-height:1.75;background:var(--bg2);border-radius:10px;padding:16px 18px">
+            既学习<b style="color:var(--blue)">技术实现</b>，也学习<b style="color:var(--blue)">「人怎么理解信息」</b>。
           </div>
         </div>
 
-        <!-- 右栏：岗位定位 + 三条职责 + 过往沉淀 -->
-        <div class="col" style="flex:4;gap:12px">
-          <div class="card" style="flex:none;padding:20px 26px;background:var(--grad)">
-            <div style="font-size:15px;font-weight:800;color:#fff;opacity:.9;margin-bottom:9px">岗位定位</div>
-            <p style="font-size:21px;color:#fff;line-height:1.55">售前解决方案 = <b style="font-weight:800">连接产品、销售与客户的桥梁</b> —— 把 AI 与云的产品能力，翻译成客户听得懂、能落地、能采购的价值。</p>
-          </div>
-
-          <div class="card" style="flex:none;padding:20px 24px;display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;gap:11px;align-items:flex-start">
-              <span style="font-size:13px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:4px 10px;flex:none;margin-top:2px">01</span>
-              <p style="font-size:17.5px;color:var(--gray);line-height:1.6"><b style="color:var(--dark)">产品能力</b>：技术学习，商业场景理解，PoC。</p>
-            </div>
-            <div style="display:flex;gap:11px;align-items:flex-start">
-              <span style="font-size:13px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:4px 10px;flex:none;margin-top:2px">02</span>
-              <p style="font-size:17.5px;color:var(--gray);line-height:1.6"><b style="color:var(--dark)">需求翻译成方案</b>：从客户交流与招标书里读出真需求，产出方案。</p>
-            </div>
-            <div style="display:flex;gap:11px;align-items:flex-start">
-              <span style="font-size:13px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:4px 10px;flex:none;margin-top:2px">03</span>
-              <p style="font-size:17.5px;color:var(--gray);line-height:1.6"><b style="color:var(--dark)">团队信息同步</b>：铁三角合作，为团队与客户对齐信息。</p>
-            </div>
-          </div>
-
-          <div class="card" style="flex:1;padding:22px 28px;display:flex;flex-direction:column;gap:16px;min-height:0;justify-content:center">
-            <div style="font-size:21px;font-weight:800;color:var(--blue)">过往沉淀</div>
-            <div style="display:flex;flex-direction:column;gap:14px">
-              <div style="display:flex;gap:12px;align-items:flex-start">
-                <span style="font-size:13.5px;font-weight:800;color:var(--blue);background:var(--bg2);border-radius:6px;padding:5px 10px;flex:none;margin-top:1px;letter-spacing:.3px">AI 售前</span>
-                <p style="font-size:17px;color:var(--gray);line-height:1.7">企业级智能体落地：主导「场景地图」需求提炼框架与 AI 就绪度评估体系，在商业地产、快消、传媒等多个客户项目中验证。</p>
+        <!-- ② 岗位职责 -->
+        <div class="card" style="flex:1;padding:26px 26px;display:flex;flex-direction:column;gap:20px;min-width:0">
+          <div style="font-size:21px;font-weight:800;color:var(--blue);flex:none">岗位职责</div>
+          <div style="display:flex;flex-direction:column;gap:30px;flex:1;justify-content:center">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:13px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:4px 10px;flex:none">01</span>
+                <b style="font-size:19.5px;color:var(--dark)">产品能力</b>
               </div>
-              <div style="display:flex;gap:12px;align-items:flex-start">
-                <span style="font-size:13.5px;font-weight:800;color:var(--cyan);background:var(--bg2);border-radius:6px;padding:5px 10px;flex:none;margin-top:1px;letter-spacing:.3px">AI 产品</span>
-                <p style="font-size:17px;color:var(--gray);line-height:1.7">从 0 到 1 做 AI 客服机器人（BERT 情感与意图识别 · AWS SageMaker）；用机器学习做过脑成像诊断预测、教育结构变化分析。</p>
-              </div>
-              <div style="display:flex;gap:12px;align-items:flex-start">
-                <span style="font-size:13.5px;font-weight:800;color:var(--purple);background:var(--bg2);border-radius:6px;padding:5px 10px;flex:none;margin-top:1px;letter-spacing:.3px">人文</span>
-                <p style="font-size:17px;color:var(--gray);line-height:1.7">严复研究，古琴地图与谱频分析，古罗马建模：<b style="color:var(--dark)">把洞察可视化，数据结构化</b>。</p>
-              </div>
+              <p style="font-size:17.5px;color:var(--gray);line-height:1.75">技术学习，商业场景理解，PoC。</p>
             </div>
-            <div class="chips" style="margin-top:4px;gap:10px">
-              <span class="chip" style="color:var(--blue);font-size:14.5px;padding:5px 13px">文理兼修</span>
-              <span class="chip" style="color:var(--blue);font-size:14.5px;padding:5px 13px">上手快</span>
-              <span class="chip" style="color:var(--blue);font-size:14.5px;padding:5px 13px">爱学习</span>
-              <span class="chip" style="color:var(--blue);font-size:14.5px;padding:5px 13px">系统性思维</span>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:13px;font-weight:800;color:#fff;background:var(--cyan);border-radius:6px;padding:4px 10px;flex:none">02</span>
+                <b style="font-size:19.5px;color:var(--dark)">需求翻译成方案</b>
+              </div>
+              <p style="font-size:17.5px;color:var(--gray);line-height:1.75">从客户交流与招标书里读出真需求，产出方案。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:13px;font-weight:800;color:#fff;background:var(--purple);border-radius:6px;padding:4px 10px;flex:none">03</span>
+                <b style="font-size:19.5px;color:var(--dark)">团队信息同步</b>
+              </div>
+              <p style="font-size:17.5px;color:var(--gray);line-height:1.75">铁三角合作，为团队与客户对齐信息。</p>
             </div>
           </div>
         </div>
+
+        <!-- ③ 过往沉淀 -->
+        <div class="card" style="flex:1.35;padding:26px 26px;display:flex;flex-direction:column;gap:18px;min-width:0">
+          <div style="font-size:21px;font-weight:800;color:var(--blue);flex:none">过往沉淀</div>
+          <div style="display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center">
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:14px;font-weight:800;color:var(--blue);background:var(--bg2);border-radius:6px;padding:5px 11px;align-self:flex-start;letter-spacing:.3px">AI 售前</span>
+              <p style="font-size:17px;color:var(--gray);line-height:1.7">企业级智能体落地：主导<b style="color:var(--dark)">「场景地图」需求提炼框架</b>与 <b style="color:var(--dark)">AI 就绪度评估体系</b>，在商业地产、快消、传媒等多个客户项目中验证。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:14px;font-weight:800;color:var(--cyan);background:var(--bg2);border-radius:6px;padding:5px 11px;align-self:flex-start;letter-spacing:.3px">AI 产品</span>
+              <p style="font-size:17px;color:var(--gray);line-height:1.7">从 0 到 1 做 <b style="color:var(--dark)">AI 客服机器人</b>（BERT 情感与意图识别 · AWS SageMaker）；用机器学习做过脑成像诊断预测、教育结构变化分析。</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <span style="font-size:14px;font-weight:800;color:var(--purple);background:var(--bg2);border-radius:6px;padding:5px 11px;align-self:flex-start;letter-spacing:.3px">人文</span>
+              <p style="font-size:17px;color:var(--gray);line-height:1.7">严复研究，古琴地图与谱频分析，古罗马建模：<b style="color:var(--dark)">把洞察可视化，数据结构化</b>。</p>
+            </div>
+          </div>
+          <div class="chips" style="margin-top:auto;gap:10px;flex:none">
+            <span class="chip" style="color:var(--blue);font-size:15px;padding:6px 15px">文理兼修</span>
+            <span class="chip" style="color:var(--blue);font-size:15px;padding:6px 15px">上手快</span>
+            <span class="chip" style="color:var(--blue);font-size:15px;padding:6px 15px">爱学习</span>
+            <span class="chip" style="color:var(--blue);font-size:15px;padding:6px 15px">系统性思维</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
