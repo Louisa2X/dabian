@@ -284,16 +284,18 @@
 
   <!-- P0 个人简介（头页） -->
   <section class="slide active">
-    <div class="slide-inner">
+    <div class="slide-inner" style="position:relative">
       <div class="titlebar">
         <div class="bar"></div>
         <h1>个人简介</h1>
       </div>
 
+      <!-- 头像：绝对定位在右侧，下探到教育背景卡区域 -->
+      <img src="profile_white.jpg" alt="张卓涵" style="position:absolute;right:0;top:96px;width:200px;height:200px;border-radius:18px;object-fit:cover;background:#fff;z-index:3;box-shadow:0 6px 20px rgba(0,82,217,.13)">
+
       <!-- 顶部身份条 -->
       <div class="card" style="flex:none;padding:22px 30px;display:flex;flex-direction:row;align-items:center;gap:28px;margin-bottom:16px">
-        <img src="profile_white.jpg" alt="张卓涵" style="width:132px;height:132px;flex:none;border-radius:16px;object-fit:cover;background:#fff">
-        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:11px">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:11px;padding-right:206px">
           <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
             <span style="font-size:34px;font-weight:800;color:var(--dark);letter-spacing:.5px">张卓涵</span>
             <span style="font-size:24px;font-weight:700;color:var(--blue)">Louisa</span>
@@ -320,7 +322,7 @@
 
         <!-- ① 教育背景（UCLA logo 半透明水印） -->
         <div class="card" style="flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:11px;min-width:0;position:relative;overflow:hidden">
-          <img src="ucla_logo.webp" alt="" aria-hidden="true" style="position:absolute;right:14px;top:14px;width:112px;height:112px;opacity:.30;pointer-events:none;user-select:none">
+          <img src="ucla_logo.webp" alt="" aria-hidden="true" style="position:absolute;right:14px;top:14px;width:168px;height:168px;opacity:.30;pointer-events:none;user-select:none">
           <div style="font-size:21px;font-weight:800;color:var(--blue);flex:none;position:relative">教育背景</div>
           <div style="flex:1;display:flex;flex-direction:column;gap:12px;justify-content:space-evenly;position:relative">
             <div style="display:flex;flex-direction:column;gap:7px">
@@ -350,7 +352,7 @@
 
               <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
                 <span style="font-size:14.5px;font-weight:800;color:var(--cyan);background:var(--bg2);border-radius:6px;padding:5px 12px;align-self:flex-start;letter-spacing:.3px">AI 产品</span>
-                <p style="font-size:16.5px;color:var(--gray);line-height:1.75"><b style="color:var(--dark)">Root Remedy</b>：从 0 到 1 做 <b style="color:var(--dark)">AI 客服机器人</b>（BERT 情感与意图识别 · AWS SageMaker）；用<b style="color:var(--dark)">机器学习</b>做过脑成像诊断预测、教育社会学研究。</p>
+                <p style="font-size:16.5px;color:var(--gray);line-height:1.75"><b style="color:var(--dark)">Root Remedy</b>：从 0 到 1 做 <b style="color:var(--dark)">AI 客服机器人</b>（BERT 情感与意图识别 · AWS SageMaker）；<b style="color:var(--dark)">机器学习</b>做脑成像诊断预测、教育社会学研究。</p>
               </div>
 
               <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
@@ -361,7 +363,7 @@
             </div>
 
             <!-- 右列：社会公益（含长期实践链路） -->
-            <div style="display:flex;flex-direction:column;gap:8px;min-width:0;justify-content:flex-start">
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:0;justify-content:flex-start;padding-top:34px">
               <span style="font-size:14.5px;font-weight:800;color:#0F6E56;background:#E8F6F0;border-radius:6px;padding:5px 12px;align-self:flex-start;letter-spacing:.3px">社会公益</span>
               <p style="font-size:16.5px;color:var(--gray);line-height:1.75"><b style="color:var(--dark)">一沙学园创始人</b>（2018 年至今）：组织城市学生为留守 / 流动儿童提供线上、小班的英语伴学。<b style="color:var(--dark)">60+ 同伴导师</b>，<b style="color:var(--dark)">500+ 学生</b>，总课时<b style="color:var(--dark)">&gt;6000 小时</b>；另组织夏令营 &amp; 微课 &amp; 募书 &amp; 讲座。<span style="color:var(--blue)">需求洞察 → 活动设计 → 运营迭代 —— 以人为本的长期实践。</span></p>
             </div>
