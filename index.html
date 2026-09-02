@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>张卓涵 · 实习答辩</title>
 <!-- 根链接自动跳转到当前版本：答辩09.html -->
-<meta http-equiv="refresh" content="0; url=%E7%AD%94%E8%BE%A909.html">
+<!-- 跳转时自动附加时间戳，绕开 GitHub Pages 的 max-age=600 缓存，确保永远打开最新版 -->
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
 <link rel="canonical" href="%E7%AD%94%E8%BE%A909.html">
 <style>
   html,body{margin:0;height:100%;background:#F7F9FC;
@@ -22,8 +25,16 @@
   <div class="wrap">
     <div class="bar"></div>
     <div class="t">正在打开答辩材料…</div>
-    <div class="s">若未自动跳转，请点击 <a href="%E7%AD%94%E8%BE%A909.html">答辩09</a></div>
+    <div class="s">若未自动跳转，请点击 <a id="fallback" href="%E7%AD%94%E8%BE%A909.html">答辩09</a></div>
   </div>
-  <script>location.replace("%E7%AD%94%E8%BE%A909.html");</script>
+  <script>
+    // 带时间戳跳转：强制浏览器绕过缓存拉取最新的答辩09
+    var target = "%E7%AD%94%E8%BE%A909.html?v=" + Date.now();
+    document.getElementById("fallback").href = target;
+    location.replace(target);
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=%E7%AD%94%E8%BE%A909.html">
+  </noscript>
 </body>
 </html>
