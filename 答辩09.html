@@ -94,21 +94,21 @@
   .wb-scene .res{font-size:13.5px;font-weight:800;color:var(--blue);margin-top:14px;padding-top:12px;border-top:1px dashed #E6ECF8;line-height:1.4;}
 
   /* P2 WorkBuddy · 时间线 */
-  .wb-timeline{flex:none;margin-top:12px;padding:10px 4px 4px;}
-  .wb-timeline .tl-track{position:relative;display:flex;align-items:flex-start;gap:10px;}
-  .wb-timeline .tl-track::before{content:"";position:absolute;left:7%;right:7%;top:6px;height:3px;background:#D6E0F5;border-radius:2px;z-index:0;}
-  .tl-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;position:relative;z-index:1;}
-  .tl-node .tl-dot{width:13px;height:13px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff,0 0 0 4px var(--blue);}
-  .tl-node .tl-month{font-size:14px;font-weight:800;color:var(--dark);margin-top:8px;}
-  .tl-node .tl-desc{font-size:12px;color:var(--gray);line-height:1.4;}
-  .tl-node.tl-final .tl-dot{background:var(--gold);box-shadow:0 0 0 3px #fff,0 0 0 4px var(--gold);}
+  .wb-timeline{flex:none;margin-top:20px;padding:16px 4px 8px;}
+  .wb-timeline .tl-track{position:relative;display:flex;align-items:flex-start;gap:12px;}
+  .wb-timeline .tl-track::before{content:"";position:absolute;left:7%;right:7%;top:8px;height:4px;background:#D6E0F5;border-radius:2px;z-index:0;}
+  .tl-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;position:relative;z-index:1;}
+  .tl-node .tl-dot{width:16px;height:16px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--blue);}
+  .tl-node .tl-month{font-size:16px;font-weight:800;color:var(--dark);margin-top:12px;}
+  .tl-node .tl-desc{font-size:16px;font-weight:600;color:var(--gray);line-height:1.45;}
+  .tl-node.tl-final .tl-dot{background:var(--gold);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--gold);}
   .tl-node.tl-final .tl-month{color:var(--blue);}
-  .tl-node.tl-final .tl-desc{color:var(--blue);font-weight:800;font-size:12.5px;}
+  .tl-node.tl-final .tl-desc{color:var(--blue);font-weight:800;}
   .tl-band{flex:1.6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    background:#EEF3FF;border:1px solid #DCE6FB;border-radius:12px;padding:9px 12px;position:relative;z-index:1;}
-  .tl-band .tl-band-label{font-size:13.5px;font-weight:800;color:var(--blue);letter-spacing:.3px;}
-  .tl-band .tl-band-subs{display:flex;gap:16px;margin-top:4px;flex-wrap:wrap;justify-content:center;}
-  .tl-band .tl-band-subs span{font-size:11.5px;color:var(--gray);}
+    background:#EEF3FF;border:1px solid #DCE6FB;border-radius:14px;padding:13px 14px;position:relative;z-index:1;}
+  .tl-band .tl-band-label{font-size:16px;font-weight:800;color:var(--blue);letter-spacing:.3px;}
+  .tl-band .tl-band-subs{display:flex;gap:18px;margin-top:6px;flex-wrap:wrap;justify-content:center;}
+  .tl-band .tl-band-subs span{font-size:15px;font-weight:600;color:var(--gray);}
 
   /* 流程链 */
   .flow{display:flex;align-items:stretch;gap:8px;}
