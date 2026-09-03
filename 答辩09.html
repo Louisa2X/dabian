@@ -160,17 +160,18 @@
   .demo-pane iframe{border:none;width:100%;height:100%;background:#fff;display:block;}
   .demo-pane video,.demo-pane img{width:100%;height:100%;object-fit:contain;background:#fff;display:block;}
   .demo-pane .strip-label .tag{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--blue);background:#EAF1FF;padding:2px 9px;border-radius:6px;}
-  .sec{display:flex;flex-direction:column;min-height:0;}
-  .sec + .sec{margin-top:15px;}
+  .think-wrap{display:flex;gap:20px;flex:1;min-height:0;}
+  .think-main{flex:1.55;display:flex;flex-direction:column;min-height:0;}
+  .think-side{flex:1;display:flex;flex-direction:column;min-height:0;background:#F4F7FE;border:1px solid #DCE6FB;border-radius:12px;padding:14px 16px;}
+  .think-bottom{flex:none;margin-top:14px;}
   .sec-h{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:var(--dark);margin:0 0 10px;line-height:1.3;}
   .sec-h .sec-n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:800;flex:none;}
-  .sec-demo{flex:1.35;min-height:0;}
-  .sec-need{flex:none;}
-  .sec-diff{flex:none;}
-  .think-list{list-style:none;padding:0;margin:0 0 10px;}
+  .demo-cap{font-size:13.5px;font-weight:800;color:var(--blue);margin:2px 0 9px;letter-spacing:.3px;}
+  .think-list{list-style:none;padding:0;margin:0 0 8px;}
   .think-list li{font-size:15px;font-weight:700;color:var(--dark);line-height:1.7;padding:2px 0 2px 18px;position:relative;}
   .think-list li::before{content:"•";position:absolute;left:0;color:var(--blue);font-weight:900;font-size:18px;}
-  .think-img{max-width:42%;max-height:150px;border-radius:8px;border:1px solid #DDE6F0;display:block;margin-top:4px;}
+  .think-imgwrap{flex:1;min-height:0;margin-top:10px;display:flex;align-items:center;justify-content:center;}
+  .think-imgwrap img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;border:1px solid #DDE6F0;display:block;background:#fff;}
   .diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .diff-card{background:#F4F7FE;border:1px solid #DCE6FB;border-top:3px solid var(--blue);border-radius:10px;padding:12px 14px;}
   .diff-card .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
@@ -624,37 +625,46 @@
         <h1>我的思考</h1>
       </div>
 
-      <!-- 01 Demo举例 -->
-      <div class="sec sec-demo">
-        <div class="sec-h"><span class="sec-n">01</span><span>分享会Demo举例：自建专家 &amp; 自建Skill</span></div>
-        <div class="demo-strip">
-          <div class="demo-pane">
-            <div class="strip-label"><b>1</b><span>具身仿真 Planner</span></div>
-            <div class="strip-frame">
-              <video src="Multi-Scenario实战demo/03_具身仿真分析.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
+      <div class="think-wrap">
+        <!-- 左：如何搭建高价值Demo -->
+        <div class="think-main">
+          <div class="sec-h"><span class="sec-n">01</span><span>如何搭建高价值Demo？</span></div>
+          <ul class="think-list">
+            <li>1. 命中用户需求</li>
+            <li>2. 体现产品深度</li>
+          </ul>
+          <div class="demo-cap">分享会Demo举例：自建专家 &amp; 自建Skill</div>
+          <div class="demo-strip">
+            <div class="demo-pane">
+              <div class="strip-label"><b>1</b><span>具身仿真 Planner</span></div>
+              <div class="strip-frame">
+                <video src="Multi-Scenario实战demo/03_具身仿真分析.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
+              </div>
+            </div>
+            <div class="demo-pane">
+              <div class="strip-label"><b>2</b><span>团队活动策划</span></div>
+              <div class="strip-frame">
+                <img src="Multi-Scenario实战demo/08_team_planner.png" alt="团队活动策划"/>
+              </div>
             </div>
           </div>
-          <div class="demo-pane">
-            <div class="strip-label"><b>2</b><span>团队活动策划</span></div>
-            <div class="strip-frame">
-              <img src="Multi-Scenario实战demo/08_team_planner.png" alt="团队活动策划"/>
-            </div>
+        </div>
+
+        <!-- 右：如何满足客户需求 -->
+        <div class="think-side">
+          <div class="sec-h"><span class="sec-n">02</span><span>如何满足客户需求？</span></div>
+          <ul class="think-list">
+            <li>访谈以了解需求：HR + 自变量具身同学。</li>
+            <li>咨询产品，解答疑问。</li>
+          </ul>
+          <div class="think-imgwrap">
+            <img src="Multi-Scenario实战demo/导师聊天_如何满足客户需求.png" alt="导师聊天截图"/>
           </div>
         </div>
       </div>
 
-      <!-- 02 如何满足客户需求 -->
-      <div class="sec sec-need">
-        <div class="sec-h"><span class="sec-n">02</span><span>如何满足客户需求？</span></div>
-        <ul class="think-list">
-          <li>访谈以了解需求：HR + 自变量具身同学。</li>
-          <li>咨询产品，解答疑问。</li>
-        </ul>
-        <img class="think-img" src="Multi-Scenario实战demo/导师聊天_如何满足客户需求.png" alt="导师聊天截图"/>
-      </div>
-
-      <!-- 03 难点与攻克 -->
-      <div class="sec sec-diff">
+      <!-- 下：难点与攻克 -->
+      <div class="think-bottom">
         <div class="sec-h"><span class="sec-n">03</span><span>难点与攻克</span></div>
         <div class="diff-grid">
           <div class="diff-card">
