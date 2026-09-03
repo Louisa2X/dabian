@@ -812,10 +812,10 @@
         <h1>具身智能：方案架构</h1>
       </div>
 
-      <div style="flex:1;display:flex;gap:12px;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-height:0">
 
-        <!-- 左：HLD 架构图（本页主角，图自带标题） -->
-        <div class="card" style="flex:1.55;min-height:0;padding:10px 12px;display:flex">
+        <!-- 中：HLD 架构图（本页主角，图自带标题） -->
+        <div style="flex:1;min-height:0;display:flex;padding:0;order:2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" style="flex:1;min-height:0;width:100%;height:100%;display:block" font-family="PingFang SC, Microsoft YaHei, Helvetica Neue, Arial, sans-serif" data-page-node-id="kJbsL0bgiEi2tJfyIO74VP">
                       <defs data-page-node-id="nBB4YjxB0h4FjEhJclIO11">
                       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" data-page-node-id="MG3xYaqH7orwqAvryKvCai">
@@ -971,30 +971,22 @@
                       </svg>
         </div>
 
-        <!-- 右：项目背景 + 腾讯优势分析 -->
-        <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:12px">
-
-          <!-- ① 项目背景 -->
-          <div class="card" style="flex:none;padding:14px 16px;display:flex;flex-direction:column;gap:7px">
-            <div style="font-size:15px;font-weight:800;color:var(--blue);flex:none">项目背景</div>
-            <p style="font-size:14.5px;color:var(--gray);line-height:1.7">
+          <!-- ① 项目背景 (top) -->
+          <div class="card" style="flex:none;padding:13px 18px;display:flex;flex-direction:column;gap:6px;order:1">
+            <div style="font-size:16px;font-weight:800;color:var(--blue);flex:none">项目背景</div>
+            <p style="font-size:15px;color:var(--gray);line-height:1.7">
               <b style="color:var(--dark)">2020 年</b>签署 MOU → <b style="color:var(--dark)">2022–23 年</b>地图 / 货仓等特定项目 → <b style="color:var(--dark)">2024 年</b>深化战略合作。
               客户公有云目前<b style="color:var(--dark)">仅阿里云与Azure</b>，<span style="color:var(--blue)">本次竞标是关键切入契机。</span>
             </p>
           </div>
 
-          <!-- ③ 腾讯优势分析 -->
-          <div class="card" style="flex:1;min-height:0;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-            <span style="font-size:15px;font-weight:800;color:var(--purple);flex:none">腾讯优势分析</span>
-            <p style="font-size:13.5px;color:var(--gray);line-height:1.7">
-              <b style="color:var(--dark)">COS 上深度集成的的多模态数据湖</b>（视频 / 点云 / 传感器统一纳管 + 索引 + 向量检索 + Lance）另一层是 <b style="color:var(--dark)">Robotics X 实验室 7 年</b>打磨出的垂直场景能力。
-            </p>
-            <p style="font-size:13.5px;color:var(--gray);line-height:1.7">
-              <b style="color:var(--dark)">友商</b> 阿里 PAI 训练界较知名；火山百炼封装 MCP 突出，可自然语言干预训练参数
+          <!-- ③ 腾讯优势分析 (bottom, 合并一段) -->
+          <div class="card" style="flex:none;padding:13px 18px;display:flex;flex-direction:column;gap:6px;order:3">
+            <span style="font-size:16px;font-weight:800;color:var(--purple);flex:none">腾讯优势分析</span>
+            <p style="font-size:14.5px;color:var(--gray);line-height:1.7">
+              <b style="color:var(--dark)">COS 上深度集成的的多模态数据湖</b>（视频 / 点云 / 传感器统一纳管 + 索引 + 向量检索 + Lance）另一层是 <b style="color:var(--dark)">Robotics X 实验室 7 年</b>打磨出的垂直场景能力。<b style="color:var(--dark)">友商</b> 阿里 PAI 训练界较知名；火山百炼封装 MCP 突出，可自然语言干预训练参数
             </p>
           </div>
-
-        </div>
 
       </div>
     </div>
