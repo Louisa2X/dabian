@@ -93,6 +93,23 @@
   .wb-scene .body p{font-size:13.5px;color:var(--gray);margin-top:7px;line-height:1.5;}
   .wb-scene .res{font-size:13.5px;font-weight:800;color:var(--blue);margin-top:14px;padding-top:12px;border-top:1px dashed #E6ECF8;line-height:1.4;}
 
+  /* P2 WorkBuddy · 时间线 */
+  .wb-timeline{flex:none;margin-top:12px;padding:10px 4px 4px;}
+  .wb-timeline .tl-track{position:relative;display:flex;align-items:flex-start;gap:10px;}
+  .wb-timeline .tl-track::before{content:"";position:absolute;left:7%;right:7%;top:6px;height:3px;background:#D6E0F5;border-radius:2px;z-index:0;}
+  .tl-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;position:relative;z-index:1;}
+  .tl-node .tl-dot{width:13px;height:13px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff,0 0 0 4px var(--blue);}
+  .tl-node .tl-month{font-size:14px;font-weight:800;color:var(--dark);margin-top:8px;}
+  .tl-node .tl-desc{font-size:12px;color:var(--gray);line-height:1.4;}
+  .tl-node.tl-final .tl-dot{background:var(--gold);box-shadow:0 0 0 3px #fff,0 0 0 4px var(--gold);}
+  .tl-node.tl-final .tl-month{color:var(--blue);}
+  .tl-node.tl-final .tl-desc{color:var(--blue);font-weight:800;font-size:12.5px;}
+  .tl-band{flex:1.6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    background:#EEF3FF;border:1px solid #DCE6FB;border-radius:12px;padding:9px 12px;position:relative;z-index:1;}
+  .tl-band .tl-band-label{font-size:13.5px;font-weight:800;color:var(--blue);letter-spacing:.3px;}
+  .tl-band .tl-band-subs{display:flex;gap:16px;margin-top:4px;flex-wrap:wrap;justify-content:center;}
+  .tl-band .tl-band-subs span{font-size:11.5px;color:var(--gray);}
+
   /* 流程链 */
   .flow{display:flex;align-items:stretch;gap:8px;}
   .fnode{flex:1;background:var(--bg2);border-radius:10px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;}
@@ -493,7 +510,30 @@
         <h1>WorkBuddy</h1>
       </div>
       <div class="wb-keyline">
-        <span class="kterm">本地文件</span><span class="ksep">/</span><span class="kterm">Skills Hub</span><span class="ksep">/</span><span class="kterm">专家团队</span><span class="ksep">/</span><span class="kterm hl">人机双写</span><span class="ksep">/</span><span class="kterm hl">沙箱隔离</span>
+        <span class="kterm">本地文件</span><span class="ksep">/</span><span class="kterm">Skills Hub</span><span class="ksep">/</span><span class="kterm">专家团队</span><span class="ksep">/</span><span class="kterm hl">人机双写</span><span class="ksep">/</span>        <span class="kterm hl">沙箱隔离</span>
+      </div>
+      <div class="wb-timeline">
+        <div class="tl-track">
+          <div class="tl-node">
+            <div class="tl-dot"></div>
+            <div class="tl-month">过年</div>
+            <div class="tl-desc">推云龙虾</div>
+          </div>
+          <div class="tl-node">
+            <div class="tl-dot"></div>
+            <div class="tl-month">5月</div>
+            <div class="tl-desc">面向 BD 推 WorkBuddy</div>
+          </div>
+          <div class="tl-band">
+            <div class="tl-band-label">6月 – 8月 · 无数交流</div>
+            <div class="tl-band-subs"><span>7月 面向 HR</span><span>8月 分享会 + 董事会</span></div>
+          </div>
+          <div class="tl-node tl-final">
+            <div class="tl-dot"></div>
+            <div class="tl-month">9月2号</div>
+            <div class="tl-desc">签单 150 license</div>
+          </div>
+        </div>
       </div>
       <div class="wb-scenes">
         <div class="wb-scene">
