@@ -157,6 +157,9 @@
   .demo-pane .strip-label a:hover{background:#EAF1FF;}
   .demo-pane .strip-frame{flex:1;min-height:0;border:1px solid #E6ECF8;border-radius:8px;overflow:hidden;background:#fff;}
   .demo-pane iframe{border:none;width:100%;height:100%;background:#fff;display:block;}
+  .demo-pane video,.demo-pane img{width:100%;height:100%;object-fit:contain;background:#fff;display:block;}
+  .demo-pane .strip-label .tag{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--blue);background:#EAF1FF;padding:2px 9px;border-radius:6px;}
+  .subtitle{font-size:17px;font-weight:700;color:var(--dark);padding:2px 0 12px;letter-spacing:.3px;}
 
   .frames{flex:1;display:flex;gap:18px;min-height:0;}
   .frame-card{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
@@ -598,34 +601,31 @@
     </div>
   </section>
 
-  <!-- P2b 第一场实战 · HR（真机嵌入两个 Bot） -->
+  <!-- P2b 我的思考 -->
   <section class="slide">
     <div class="slide-inner">
       <div class="titlebar">
         <div class="bar"></div>
-        <h1>WorkBuddy × 某外企 HR</h1>
+        <h1>我的思考</h1>
       </div>
-      <p class="intro-line">
-        采访 HR 了解业务 <span class="intro-arrow">→</span>
-        抛砖引玉，展示 <b>对话即可搭建</b> 的工具。
-      </p>
+      <p class="subtitle">分享会Demo举例：自建专家 &amp; 自建Skill</p>
       <div class="demo-strip">
         <div class="demo-pane">
           <div class="strip-label">
-            <b>1</b><span>新人成长 Bot</span>
-            <a href="HR实战demo/新人辅助Bot.html" target="_blank" rel="noopener">新窗口打开 ↗</a>
+            <b>1</b><span>具身仿真 Planner</span>
+            <span class="tag">自建专家·全链路</span>
           </div>
           <div class="strip-frame">
-            <iframe src="HR实战demo/新人辅助Bot.html" title="新人成长Bot"></iframe>
+            <video src="Multi-Scenario实战demo/03_具身仿真分析.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
           </div>
         </div>
         <div class="demo-pane">
           <div class="strip-label">
-            <b>2</b><span>离职面谈洞察看板</span>
-            <a href="HR实战demo/离职面谈洞察看板.html" target="_blank" rel="noopener">新窗口打开 ↗</a>
+            <b>2</b><span>团队活动策划</span>
+            <span class="tag">自建 Skill</span>
           </div>
           <div class="strip-frame">
-            <iframe src="HR实战demo/离职面谈洞察看板.html" title="离职面谈洞察看板"></iframe>
+            <img src="Multi-Scenario实战demo/08_team_planner.png" alt="团队活动策划"/>
           </div>
         </div>
       </div>
