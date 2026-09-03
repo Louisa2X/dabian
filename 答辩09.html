@@ -431,10 +431,11 @@
             <h2>WorkBuddy</h2>
           </div>
           <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:11px">
-            <p style="font-size:16.5px">参与外企三场实战，展示 AI 提效：人机双写、Skills&专家集成、XC 飞轮。</p>
+            <p style="font-size:16.5px">外企三场推广实战，展示 AI 提效。</p>
             <div class="chips">
-              <span class="chip" style="color:var(--blue)">10+ Demo</span>
-              <span class="chip" style="color:var(--blue)">覆盖开发、营销、HR、行研等领域的智能体应用</span>
+              <span class="chip" style="color:var(--blue)">产品亮点</span>
+              <span class="chip" style="color:var(--blue)">多领域应用场景</span>
+              <span class="chip" style="color:#C8102E;font-weight:700">🎉 9月2号签单：150 license 🎉</span>
             </div>
           </div>
         </div>
@@ -804,256 +805,45 @@
     </div>
   </section>
 
-  <!-- P3a 具身智能 · 客户需求与方案架构 -->
+  <!-- P3a 具身智能 · 方案架构 -->
   <section class="slide">
     <div class="slide-inner">
       <div class="titlebar">
         <div class="bar" style="background:var(--cyan)"></div>
-        <h1>云产品 · 具身智能（一）客户需求与方案架构</h1>
+        <h1>具身智能：方案架构</h1>
       </div>
 
-      <!-- 客户需求：四个关切 -->
-      <div class="card" style="flex:none;padding:13px 20px;margin-bottom:11px">
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <span style="font-size:12.5px;font-weight:800;color:var(--blue);background:var(--bg2);padding:4px 11px;border-radius:999px;flex:none">客户真正在乎</span>
-          <div style="display:flex;gap:12px;flex:1;flex-wrap:wrap">
-            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">合规</b><span style="font-size:11.5px;color:var(--gray)"> · 等保2.0二级 / 支持TARA落地</span></div>
-            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">算力</b><span style="font-size:11.5px;color:var(--gray)"> · OpenVLA 等模型 / GPU 利用率</span></div>
-            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">实时数据</b><span style="font-size:11.5px;color:var(--gray)"> · 零长效凭证 / 阻断入站</span></div>
-            <div style="flex:1;min-width:145px"><b style="font-size:13.5px;color:var(--dark)">成本 SLA</b><span style="font-size:11.5px;color:var(--gray)"> · 20TB→2PB / 最小计量</span></div>
-          </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-height:0">
+
+        <!-- ① 项目背景（置顶） -->
+        <div class="card" style="flex:none;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:14.5px;font-weight:800;color:var(--blue);flex:none">项目背景 · 合作历程</div>
+          <p style="font-size:13px;color:var(--gray);line-height:1.65">
+            <b style="color:var(--dark)">2020 年</b>签署 MOU → <b style="color:var(--dark)">2022–23 年</b>地图 / 货仓等特定项目 → <b style="color:var(--dark)">2024 年</b>深化战略合作。
+            客户公有云目前<b style="color:var(--dark)">仅阿里云等 2 个案例</b>，<span style="color:var(--blue)">本次竞标是关键切入契机。</span>
+          </p>
         </div>
+
+        <!-- ② HLD 架构图（本页主角，图自带标题） -->
+        <div class="card" style="flex:1;min-height:0;padding:10px 12px;display:flex">
+          <img src="embodied_hld.png" alt="具身智能数据云平台 整体方案架构 HLD" style="flex:1;min-height:0;width:100%;object-fit:contain;object-position:center center;display:block">
+        </div>
+
+        <!-- ③ 腾讯优势分析 -->
+        <div class="card" style="flex:none;padding:9px 16px;display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <span style="font-size:13.5px;font-weight:800;color:var(--purple)">腾讯优势分析</span>
+            <span style="font-size:12px;font-weight:800;color:var(--purple)">护城河在生态绑定，不在算法精度</span>
+          </div>
+          <p style="font-size:11.5px;color:var(--gray);line-height:1.5">
+            核心是 <b style="color:var(--dark)">COS 之上的多模态数据湖</b>（视频 / 点云 / 传感器统一纳管 + 索引 + 向量检索 + Lance）；打码与 COS 深度集成，算法与友商及开源基本持平，<b style="color:var(--dark)">亮点在数据湖环节</b>——上传即触发脱敏。另一层是 <b style="color:var(--dark)">Robotics X 实验室 7 年</b>打磨出的垂直场景能力。
+          </p>
+          <p style="font-size:11.5px;color:var(--gray);line-height:1.5">
+            <b style="color:var(--dark)">载体</b> 艾欧平台 · TCLake + Lance / TCIceberg　｜　<b style="color:var(--dark)">友商</b> 阿里 PAI 训练界较知名；火山百炼封装 MCP 突出，可自然语言干预训练参数（如 8 卡改 16 卡）　｜　<span style="color:var(--blue)">客户 3–4 月已试用艾欧，加分项</span>
+          </p>
+        </div>
+
       </div>
-
-      <!-- 六段式全链路 -->
-      <div class="card" style="flex:none;padding:15px 20px;margin-bottom:11px">
-        <div style="font-size:13.5px;font-weight:800;color:var(--dark);margin-bottom:9px">客户自画的六段式全链路 · 方案骨架</div>
-        <div class="flow" style="gap:5px">
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">1</div>
-            <div class="t" style="font-size:12px">SOURCE 工厂数据源</div>
-            <div style="font-size:10px;color:var(--gray)">视频/传感器/PLC</div>
-          </div>
-          <div class="farrow">›</div>
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">2</div>
-            <div class="t" style="font-size:12px">INGEST 数据采集</div>
-            <div style="font-size:10px;color:var(--gray)">边端盲写·异步上云</div>
-          </div>
-          <div class="farrow">›</div>
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">3</div>
-            <div class="t" style="font-size:12px">PLATFORM 数据平台</div>
-            <div style="font-size:10px;color:var(--gray)">清洗·脱敏·标注·质检</div>
-          </div>
-          <div class="farrow">›</div>
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">4</div>
-            <div class="t" style="font-size:12px">LIBRARY 工业场景库</div>
-            <div style="font-size:10px;color:var(--gray)">场景资产·检索</div>
-          </div>
-          <div class="farrow">›</div>
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">5</div>
-            <div class="t" style="font-size:12px">TRAIN AI 训练平台</div>
-            <div style="font-size:10px;color:var(--gray)">训练·微调·评测</div>
-          </div>
-          <div class="farrow">›</div>
-          <div class="fnode" style="padding:9px 5px">
-            <div class="n" style="background:var(--cyan)">6</div>
-            <div class="t" style="font-size:12px">APP 应用与共享</div>
-            <div style="font-size:10px;color:var(--gray)">分发·开放能力</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 真实部署架构图（还原应答方案 Spec P4 架构图）+ 三大工作包 -->
-      <div class="cols" style="flex:1;gap:12px;min-height:0">
-
-        <!-- 左：部署架构图 -->
-        <div class="col" style="flex:1.35;min-width:0">
-          <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;min-height:0">
-            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:7px;flex:none">
-              <div style="font-size:13px;font-weight:800;color:var(--dark)">落到部署上长什么样</div>
-              <span style="font-size:10px;color:var(--gray);margin-left:auto">蓝=腾讯云 · 灰=客户自有/保留</span>
-            </div>
-            <svg viewBox="0 0 430 258" style="width:100%;flex:1;min-height:0" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                  <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round"/>
-                </marker>
-              </defs>
-
-              <rect x="1" y="12" width="96" height="150" rx="6" fill="#F4F5F7" stroke="#C9CDD6" stroke-width="0.8"/>
-              <text x="49" y="24" font-size="8" font-weight="700" fill="#5A5A6E" text-anchor="middle">工厂 / 车间侧（保留）</text>
-              <rect x="8" y="31" width="82" height="30" rx="4" fill="#E7E9ED" stroke="#B9BFCB" stroke-width="0.7"/>
-              <text x="49" y="43" font-size="8" font-weight="700" fill="#3D3D52" text-anchor="middle">Edge Gateway</text>
-              <text x="49" y="54" font-size="7.5" fill="#6B6B80" text-anchor="middle">MCAP 录制 · 上传</text>
-              <rect x="8" y="66" width="82" height="27" rx="4" fill="#E7E9ED" stroke="#B9BFCB" stroke-width="0.7"/>
-              <text x="49" y="77" font-size="8" font-weight="700" fill="#3D3D52" text-anchor="middle">企业 SSO</text>
-              <text x="49" y="87" font-size="7.5" fill="#6B6B80" text-anchor="middle">CAM 联邦</text>
-              <rect x="8" y="98" width="82" height="27" rx="4" fill="#E7E9ED" stroke="#B9BFCB" stroke-width="0.7"/>
-              <text x="49" y="109" font-size="8" font-weight="700" fill="#3D3D52" text-anchor="middle">研发工具链</text>
-              <text x="49" y="119" font-size="7.5" fill="#6B6B80" text-anchor="middle">CI/CD · 代码仓库</text>
-              <rect x="8" y="130" width="82" height="26" rx="4" fill="#E7E9ED" stroke="#B9BFCB" stroke-width="0.7"/>
-              <text x="49" y="141" font-size="8" font-weight="700" fill="#3D3D52" text-anchor="middle">第三方消费方</text>
-              <text x="49" y="151" font-size="7.5" fill="#6B6B80" text-anchor="middle">数据购买方</text>
-
-              <rect x="112" y="12" width="316" height="222" rx="6" fill="#F7FAFF" stroke="var(--blue)" stroke-width="1"/>
-              <text x="270" y="24" font-size="8" font-weight="700" fill="var(--blue)" text-anchor="middle">Target Cloud Region · 腾讯云目标云区域（VPC 内网闭环）</text>
-
-              <rect x="119" y="31" width="86" height="30" rx="4" fill="var(--blue)"/>
-              <text x="162" y="43" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">CLB + WAF</text>
-              <text x="162" y="54" font-size="7.5" fill="#DCE9FF" text-anchor="middle">仅 443 · 白名单</text>
-
-              <rect x="119" y="67" width="86" height="30" rx="4" fill="var(--blue)"/>
-              <text x="162" y="79" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">NAT 网关</text>
-              <text x="162" y="90" font-size="7.5" fill="#DCE9FF" text-anchor="middle">受控出向</text>
-
-              <rect x="119" y="103" width="86" height="36" rx="4" fill="var(--blue)"/>
-              <text x="162" y="115" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">容器服务 TKE</text>
-              <text x="162" y="125" font-size="7.5" fill="#DCE9FF" text-anchor="middle">原生 + 超级节点</text>
-              <text x="162" y="134" font-size="7.5" fill="#DCE9FF" text-anchor="middle">洪峰秒级弹性</text>
-
-              <rect x="119" y="145" width="86" height="30" rx="4" fill="#0B3E9E"/>
-              <text x="162" y="157" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">数据万象 CI</text>
-              <text x="162" y="168" font-size="7.5" fill="#DCE9FF" text-anchor="middle">人脸车牌打码</text>
-
-              <rect x="119" y="181" width="86" height="30" rx="4" fill="var(--cyan)"/>
-              <text x="162" y="192" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">艾欧数据平台</text>
-              <text x="162" y="203" font-size="7" fill="#E4FBFB" text-anchor="middle">标记·数据集·采集任务</text>
-
-              <rect x="213" y="31" width="100" height="13" rx="2.5" fill="#E8EEFB"/>
-              <text x="263" y="41" font-size="7.5" font-weight="700" fill="var(--blue)" text-anchor="middle">对象存储 · 双桶隔离</text>
-              <rect x="213" y="47" width="100" height="28" rx="4" fill="var(--blue)"/>
-              <text x="263" y="58" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">COS 源数据桶</text>
-              <text x="263" y="69" font-size="7.5" fill="#DCE9FF" text-anchor="middle">内部 · 永久 · KMS</text>
-              <rect x="213" y="79" width="100" height="28" rx="4" fill="#4D87E8"/>
-              <text x="263" y="90" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">COS 暂存桶</text>
-              <text x="263" y="101" font-size="7.5" fill="#DCE9FF" text-anchor="middle">外部 · 到期自删</text>
-
-              <rect x="213" y="113" width="100" height="13" rx="2.5" fill="#E8EEFB"/>
-              <text x="263" y="123" font-size="7.5" font-weight="700" fill="var(--blue)" text-anchor="middle">数据库与缓存层</text>
-              <rect x="213" y="129" width="100" height="24" rx="4" fill="var(--blue)"/>
-              <text x="263" y="139" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">PostgreSQL</text>
-              <text x="263" y="148" font-size="7.5" fill="#DCE9FF" text-anchor="middle">pgvector 检索</text>
-              <rect x="213" y="157" width="48" height="24" rx="4" fill="var(--blue)"/>
-              <text x="237" y="167" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">MongoDB</text>
-              <text x="237" y="176" font-size="7" fill="#DCE9FF" text-anchor="middle">索引</text>
-              <rect x="265" y="157" width="48" height="24" rx="4" fill="var(--blue)"/>
-              <text x="289" y="167" font-size="7.5" font-weight="700" fill="#fff" text-anchor="middle">Redis</text>
-              <text x="289" y="176" font-size="7" fill="#DCE9FF" text-anchor="middle">缓存</text>
-
-              <rect x="213" y="185" width="100" height="26" rx="4" fill="#0B3E9E"/>
-              <text x="263" y="196" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">KMS 密钥管理</text>
-              <text x="263" y="206" font-size="7.5" fill="#DCE9FF" text-anchor="middle">全局静态加密</text>
-
-              <rect x="321" y="31" width="100" height="13" rx="2.5" fill="#FFF4DC"/>
-              <text x="371" y="41" font-size="7.5" font-weight="700" fill="#8A6300" text-anchor="middle">WP3 训练算力层</text>
-              <rect x="321" y="47" width="100" height="32" rx="4" fill="#C8901B"/>
-              <text x="371" y="59" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">GPU 训练集群</text>
-              <text x="371" y="69" font-size="7.5" fill="#FFF0CC" text-anchor="middle">N50P / BW1000 / H20</text>
-              <text x="371" y="77" font-size="7" fill="#FFF0CC" text-anchor="middle">本地 NVMe 预热</text>
-
-              <rect x="321" y="83" width="100" height="28" rx="4" fill="#C8901B"/>
-              <text x="371" y="94" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">CFS Turbo</text>
-              <text x="371" y="105" font-size="7.5" fill="#FFF0CC" text-anchor="middle">并行文件 · checkpoint</text>
-
-              <rect x="321" y="115" width="100" height="26" rx="4" fill="#C8901B"/>
-              <text x="371" y="126" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">GooseFS 缓存</text>
-              <text x="371" y="136" font-size="7.5" fill="#FFF0CC" text-anchor="middle">数据湖加速</text>
-
-              <rect x="321" y="145" width="100" height="30" rx="4" fill="#A8730F"/>
-              <text x="371" y="157" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">TI-ONE 训练平台</text>
-              <text x="371" y="168" font-size="7.5" fill="#FFF0CC" text-anchor="middle">配额 · 队列 · 多租户</text>
-
-              <rect x="321" y="181" width="100" height="30" rx="4" fill="var(--cyan)"/>
-              <text x="371" y="192" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">TCLake 场景库</text>
-              <text x="371" y="203" font-size="7.5" fill="#E4FBFB" text-anchor="middle">Lance · 统一 Catalog</text>
-
-              <path d="M90 44 L119 44" fill="none" stroke="var(--blue)" stroke-width="1.3" marker-end="url(#ar)"/>
-              <text x="104" y="41" font-size="6.5" fill="var(--blue)" text-anchor="middle">盲写</text>
-              <path d="M119 82 L94 82 L94 58" fill="none" stroke="#9AA3B2" stroke-width="1.1" stroke-dasharray="2.5 2" marker-end="url(#ar)"/>
-              <text x="103" y="93" font-size="6.5" fill="#7A8393" text-anchor="middle">出站轮询</text>
-
-              <path d="M205 55 L213 55" fill="none" stroke="var(--blue)" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M205 160 L209 160 L209 93 L213 93" fill="none" stroke="var(--blue)" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M205 196 L209 196 L209 141 L213 141" fill="none" stroke="var(--cyan)" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M313 61 L321 61" fill="none" stroke="#C8901B" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M313 145 L317 145 L317 97 L321 97" fill="none" stroke="#C8901B" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M313 197 L321 197" fill="none" stroke="var(--cyan)" stroke-width="1.2" marker-end="url(#ar)"/>
-              <path d="M263 107 L263 113" fill="none" stroke="var(--blue)" stroke-width="1" marker-end="url(#ar)"/>
-
-              <path d="M213 93 L100 93 L100 143" fill="none" stroke="#1D9E75" stroke-width="1.1" stroke-dasharray="3 2" marker-end="url(#ar)"/>
-              <text x="150" y="90" font-size="6.5" fill="#0F6E56" text-anchor="middle">脱敏后 LeRobot 副本交付</text>
-
-              <rect x="119" y="217" width="302" height="12" rx="2.5" fill="#EEF2FB"/>
-              <text x="270" y="226" font-size="7" fill="#5A5A6E" text-anchor="middle">安全合规底座（全局）：等保一站式 · CSPM / DSPM · 云审计 ≥180 天 · 堡垒机 · 全流量检测</text>
-            </svg>
-            <div style="font-size:10.5px;color:var(--gray);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px;margin-top:6px;flex:none">
-              数据<b style="color:var(--blue)">只进不出</b>：端侧盲写 + 出站轮询，云侧无需开放入站端口；双桶隔离依赖 IAM/CAM 权限与 KMS 密钥，对外交付走<b style="color:#0F6E56">独立暂存桶的脱敏副本</b>，源数据桶不外露
-            </div>
-            <div style="font-size:12.5px;line-height:1.55;color:#0F6E56;margin-top:7px;flex:none;font-weight:700">
-              客户买的不是存储和 GPU，是把工厂数据变成可训练资产的这条流水线 —— 所以方案骨架必须沿用客户自己画的链路。
-            </div>
-          </div>
-        </div>
-
-        <!-- 右：三大工作包 -->
-        <div class="col" style="flex:1;gap:9px;min-width:0">
-          <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--blue)">
-            <div style="display:flex;align-items:baseline;gap:6px">
-              <div style="font-size:13px;font-weight:800;color:var(--blue)">WP1 通用云底座</div>
-            </div>
-            <div class="chips" style="gap:4px">
-              <span class="chip" style="font-size:9.5px">TKE + 超级节点</span>
-              <span class="chip" style="font-size:9.5px">COS 三级沉降</span>
-              <span class="chip" style="font-size:9.5px">PG pgvector</span>
-              <span class="chip" style="font-size:9.5px">KMS + 等保</span>
-            </div>
-            <div style="margin-top:auto;font-size:10.5px;color:var(--dark);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px">
-              <b style="color:var(--blue)">预处理池独立核算</b>（Spec 脚注要求，不可混进 GPU 包）：2×SA9e + 夜间弹性 = <b>¥1,803/月</b>，降 42.5%
-            </div>
-          </div>
-
-          <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--cyan)">
-            <div style="display:flex;align-items:baseline;gap:6px">
-              <div style="font-size:13px;font-weight:800;color:var(--cyan)">WP2 具身数据平台</div>
-            </div>
-            <div class="chips" style="gap:4px">
-              <span class="chip" style="font-size:9.5px;background:#E4FBFB;color:#0A8A8A;font-weight:800">艾欧平台</span>
-              <span class="chip" style="font-size:9.5px">打码与 COS 深度集成</span>
-              <span class="chip" style="font-size:9.5px">TCLake + Lance / TCIceberg</span>
-              <span class="chip" style="font-size:9.5px">7 年机器人实验室</span>
-            </div>
-            <div style="margin-top:auto;font-size:10.5px;color:var(--dark);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px">
-              <b style="color:var(--cyan)">阿里 PAI</b>：训练界较知名；<b style="color:var(--cyan)">火山百炼</b>：封装 MCP 突出、可自然语言干预训练参数（如 8 卡改 16 卡）。客户 3–4 月已试用艾欧，加分项
-            </div>
-          </div>
-
-          <div class="card" style="flex:1;padding:11px 13px;display:flex;flex-direction:column;gap:5px;border-left:3px solid var(--gold)">
-            <div style="display:flex;align-items:baseline;gap:6px">
-              <div style="font-size:13px;font-weight:800;color:#B8860B">WP3 GPU + 训练平台</div>
-            </div>
-            <div class="chips" style="gap:4px">
-              <span class="chip" style="font-size:9.5px">N50P / BW1000 / H20</span>
-              <span class="chip" style="font-size:9.5px">CFS Turbo + GooseFS</span>
-              <span class="chip" style="font-size:9.5px">TI-ONE</span>
-            </div>
-            <div style="margin-top:auto;font-size:10.5px;color:var(--dark);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:6px">
-              <b style="color:#B8860B">按负载选型</b>：本期四卡走 VPC 即可（小模型微调非预训练）；3.2T RDMA 机型为规模化预留
-            </div>
-          </div>
-
-          <div class="card" style="flex:none;padding:11px 13px;display:flex;flex-direction:column;gap:4px;border-left:3px solid #7C3AED">
-            <div style="font-size:13px;font-weight:800;color:#7C3AED">项目背景 · 合作历程</div>
-            <div style="font-size:10.5px;color:var(--dark);line-height:1.5">
-              2020 年签署 MOU → 2022–23 地图 / 货仓等特定项目 → 2024 年深化战略合作。客户公有云目前仅阿里云等 2 个案例，<b style="color:#7C3AED">本次竞标是关键切入契机</b>。
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
