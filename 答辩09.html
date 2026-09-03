@@ -84,14 +84,14 @@
   .wb-keyline .kterm{font-size:20px;font-weight:700;color:var(--purple);letter-spacing:.3px;}
   .wb-keyline .kterm.hl{color:var(--purple);font-weight:800;}
   .wb-keyline .ksep{font-size:20px;font-weight:700;color:var(--purple);}
-  .wb-scenes{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0;}
+  .wb-scenes{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0;position:relative;}
   .wb-scene{display:flex;flex-direction:column;background:var(--card);border-radius:14px;box-shadow:var(--shadow-sm);
     padding:18px 20px;border-top:3px solid var(--blue);min-height:0;}
   .wb-scene .num{font-size:36px;font-weight:800;line-height:1;color:var(--dark);}
   .wb-scene .body{flex:1;margin-top:14px;}
   .wb-scene .body h3{font-size:16.5px;font-weight:800;color:var(--dark);line-height:1.35;}
   .wb-scene .body h3 .assist-tag{font-size:11px;font-weight:800;color:#A6621A;background:#FFF4E5;border:1px solid #F3D9A8;border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:middle;white-space:nowrap;}
-  .wb-scene .body h3 .indep-tag{font-size:11px;font-weight:800;color:#1A7F37;background:#E8F7EC;border:1px solid #B6E2C2;border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:middle;white-space:nowrap;}
+  .indep-bubble{position:absolute;top:67px;left:32%;transform:translateX(-50%);z-index:5;font-size:11px;font-weight:800;color:#1A7F37;background:#E8F7EC;border:1px solid #B6E2C2;border-radius:6px;padding:1px 7px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.10);}
   .wb-scene .body p{font-size:13.5px;color:var(--gray);margin-top:7px;line-height:1.5;}
   .wb-scene .res{font-size:13.5px;font-weight:800;color:var(--blue);margin-top:14px;padding-top:12px;border-top:1px dashed #E6ECF8;line-height:1.4;}
 
@@ -572,10 +572,11 @@
         </div>
       </div>
       <div class="wb-scenes">
+        <div class="indep-bubble">独立搭建😜</div>
         <div class="wb-scene">
           <div class="num">01</div>
           <div class="body">
-            <h3>面向HR部门<span class="indep-tag">独立搭建😜</span></h3>
+            <h3>面向HR部门</h3>
             <p class="hr-lead">入职 &amp; 离职场景中，如何发挥 AI 洞察力？</p>
             <div class="hr-grid">
               <div class="hr-cell"><span class="ht">新人成长bot</span><video src="HR实战demo/新人成长bot.mp4" autoplay loop muted playsinline controls preload="metadata"></video></div>
@@ -586,7 +587,7 @@
         <div class="wb-scene">
           <div class="num">02</div>
           <div class="body">
-            <h3>面向多部门<span class="indep-tag">独立搭建😜</span></h3>
+            <h3>面向多部门</h3>
             <ul class="demo-list">
               <li><b>1</b> 通用 &nbsp; 会议纪要→PPT</li>
               <li><b>2</b> 座舱 &nbsp; 竞品分析报告</li>
