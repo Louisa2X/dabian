@@ -80,10 +80,10 @@
 
   /* P2 WorkBuddy · 产品重点一行 + 三场竖条 */
   .wb-keyline{flex:none;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
-    padding:6px 4px;}
-  .wb-keyline .kterm{font-size:20px;font-weight:700;color:var(--blue);letter-spacing:.3px;}
-  .wb-keyline .kterm.hl{color:var(--blue);font-weight:800;}
-  .wb-keyline .ksep{font-size:20px;font-weight:700;color:var(--lightblue);}
+    padding:4px 4px;margin-top:-8px;}
+  .wb-keyline .kterm{font-size:20px;font-weight:700;color:var(--purple);letter-spacing:.3px;}
+  .wb-keyline .kterm.hl{color:var(--purple);font-weight:800;}
+  .wb-keyline .ksep{font-size:20px;font-weight:700;color:var(--purple);}
   .wb-scenes{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0;}
   .wb-scene{display:flex;flex-direction:column;background:var(--card);border-radius:14px;box-shadow:var(--shadow-sm);
     padding:18px 20px;border-top:3px solid var(--blue);min-height:0;}
@@ -94,20 +94,20 @@
   .wb-scene .res{font-size:13.5px;font-weight:800;color:var(--blue);margin-top:14px;padding-top:12px;border-top:1px dashed #E6ECF8;line-height:1.4;}
 
   /* P2 WorkBuddy · 时间线 */
-  .wb-timeline{flex:none;margin-top:20px;padding:16px 4px 8px;}
+  .wb-timeline{flex:none;margin-top:18px;padding:22px 4px 14px;}
   .wb-timeline .tl-track{position:relative;display:flex;align-items:flex-start;gap:12px;}
-  .wb-timeline .tl-track::before{content:"";position:absolute;left:7%;right:7%;top:8px;height:4px;background:#D6E0F5;border-radius:2px;z-index:0;}
-  .tl-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;position:relative;z-index:1;}
-  .tl-node .tl-dot{width:16px;height:16px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--blue);}
-  .tl-node .tl-month{font-size:16px;font-weight:800;color:var(--dark);margin-top:12px;}
-  .tl-node .tl-desc{font-size:16px;font-weight:600;color:var(--gray);line-height:1.45;}
+  .wb-timeline .tl-track::before{content:"";position:absolute;left:7%;right:7%;top:9px;height:4px;background:#D6E0F5;border-radius:2px;z-index:0;}
+  .tl-node{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;z-index:1;}
+  .tl-node .tl-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--blue);}
+  .tl-node .tl-month{font-size:16px;font-weight:800;color:var(--dark);margin-top:16px;}
+  .tl-node .tl-desc{font-size:16px;font-weight:600;color:var(--gray);line-height:1.5;}
   .tl-node.tl-final .tl-dot{background:var(--dark);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--dark);}
   .tl-node.tl-final .tl-month{color:var(--dark);}
   .tl-node.tl-final .tl-desc{color:var(--dark);font-weight:800;}
   .tl-band{flex:1.6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    background:#EEF3FF;border:1px solid #DCE6FB;border-radius:14px;padding:13px 14px;position:relative;z-index:1;}
+    background:#EEF3FF;border:1px solid #DCE6FB;border-radius:14px;padding:18px 16px;position:relative;z-index:1;}
   .tl-band .tl-band-label{font-size:16px;font-weight:800;color:var(--blue);letter-spacing:.3px;}
-  .tl-band .tl-band-subs{display:flex;gap:18px;margin-top:6px;flex-wrap:wrap;justify-content:center;}
+  .tl-band .tl-band-subs{display:flex;gap:20px;margin-top:9px;flex-wrap:wrap;justify-content:center;}
   .tl-band .tl-band-subs span{font-size:15px;font-weight:600;color:var(--blue);}
 
   /* 流程链 */
@@ -539,21 +539,21 @@
         <div class="wb-scene">
           <div class="num">01</div>
           <div class="body">
-            <h3>第一场 · 某外企HR部门</h3>
+            <h3>第一场 · HR部门</h3>
           </div>
           <div class="res">展示智能体速搭插件能力</div>
         </div>
         <div class="wb-scene">
           <div class="num">02</div>
           <div class="body">
-            <h3>第二场 · 某外企多部门（我主讲）</h3>
+            <h3>第二场 · 多部门（我主讲）</h3>
           </div>
           <div class="res">全方面展示</div>
         </div>
         <div class="wb-scene">
           <div class="num">03</div>
           <div class="body">
-            <h3>第三场 · 客户董事会</h3>
+            <h3>第三场：VM董事会</h3>
             <p>协助导师搭建「销售—售前—产品—研发—项目经理—售后」六方协作飞轮</p>
           </div>
           <div class="res">XC 链路闭环</div>
