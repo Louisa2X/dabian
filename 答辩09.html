@@ -78,6 +78,22 @@
   .scene .body p{font-size:13.5px;color:var(--gray);margin-top:3px;line-height:1.45;}
   .scene .res{font-size:13.5px;font-weight:800;flex:none;max-width:180px;text-align:right;line-height:1.4;}
 
+  /* P2 WorkBuddy · 产品重点一行 + 三场竖条 */
+  .wb-keyline{flex:none;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+    background:linear-gradient(150deg,#F0F7FF 0%,#E6F9F9 100%);border:1px solid #E6ECF8;border-radius:12px;
+    padding:15px 22px;box-shadow:var(--shadow-sm);}
+  .wb-keyline .kterm{font-size:20px;font-weight:700;color:var(--dark);letter-spacing:.3px;}
+  .wb-keyline .kterm.hl{color:var(--blue);font-weight:800;}
+  .wb-keyline .ksep{font-size:20px;font-weight:700;color:var(--cyan);}
+  .wb-scenes{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0;}
+  .wb-scene{display:flex;flex-direction:column;background:var(--card);border-radius:14px;box-shadow:var(--shadow-sm);
+    padding:18px 20px;border-top:3px solid var(--blue);min-height:0;}
+  .wb-scene .num{font-size:48px;font-weight:800;line-height:1;color:var(--blue);}
+  .wb-scene .body{flex:1;margin-top:14px;}
+  .wb-scene .body h3{font-size:16.5px;font-weight:800;color:var(--dark);line-height:1.35;}
+  .wb-scene .body p{font-size:13.5px;color:var(--gray);margin-top:7px;line-height:1.5;}
+  .wb-scene .res{font-size:13.5px;font-weight:800;color:var(--blue);margin-top:14px;padding-top:12px;border-top:1px dashed #E6ECF8;line-height:1.4;}
+
   /* 流程链 */
   .flow{display:flex;align-items:stretch;gap:8px;}
   .fnode{flex:1;background:var(--bg2);border-radius:10px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;}
@@ -475,73 +491,35 @@
     <div class="slide-inner">
       <div class="titlebar">
         <div class="bar"></div>
-        <h1>WorkBuddy · 学习 + 三场实战</h1>
+        <h1>WorkBuddy</h1>
       </div>
-      <div class="cols">
-        <div class="col" style="flex:2">
-          <div class="card" style="padding:18px 22px;display:flex;flex-direction:column;gap:11px;flex:1">
-            <h3 style="font-size:18px;font-weight:800;color:var(--blue)">产品体系</h3>
-            <div style="display:flex;flex-direction:column;gap:8px;flex:1;justify-content:space-evenly">
-              <div class="krow">
-                <span class="klabel">能力层</span>
-                <span class="kval" style="font-size:14px">Skills / Agent / 专家团队 / 项目合作</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">差异点</span>
-                <span class="kval" style="font-size:14px">能直接读写<b style="color:var(--blue)">本机文件</b>，不必上传云端</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">安全</span>
-                <span class="kval" style="font-size:14px"><b style="color:var(--blue)">沙箱隔离</b>：一任务一沙箱 · 用完即销毁</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">生态</span>
-                <span class="kval" style="font-size:13.5px;line-height:1.5">现成 Skill Hub + 专家团 + 灵感模板，<b style="color:var(--blue)">把工作流变资产</b>；自建 Skill 与专家，灵活提效</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">部署</span>
-                <span class="kval" style="font-size:14px">SaaS / VPC / 私有化 三种形态</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">计费</span>
-                <span class="kval" style="font-size:14px">License + Token</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">亮点</span>
-                <span class="kval" style="font-size:14px">V5.3.5 <b style="color:var(--blue)">人机双写</b>「框选即改」</span>
-              </div>
-              <div class="krow">
-                <span class="klabel">家族</span>
-                <span class="kval" style="font-size:13px;line-height:1.5">CodeBuddy（研发）沉淀出 Agent 执行框架 <b style="color:var(--blue)">Harness</b><br>WorkBuddy（办公）、DataBuddy（大数据）<b style="color:var(--blue)">继承</b></span>
-              </div>
-            </div>
+      <div class="wb-keyline">
+        <span class="kterm">本地文件</span><span class="ksep">/</span><span class="kterm">Skills Hub</span><span class="ksep">/</span><span class="kterm">专家团队</span><span class="ksep">/</span><span class="kterm hl">人机双写</span><span class="ksep">/</span><span class="kterm hl">沙箱隔离</span>
+      </div>
+      <div class="wb-scenes">
+        <div class="wb-scene">
+          <div class="num">01</div>
+          <div class="body">
+            <h3>第一场 · 某外企HR部门</h3>
+            <p>独立设计 2 个 Demo</p>
           </div>
+          <div class="res">展示智能体速搭插件能力</div>
         </div>
-        <div class="col" style="flex:3">
-          <div class="scene">
-            <div class="num" style="color:var(--blue)">01</div>
-            <div class="body">
-              <h3>第一场 · 某外企HR部门</h3>
-              <p>独立设计 2 个 Demo</p>
-            </div>
-            <div class="res" style="color:var(--blue)">展示智能体速搭插件能力</div>
+        <div class="wb-scene">
+          <div class="num">02</div>
+          <div class="body">
+            <h3>第二场 · 某外企多部门（我主讲）</h3>
+            <p>独立搭建 10 余 Demo，覆盖开发 / 营销 / HR / 行研</p>
           </div>
-          <div class="scene">
-            <div class="num" style="color:var(--blue)">02</div>
-            <div class="body">
-              <h3>第二场 · 某外企多部门（我主讲）</h3>
-              <p>独立搭建 10 余 Demo，覆盖开发 / 营销 / HR / 行研</p>
-            </div>
-            <div class="res" style="color:var(--blue)">演示 Skill·专家·项目空间·人机双写</div>
+          <div class="res">演示 Skill · 专家 · 项目空间 · 人机双写</div>
+        </div>
+        <div class="wb-scene">
+          <div class="num">03</div>
+          <div class="body">
+            <h3>第三场 · 客户董事会</h3>
+            <p>协助导师搭建「销售—售前—产品—研发—项目经理—售后」六方协作飞轮</p>
           </div>
-          <div class="scene">
-            <div class="num" style="color:var(--blue)">03</div>
-            <div class="body">
-              <h3>第三场 · 客户董事会</h3>
-              <p>协助导师搭建「销售—售前—产品—研发—项目经理—售后」六方协作飞轮</p>
-            </div>
-            <div class="res" style="color:var(--blue)">XC 链路闭环</div>
-          </div>
+          <div class="res">XC 链路闭环</div>
         </div>
       </div>
     </div>
