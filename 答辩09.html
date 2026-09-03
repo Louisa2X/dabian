@@ -816,159 +816,157 @@
 
         <!-- 中：HLD 架构图（本页主角，图自带标题） -->
         <div style="flex:1;min-height:0;display:flex;padding:0;order:2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" style="flex:1;min-height:0;width:100%;height:100%;display:block" font-family="PingFang SC, Microsoft YaHei, Helvetica Neue, Arial, sans-serif" data-page-node-id="kJbsL0bgiEi2tJfyIO74VP">
-                      <defs data-page-node-id="nBB4YjxB0h4FjEhJclIO11">
-                      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" data-page-node-id="MG3xYaqH7orwqAvryKvCai">
-                      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="K4WBD6AJ57EVXBl3CGwuPi"/>
-                      </marker>
-                      </defs>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 852" preserveAspectRatio="xMidYMid meet" style="flex:1;min-height:0;width:100%;height:100%;display:block" font-family="PingFang SC, Microsoft YaHei, Helvetica Neue, Arial, sans-serif">
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
 
-                      <rect x="0" y="0" fill="#FFFFFF" data-page-node-id="xXsfn3XY77xHRC3WRm95WN"/>
+<rect x="0" y="0" width="1600" height="852" fill="#FFFFFF"/>
 
-                      <rect x="60" y="48" width="6" height="34" fill="#C8102E" data-page-node-id="9Rue9IK2bRAhrCyvcZpp0R"/>
-                      <text x="82" y="76" font-size="28" font-weight="600" fill="#1A1A1A" data-page-node-id="ulxWNoyvGBafGajQvVsTkG">整体方案架构</text>
+<rect x="60" y="60" width="1480" height="152" rx="12" fill="#F4F3EF" stroke="#B8B6AC" stroke-width="1.5"/>
+<rect x="60" y="60" width="1480" height="34" rx="12" fill="#E4E2D9"/>
+<rect x="60" y="82" width="1480" height="12" fill="#E4E2D9"/>
+<text x="82" y="83" font-size="16" font-weight="600" fill="#3A3A36">Spec 要求</text>
 
-                      <rect x="1092" y="42" width="448" height="52" rx="8" fill="#F7F7F5" stroke="#D8D8D2" stroke-width="1" data-page-node-id="HYVMD2D5kRbs2VTAUqkj3y"/>
-                      <rect x="1092" y="42" width="4" height="52" rx="2" fill="#C8102E" data-page-node-id="xpdVfokVw2At1QGWr2FIir"/>
-                      <text x="1116" y="63" font-size="13" fill="#7A7870" data-page-node-id="2TEmTyAeNPjeytE9vrTZ58">数据规模</text>
-                      <text x="1116" y="84" font-size="15" font-weight="600" fill="#1A1A1A" data-page-node-id="MYyozBIvrV4H7wPLB7CVbd">320 GB/天　·　容量从 20 TB 演进至 2 PB</text>
+<g>
+<rect x="84" y="118" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="184" y="147" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">工厂数据源</text>
+<text x="184" y="172" text-anchor="middle" font-size="13" fill="#7A7870">视频 · 图像 · 传感器 · PLC</text>
+</g>
+<path d="M290 155 L316 155" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="322" y="118" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="422" y="147" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">数据采集</text>
+<text x="422" y="172" text-anchor="middle" font-size="13" fill="#7A7870">规范化上云</text>
+</g>
+<path d="M528 155 L554 155" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="560" y="118" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="660" y="147" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">数据平台</text>
+<text x="660" y="172" text-anchor="middle" font-size="13" fill="#7A7870">清洗 · 脱敏 · 标注 · 质检</text>
+</g>
+<path d="M766 155 L792 155" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="798" y="118" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="898" y="147" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">工业场景库</text>
+<text x="898" y="172" text-anchor="middle" font-size="13" fill="#7A7870">场景资产 · 检索</text>
+</g>
+<path d="M1004 155 L1030 155" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="1036" y="118" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="1136" y="155" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">AI 训练平台</text>
+</g>
+<path d="M1242 155 L1268 155" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="1274" y="118" width="242" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2"/>
+<text x="1395" y="155" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A">数据应用与共享</text>
+</g>
 
-                      <rect x="60" y="108" width="1480" height="152" rx="12" fill="#F4F3EF" stroke="#B8B6AC" stroke-width="1.5" data-page-node-id="caLDSdvZv5dERVbzGxZxkc"/>
-                      <rect x="60" y="108" width="1480" height="34" rx="12" fill="#E4E2D9" data-page-node-id="KrkAFmIafoZ2JB6DH7R3YB"/>
-                      <rect x="60" y="130" width="1480" height="12" fill="#E4E2D9" data-page-node-id="QCqio1nSe23xEfLG0hwDg5"/>
-                      <text x="82" y="131" font-size="16" font-weight="600" fill="#3A3A36" data-page-node-id="xQAAJDbZWdhsuNG3W2oIhF">Spec 要求</text>
+<rect x="60" y="244" width="238" height="188" rx="12" fill="#FAFAF8" stroke="#B8B6AC" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="179" y="274" text-anchor="middle" font-size="16" font-weight="600" fill="#6B6B6B">客户侧</text>
+<text x="179" y="308" text-anchor="middle" font-size="14" fill="#7A7870">Edge Gateway</text>
+<text x="179" y="336" text-anchor="middle" font-size="14" fill="#7A7870">MCAP Recorder</text>
+<text x="179" y="364" text-anchor="middle" font-size="14" fill="#7A7870">Upload Agent</text>
+<text x="179" y="400" text-anchor="middle" font-size="13" fill="#9A988F">5G 上行 · 夜间窗口</text>
 
-                      <g data-page-node-id="PPGP0AL5SonZZtSZgHgkuE">
-                      <rect x="84" y="166" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="aEk1TzbHPyHOYKUmgYjZ3S"/>
-                      <text x="184" y="195" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="pP7yEDWafyUR44xqbL1D30">工厂数据源</text>
-                      <text x="184" y="220" text-anchor="middle" font-size="13" fill="#7A7870" data-page-node-id="wDyWO2xGBRheKjfNBrwWVB">视频 · 图像 · 传感器 · PLC</text>
-                      </g>
-                      <path d="M290 203 L316 203" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)" data-page-node-id="BCW0xOp1ka3aG2RxDtI8DG"/>
-                      <g data-page-node-id="OD4z8YGSZUZKnAqBub1X3H">
-                      <rect x="322" y="166" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="zBkh1ZvpwTiW8G8WsRj2xc"/>
-                      <text x="422" y="195" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="edYjdU9JQMpYjGgnyjTBER">数据采集</text>
-                      <text x="422" y="220" text-anchor="middle" font-size="13" fill="#7A7870" data-page-node-id="ZG4StLF2VUnO0KPtxylCHH">规范化上云</text>
-                      </g>
-                      <path d="M528 203 L554 203" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)" data-page-node-id="9kX8cvewBzDxhdEgQGkX6Q"/>
-                      <g data-page-node-id="FqcDbzzq82ANWCB9pgGBBz">
-                      <rect x="560" y="166" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="vbdhbMO4led0ZEXLaTl03V"/>
-                      <text x="660" y="195" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="CNRiIHTJZHwycttqk41zAk">数据平台</text>
-                      <text x="660" y="220" text-anchor="middle" font-size="13" fill="#7A7870" data-page-node-id="dwjjU3FMqinApnTY7K2qTV">清洗 · 脱敏 · 标注 · 质检</text>
-                      </g>
-                      <path d="M766 203 L792 203" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)" data-page-node-id="HnsAymxuXzzonlK0jKvH3T"/>
-                      <g data-page-node-id="k2fAXG7Dyz3YHvN8y8zh0W">
-                      <rect x="798" y="166" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="L0niXWmXHJ3OngDg2f2wbL"/>
-                      <text x="898" y="195" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="IMGrfVQA2YFyDCQPkdy5VZ">工业场景库</text>
-                      <text x="898" y="220" text-anchor="middle" font-size="13" fill="#7A7870" data-page-node-id="BK1Q3jKTJ1vRiBPDuChoVY">场景资产 · 检索</text>
-                      </g>
-                      <path d="M1004 203 L1030 203" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)" data-page-node-id="Y6XF3n8AK0Tcdiv5ajyuqs"/>
-                      <g data-page-node-id="jqaLxxVwZhWCQGXwR8dHZ4">
-                      <rect x="1036" y="166" width="200" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="P80sTBPkZngeeB2Y8lxlpE"/>
-                      <text x="1136" y="203" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="NpCpZU2xeIjn10xwSC0x2c">AI 训练平台</text>
-                      </g>
-                      <path d="M1242 203 L1268 203" fill="none" stroke="#8C8A80" stroke-width="2" marker-end="url(#ar)" data-page-node-id="lpEy6fwuJIja8NP66VHfSW"/>
-                      <g data-page-node-id="cRzmHYF2VR190r2oTRbZcy">
-                      <rect x="1274" y="166" width="242" height="74" rx="10" fill="#FFFFFF" stroke="#8C8A80" stroke-width="1.2" data-page-node-id="57h4VFNdKjhHMJpcBvrLbV"/>
-                      <text x="1395" y="203" text-anchor="middle" font-size="18" font-weight="600" fill="#1A1A1A" data-page-node-id="kwlW2xPCtybJRgN6tYIEKU">数据应用与共享</text>
-                      </g>
+<path d="M304 338 L328 338" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ar)"/>
 
-                      <rect x="60" y="292" width="238" height="188" rx="12" fill="#FAFAF8" stroke="#B8B6AC" stroke-width="1.2" stroke-dasharray="6 4" data-page-node-id="UqmTUuiGMyCdHV8tfn3Suq"/>
-                      <text x="179" y="322" text-anchor="middle" font-size="16" font-weight="600" fill="#6B6B6B" data-page-node-id="ufr2RmoCwGqKyYC4vWpnTE">客户侧</text>
-                      <text x="179" y="356" text-anchor="middle" font-size="14" fill="#7A7870" data-page-node-id="Y1oTePi1tGfLs9wpP5w0Zx">Edge Gateway</text>
-                      <text x="179" y="384" text-anchor="middle" font-size="14" fill="#7A7870" data-page-node-id="sMv4TJH62IMWBvmnebu0Di">MCAP Recorder</text>
-                      <text x="179" y="412" text-anchor="middle" font-size="14" fill="#7A7870" data-page-node-id="V0KEJwXCRoaZ5FXFOj1KDN">Upload Agent</text>
-                      <text x="179" y="448" text-anchor="middle" font-size="13" fill="#9A988F" data-page-node-id="dbnOvIPefktFMnqRILjMa4">5G 上行 · 夜间窗口</text>
+<rect x="336" y="244" width="1204" height="188" rx="12" fill="#EAF2FB" stroke="#185FA5" stroke-width="1.8"/>
+<rect x="336" y="244" width="1204" height="34" rx="12" fill="#185FA5"/>
+<rect x="336" y="266" width="1204" height="12" fill="#185FA5"/>
+<text x="358" y="268" font-size="16" font-weight="600" fill="#FFFFFF">WP2　具身智能数据平台　·　载体：艾欧</text>
 
-                      <path d="M304 386 L328 386" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ar)" data-page-node-id="bX7HXkaky67m3BSV1nvCdP"/>
+<g>
+<rect x="360" y="300" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2"/>
+<text x="468" y="330" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B">数据注入</text>
+<text x="468" y="356" text-anchor="middle" font-size="13" fill="#3A6FA8">IO 接收服务</text>
+<text x="468" y="380" text-anchor="middle" font-size="13" fill="#3A6FA8">STS 鉴权 · 分片校验</text>
+</g>
+<path d="M582 356 L590 356" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="594" y="300" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2"/>
+<text x="702" y="330" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B">脱敏与治理</text>
+<text x="702" y="356" text-anchor="middle" font-size="13" fill="#3A6FA8">数据万象自动触发</text>
+<text x="702" y="380" text-anchor="middle" font-size="13" fill="#3A6FA8">MCAP → LeRobot</text>
+</g>
+<path d="M816 356 L824 356" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="828" y="300" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2"/>
+<text x="936" y="330" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B">场景库与检索</text>
+<text x="936" y="356" text-anchor="middle" font-size="13" fill="#3A6FA8">TCLAKE · Lance</text>
+<text x="936" y="380" text-anchor="middle" font-size="13" fill="#3A6FA8">元数据 · 血缘</text>
+</g>
+<path d="M1050 356 L1058 356" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="1062" y="300" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2"/>
+<text x="1170" y="330" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B">AI 训练平台</text>
+<text x="1170" y="356" text-anchor="middle" font-size="13" fill="#3A6FA8">TI-ONE</text>
+<text x="1170" y="380" text-anchor="middle" font-size="13" fill="#3A6FA8">训练 · 微调 · 评测</text>
+</g>
+<path d="M1284 356 L1292 356" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="1296" y="300" width="220" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2"/>
+<text x="1406" y="330" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B">分发与共享</text>
+<text x="1406" y="356" text-anchor="middle" font-size="13" fill="#3A6FA8">预签名 URL 下载</text>
+<text x="1406" y="380" text-anchor="middle" font-size="13" fill="#3A6FA8">开放 API</text>
+</g>
 
-                      <rect x="336" y="292" width="1204" height="188" rx="12" fill="#EAF2FB" stroke="#185FA5" stroke-width="1.8" data-page-node-id="x9h56DQM12paJJHPr3d4cD"/>
-                      <rect x="336" y="292" width="1204" height="34" rx="12" fill="#185FA5" data-page-node-id="n1Tl6kIJxtrzG21HIjEBtq"/>
-                      <rect x="336" y="314" width="1204" height="12" fill="#185FA5" data-page-node-id="m0PnTC4jJ0DsZrtXNPZCx1"/>
-                      <text x="358" y="316" font-size="16" font-weight="600" fill="#FFFFFF" data-page-node-id="JLEK8agVRDk1hGDeV2ab7e">WP2　具身智能数据平台　·　载体：艾欧</text>
+<path d="M1170 438 L1170 466" fill="none" stroke="#5B4FBF" stroke-width="2.5" marker-end="url(#ar)"/>
 
-                      <g data-page-node-id="DdRry4lgoKfqAueyKMeaXS">
-                      <rect x="360" y="348" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2" data-page-node-id="b5R29MfsOpPmW6x3GCCHMq"/>
-                      <text x="468" y="378" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B" data-page-node-id="euOxWKA1HBt2m0B4HjN7Vo">数据注入</text>
-                      <text x="468" y="404" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="f4UEftduEuCDPcTXSu0dpf">IO 接收服务</text>
-                      <text x="468" y="428" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="kfWvkq7LPQWvFasmfGOXvA">STS 鉴权 · 分片校验</text>
-                      </g>
-                      <path d="M582 404 L590 404" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)" data-page-node-id="xC6jjEp9WtOrWX9h2dRd52"/>
-                      <g data-page-node-id="t4prIY7bMGHnL2mHdeiJza">
-                      <rect x="594" y="348" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2" data-page-node-id="eKIZvyVwyHBnwldbQvKqDk"/>
-                      <text x="702" y="378" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B" data-page-node-id="SoMBdRjcdsYrcVZjEQ2SxE">脱敏与治理</text>
-                      <text x="702" y="404" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="YkdSAViVcCRPHUaKUSjiDn">数据万象自动触发</text>
-                      <text x="702" y="428" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="2PEnYYd979Rx8ZNMP97pwi">MCAP → LeRobot</text>
-                      </g>
-                      <path d="M816 404 L824 404" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)" data-page-node-id="1YRQx7DaPlLHVQQPO6PQXl"/>
-                      <g data-page-node-id="CzdhxkeKan1SZUDHWBddSM">
-                      <rect x="828" y="348" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2" data-page-node-id="14fywcDI2kWMRBi47RFqM4"/>
-                      <text x="936" y="378" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B" data-page-node-id="jqZF59xaHAB6QjPvQYinU7">场景库与检索</text>
-                      <text x="936" y="404" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="9XdrmK5hoRX96XCTZLvBC4">TCLAKE · Lance</text>
-                      <text x="936" y="428" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="A6XSRU2dw9OX1FCRYMlZjO">元数据 · 血缘</text>
-                      </g>
-                      <path d="M1050 404 L1058 404" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)" data-page-node-id="sSZxKlpbAnTINYGdciDBG7"/>
-                      <g data-page-node-id="DYbtkq7OkYm4FYIOCrhXZP">
-                      <rect x="1062" y="348" width="216" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2" data-page-node-id="z6AhhiqhmG99dgWOX2VjOa"/>
-                      <text x="1170" y="378" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B" data-page-node-id="KRCpYKWbLC8BMWnvNbnaCY">AI 训练平台</text>
-                      <text x="1170" y="404" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="9V3HtA5YcBnP8pBZkridPO">TI-ONE</text>
-                      <text x="1170" y="428" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="wYN3ultPhF3Nmk5GAYJfuh">训练 · 微调 · 评测</text>
-                      </g>
-                      <path d="M1284 404 L1292 404" fill="none" stroke="#3A6FA8" stroke-width="2" marker-end="url(#ar)" data-page-node-id="vzAMlv2YhVAmxJPFxWjBSa"/>
-                      <g data-page-node-id="VgeJBT3jHFoiuPonrySK2g">
-                      <rect x="1296" y="348" width="220" height="112" rx="10" fill="#FFFFFF" stroke="#185FA5" stroke-width="1.2" data-page-node-id="uHAI45BpcYiAs0Ucfg8VIA"/>
-                      <text x="1406" y="378" text-anchor="middle" font-size="17" font-weight="600" fill="#0C3D6B" data-page-node-id="VFrRmGVRMepPYhiSWt9FJb">分发与共享</text>
-                      <text x="1406" y="404" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="50D9b3DcYyLg5HXYHaQsEA">预签名 URL 下载</text>
-                      <text x="1406" y="428" text-anchor="middle" font-size="13" fill="#3A6FA8" data-page-node-id="5AqnmoDSBwdLB3mE83EzC7">开放 API</text>
-                      </g>
+<rect x="1000" y="472" width="540" height="112" rx="12" fill="#F0EEFC" stroke="#5B4FBF" stroke-width="1.8"/>
+<rect x="1000" y="472" width="540" height="34" rx="12" fill="#5B4FBF"/>
+<rect x="1000" y="494" width="540" height="12" fill="#5B4FBF"/>
+<text x="1022" y="496" font-size="16" font-weight="600" fill="#FFFFFF">WP3　GPU 资源</text>
+<text x="1022" y="532" font-size="14" fill="#2F2775">H20 × 8 卡整机　·　4 台 32 卡起</text>
+<text x="1022" y="560" font-size="14" fill="#2F2775">VPC 互联　·　按微调负载适配，为客户控成本</text>
 
-                      <path d="M1170 486 L1170 514" fill="none" stroke="#5B4FBF" stroke-width="2.5" marker-end="url(#ar)" data-page-node-id="iI0moqeFtnIA2UxNtu050r"/>
+<rect x="60" y="616" width="1480" height="188" rx="12" fill="#E4F3ED" stroke="#0F6E56" stroke-width="1.8"/>
+<rect x="60" y="616" width="1480" height="34" rx="12" fill="#0F6E56"/>
+<rect x="60" y="638" width="1480" height="12" fill="#0F6E56"/>
+<text x="82" y="640" font-size="16" font-weight="600" fill="#FFFFFF">WP1　云基础设施</text>
 
-                      <rect x="1000" y="520" width="540" height="112" rx="12" fill="#F0EEFC" stroke="#5B4FBF" stroke-width="1.8" data-page-node-id="9WsBJNc6UuIyjmpxDDpldV"/>
-                      <rect x="1000" y="520" width="540" height="34" rx="12" fill="#5B4FBF" data-page-node-id="LMRzRP5uBAtrKTHb0V54xw"/>
-                      <rect x="1000" y="542" width="540" height="12" fill="#5B4FBF" data-page-node-id="qPJ0E5ST8jeFHKmBWklYlH"/>
-                      <text x="1022" y="544" font-size="16" font-weight="600" fill="#FFFFFF" data-page-node-id="IFgZhXmWPczme02ZI3KYfz">WP3　GPU 资源</text>
-                      <text x="1022" y="580" font-size="14" fill="#2F2775" data-page-node-id="s50fJXpqwxv0COVWFZAjl1">H20 × 8 卡整机　·　4 台 32 卡起</text>
-                      <text x="1022" y="608" font-size="14" fill="#2F2775" data-page-node-id="FzYu4tgaDlVMqKzxaH9j4B">VPC 互联　·　按微调负载适配，为客户控成本</text>
+<g>
+<rect x="84" y="678" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="219" y="714" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A">COS 暂存桶</text>
+<text x="219" y="744" text-anchor="middle" font-size="13" fill="#31816B">热数据 · 生命周期自动过期</text>
+</g>
+<g>
+<rect x="368" y="678" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="503" y="714" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A">COS 源数据桶</text>
+<text x="503" y="744" text-anchor="middle" font-size="13" fill="#31816B">KMS 加密 · 长期保存</text>
+</g>
+<g>
+<rect x="652" y="678" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="787" y="714" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A">分层沉降</text>
+<text x="787" y="744" text-anchor="middle" font-size="13" fill="#31816B">标准 → 低频 → 归档</text>
+</g>
+<g>
+<rect x="936" y="678" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="1071" y="714" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A">CFS Turbo</text>
+<text x="1071" y="744" text-anchor="middle" font-size="13" fill="#31816B">训练热数据 · 高性能层</text>
+</g>
+<g>
+<rect x="1220" y="678" width="296" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2"/>
+<text x="1368" y="714" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A">GooseFS 缓存</text>
+<text x="1368" y="744" text-anchor="middle" font-size="13" fill="#31816B">本地 NVMe 预热加速</text>
+</g>
 
-                      <rect x="60" y="664" width="1480" height="188" rx="12" fill="#E4F3ED" stroke="#0F6E56" stroke-width="1.8" data-page-node-id="uShODEs6nGKyDvJnXkXEVt"/>
-                      <rect x="60" y="664" width="1480" height="34" rx="12" fill="#0F6E56" data-page-node-id="TAHnsG5B1TVAgP1asK0BMh"/>
-                      <rect x="60" y="686" width="1480" height="12" fill="#0F6E56" data-page-node-id="7Bai0Pc0eECHPs6uapp0kt"/>
-                      <text x="82" y="688" font-size="16" font-weight="600" fill="#FFFFFF" data-page-node-id="cad5X4U0T7S0NbQAMfxuMp">WP1　云基础设施</text>
+<path d="M468 418 L468 616" fill="none" stroke="#0F6E56" stroke-width="2.5" marker-end="url(#ar)"/>
+<path d="M702 418 L702 616" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M936 418 L936 616" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M1071 590 L1071 616" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4"/>
 
-                      <g data-page-node-id="CWXl4RNbYjWVOxMpVHzvnt">
-                      <rect x="84" y="726" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2" data-page-node-id="YziETDerYNfp64OJSLK2wf"/>
-                      <text x="219" y="762" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A" data-page-node-id="wES53lgXBScySIXHvept2h">COS 暂存桶</text>
-                      <text x="219" y="792" text-anchor="middle" font-size="13" fill="#31816B" data-page-node-id="PU79bv1hRh47NIVGb76XqI">热数据 · 生命周期自动过期</text>
-                      </g>
-                      <g data-page-node-id="RMpqypl8Vj1ST2oIWyg1Ju">
-                      <rect x="368" y="726" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2" data-page-node-id="CQIObxs1fFk7MX76zNQrBA"/>
-                      <text x="503" y="762" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A" data-page-node-id="qBz6jE66LUXYfA6u9O0AwQ">COS 源数据桶</text>
-                      <text x="503" y="792" text-anchor="middle" font-size="13" fill="#31816B" data-page-node-id="QBn2Fmstuf7oWvn1Dh9SzQ">KMS 加密 · 长期保存</text>
-                      </g>
-                      <g data-page-node-id="d2rw1gFMetT5s6DJxuVdb9">
-                      <rect x="652" y="726" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2" data-page-node-id="76pG9aJqLv7BF5hw8fAmh8"/>
-                      <text x="787" y="762" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A" data-page-node-id="MNym6CvxyfF0NlsYuyhsPx">分层沉降</text>
-                      <text x="787" y="792" text-anchor="middle" font-size="13" fill="#31816B" data-page-node-id="7kvzY1qW8wS4i57gCeFGbX">标准 → 低频 → 归档</text>
-                      </g>
-                      <g data-page-node-id="elrl4Vjp97zj0wt2FW4EEI">
-                      <rect x="936" y="726" width="270" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2" data-page-node-id="A85LH86cXBuSwCPYTHxp2l"/>
-                      <text x="1071" y="762" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A" data-page-node-id="P0gaKHdDZ5p9cxGNFkWPb7">CFS Turbo</text>
-                      <text x="1071" y="792" text-anchor="middle" font-size="13" fill="#31816B" data-page-node-id="0jGePV0BkKwnQEsX34UoDE">训练热数据 · 高性能层</text>
-                      </g>
-                      <g data-page-node-id="XvAOCbe1RrdKpzH3IkA4A0">
-                      <rect x="1220" y="726" width="296" height="98" rx="10" fill="#FFFFFF" stroke="#0F6E56" stroke-width="1.2" data-page-node-id="0ysM2JjGFgpTvKI8Bkthxk"/>
-                      <text x="1368" y="762" text-anchor="middle" font-size="17" font-weight="600" fill="#08483A" data-page-node-id="7gtxbrwbu0Ruxiz0ck44wZ">GooseFS 缓存</text>
-                      <text x="1368" y="792" text-anchor="middle" font-size="13" fill="#31816B" data-page-node-id="xW77sSrESOKcASiB6ZWDLf">本地 NVMe 预热加速</text>
-                      </g>
+<rect x="62" y="455" width="234" height="90" rx="8" fill="#F7F7F5" stroke="#D8D8D2" stroke-width="1"/>
+<rect x="62" y="455" width="4" height="90" rx="2" fill="#C8102E"/>
+<text x="82" y="479" font-size="13" fill="#7A7870">数据规模</text>
+<text x="82" y="505" font-size="15" font-weight="600" fill="#1A1A1A">320 GB / 天</text>
+<text x="82" y="529" font-size="15" font-weight="600" fill="#1A1A1A">20 TB → 2 PB</text>
 
-                      <path d="M468 466 L468 664" fill="none" stroke="#0F6E56" stroke-width="2.5" marker-end="url(#ar)" data-page-node-id="VMzjV3crR21PdxQyUTrSBR"/>
-                      <path d="M702 466 L702 664" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4" data-page-node-id="KvNoaq0CUu8P6VfTmhC99i"/>
-                      <path d="M936 466 L936 664" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4" data-page-node-id="1Fz9oMUS3uEfWquT5rrypc"/>
-                      <path d="M1071 638 L1071 664" fill="none" stroke="#0F6E56" stroke-width="1" stroke-dasharray="5 4" data-page-node-id="RHoorzk4TGPXYZqNIlbF3Q"/>
-
-                      <rect x="348" y="336" width="240" height="136" rx="12" fill="none" stroke="#D85A30" stroke-width="3" stroke-dasharray="9 5" data-page-node-id="EciU1oH3HkPnHQYGo3EWhY"/>
-                      <rect x="72" y="714" width="576" height="122" rx="12" fill="none" stroke="#D85A30" stroke-width="3" stroke-dasharray="9 5" data-page-node-id="s94IJnR5j6szIPOl1zzVCn"/>
-                      </svg>
+<rect x="348" y="288" width="240" height="136" rx="12" fill="none" stroke="#D85A30" stroke-width="3" stroke-dasharray="9 5"/>
+<rect x="72" y="666" width="576" height="122" rx="12" fill="none" stroke="#D85A30" stroke-width="3" stroke-dasharray="9 5"/>
+</svg>
         </div>
 
           <!-- ① 项目背景 (top) -->
