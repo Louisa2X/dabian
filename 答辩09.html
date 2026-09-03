@@ -178,6 +178,7 @@
   .diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .diff-card{background:#F4F7FE;border:1px solid #DCE6FB;border-top:3px solid var(--blue);border-radius:10px;padding:12px 14px;}
   .diff-card .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
+  .diff-card .diff-t .q{color:var(--purple);}
   .diff-card .diff-d{font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.55;}
 
   .frames{flex:1;display:flex;gap:18px;min-height:0;}
@@ -572,7 +573,7 @@
         </div>
       </div>
       <div class="wb-scenes">
-        <div class="indep-bubble">独立搭建😜</div>
+        <div class="indep-bubble">独立设计😜</div>
         <div class="wb-scene">
           <div class="num">01</div>
           <div class="body">
@@ -672,136 +673,22 @@
         <div class="sec-h"><span class="sec-n">03</span><span>项目难点与推广策略。</span></div>
         <div class="diff-grid">
           <div class="diff-card">
-            <div class="diff-t">决策繁琐？分层推广</div>
+            <div class="diff-t"><span class="q">决策繁琐？</span>分层推广</div>
             <div class="diff-d">BD 50 人 POC → HR 验证降门槛 → 分享会覆盖多事业部 → 150 License 下单</div>
           </div>
           <div class="diff-card">
-            <div class="diff-t">合规复杂？网络环境适配</div>
+            <div class="diff-t"><span class="q">合规复杂？</span>网络环境适配</div>
             <div class="diff-d">客户走代理上网，产品不直接支持；客户自研脚本适配，以 workaround 推进 POC</div>
           </div>
           <div class="diff-card">
-            <div class="diff-t">要求高？产品能力过硬</div>
-            <div class="diff-d">从云龙虾网页版试错（泄密风险／功能单一），转向 WorkBuddy 桌面端，Skill·专家团·人机双写扎实提效</div>
+            <div class="diff-t"><span class="q">要求高？</span>产品能力过硬</div>
+            <div class="diff-d">从云龙虾网页版试错（泄密风险／功能单一），扎实提效</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- P2c 第二场实战 · 某外企多部门 -->
-  <section class="slide">
-    <div class="slide-inner">
-      <div class="titlebar">
-        <div class="bar"></div>
-        <h1>WorkBuddy × 某外企 Multi-Scenario</h1>
-      </div>
-      <div class="demo-grid">
-        <div class="demo-cell"><div class="dnum">01</div><div class="dname">会议纪要 → PPT</div><div class="ddept">通用</div><div class="dabil">PPT 生成</div></div>
-        <div class="demo-cell has-video"><div class="dnum">02</div><div class="dname">竞品分析报告</div><div class="ddept">座舱</div><div class="dabil">深度研究专家</div><video class="dvideo" src="Multi-Scenario实战demo/02_座舱竞品分析.mp4" controls muted playsinline autoplay loop preload="metadata"></video></div>
-        <div class="demo-cell has-video"><div class="dnum">03</div><div class="dname">具身仿真 Planner</div><div class="ddept">具身实验室</div><div class="dabil">自建专家·全链路</div><video class="dvideo" src="Multi-Scenario实战demo/03_具身仿真分析.mp4" controls muted playsinline autoplay loop preload="metadata"></video></div>
-        <div class="demo-cell has-split">
-          <div class="dhalf">
-            <div class="dnum">04</div>
-            <div class="dname">多供应商比价</div>
-            <div class="ddept">采购</div>
-            <div class="dabil">人机双写 Excel</div>
-          </div>
-          <div class="dhalf">
-            <div class="dnum">05</div>
-            <div class="dname">公众号文章+配图</div>
-            <div class="ddept">营销</div>
-            <div class="dabil">多模态生成</div>
-          </div>
-        </div>
-        <div class="demo-cell has-video"><div class="dnum">06</div><div class="dname">新人成长 Bot</div><div class="ddept">HR</div><div class="dabil">HTML 交互工具</div><video class="dvideo" src="Multi-Scenario实战demo/05_新人成长bot.mp4" controls muted playsinline autoplay loop preload="metadata"></video></div>
-        <div class="demo-cell has-video"><div class="dnum">07</div><div class="dname">薪酬对标</div><div class="ddept">HR</div><div class="dabil">市场装 Skill</div><video class="dvideo" src="Multi-Scenario实战demo/06_薪酬对标.mp4" controls muted playsinline autoplay loop preload="metadata"></video></div>
-        <div class="demo-cell has-image">
-          <div class="dnum">08</div>
-          <div class="dname">团队活动策划</div>
-          <div class="ddept">HR</div>
-          <div class="dabil">自建 Skill</div>
-          <div class="dimgwrap">
-            <img class="dimg" src="Multi-Scenario实战demo/08_skill产物.png" alt="自建 skill 调用产物" onerror="this.style.display='none';this.parentElement.classList.add('noimg');"/>
-          </div>
-        </div>
-        <div class="demo-cell has-image">
-          <div class="dnum">09</div>
-          <div class="dname">信息加工·多端输出</div>
-          <div class="ddept">通用</div>
-          <div class="dabil">连接器·BI 看板</div>
-          <div class="dimgwrap">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-              <!-- 顶部标题条 -->
-              <rect x="2" y="2" width="96" height="10" rx="2" fill="#0052D9"/>
-              <circle cx="9" cy="7" r="1.6" fill="#fff" opacity=".7"/>
-              <circle cx="14" cy="7" r="1.6" fill="#fff" opacity=".7"/>
-              <circle cx="19" cy="7" r="1.6" fill="#fff" opacity=".7"/>
-              <rect x="60" y="5" width="32" height="4" rx="1" fill="#fff" opacity=".5"/>
-              <!-- KPI 大数字 -->
-              <rect x="6" y="18" width="20" height="18" rx="2" fill="#E6F9F9"/>
-              <rect x="10" y="22" width="12" height="3" rx="1" fill="#00C2C2"/>
-              <rect x="10" y="28" width="8" height="6" rx="1" fill="#1A1A2E"/>
-              <!-- 柱状图块 -->
-              <rect x="30" y="18" width="28" height="18" rx="2" fill="#F0F4FF"/>
-              <rect x="33" y="28" width="3" height="5" fill="#0052D9"/>
-              <rect x="38" y="24" width="3" height="9" fill="#00C2C2"/>
-              <rect x="43" y="26" width="3" height="7" fill="#0052D9"/>
-              <rect x="48" y="22" width="3" height="11" fill="#00C2C2"/>
-              <rect x="53" y="28" width="3" height="5" fill="#0052D9"/>
-              <!-- 饼图 -->
-              <rect x="62" y="18" width="32" height="18" rx="2" fill="#F0F4FF"/>
-              <circle cx="78" cy="27" r="7" fill="none" stroke="#E6ECF8" stroke-width="3"/>
-              <path d="M78 20 A7 7 0 0 1 84 30 L78 27 Z" fill="#0052D9"/>
-              <path d="M84 30 A7 7 0 0 1 73 33 L78 27 Z" fill="#00C2C2"/>
-              <!-- 表格 -->
-              <rect x="6" y="40" width="56" height="32" rx="2" fill="#fff" stroke="#E6ECF8"/>
-              <rect x="6" y="40" width="56" height="6" fill="#F0F4FF"/>
-              <line x1="6" y1="52" x2="62" y2="52" stroke="#E6ECF8"/>
-              <line x1="6" y1="60" x2="62" y2="60" stroke="#E6ECF8"/>
-              <line x1="6" y1="68" x2="62" y2="68" stroke="#E6ECF8"/>
-              <line x1="20" y1="40" x2="20" y2="72" stroke="#E6ECF8"/>
-              <line x1="34" y1="40" x2="34" y2="72" stroke="#E6ECF8"/>
-              <line x1="48" y1="40" x2="48" y2="72" stroke="#E6ECF8"/>
-              <circle cx="11" cy="55" r="1.6" fill="#00C2C2"/>
-              <circle cx="11" cy="63" r="1.6" fill="#00C2C2"/>
-              <rect x="23" y="54" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <rect x="23" y="62" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <rect x="37" y="54" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <rect x="37" y="62" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <rect x="51" y="54" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <rect x="51" y="62" width="9" height="2" rx="1" fill="#5A5A6E"/>
-              <!-- 折线图 -->
-              <rect x="66" y="40" width="28" height="32" rx="2" fill="#fff" stroke="#E6ECF8"/>
-              <polyline points="69,66 75,58 81,62 87,52 91,55" fill="none" stroke="#0052D9" stroke-width="1.6" stroke-linejoin="round"/>
-              <circle cx="75" cy="58" r="1.4" fill="#FFC000"/>
-              <circle cx="87" cy="52" r="1.4" fill="#FFC000"/>
-            </svg>
-            <img class="dimg" src="Multi-Scenario实战demo/09_上海6部门BI看板.png" alt="上海 6 部门 BI 看板" onerror="this.style.display='none';this.parentElement.classList.add('noimg');"/>
-          </div>
-        </div>
-        <div class="demo-cell"><div class="dnum">10</div><div class="dname">内网网页汇总</div><div class="ddept">通用</div><div class="dabil">WebFetch</div></div>
-        <div class="demo-cell has-image">
-          <div class="dnum">11</div>
-          <div class="dname">项目协作</div>
-          <div class="ddept">通用</div>
-          <div class="dabil">连接器·专家·技能</div>
-          <div class="dimgwrap">
-            <img class="dimg" src="Multi-Scenario实战demo/11_项目协作.png" alt="WorkBuddy 多人协作项目配置" onerror="this.style.display='none';this.parentElement.classList.add('noimg');"/>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px">
-        <span style="font-size:13px;color:var(--gray)">覆盖能力：</span>
-        <span class="chip" style="color:var(--blue)">专家（自建/现成）</span>
-        <span class="chip" style="color:var(--blue)">Skill（自建/市场装）</span>
-        <span class="chip" style="color:var(--blue)">人机双写</span>
-        <span class="chip" style="color:var(--blue)">多模态</span>
-        <span class="chip" style="color:var(--blue)">连接器</span>
-        <span class="chip" style="color:var(--blue)">WebFetch</span>
-      </div>
-      <p class="foot-line" style="margin-top:16px">从 <b>「会用工具」</b> 到 <b>「独立设计并主讲一场面向多部门、多职能的培训」</b></p>
-    </div>
-  </section>
 
   <!-- P3a 具身智能 · 方案架构 -->
   <section class="slide">
