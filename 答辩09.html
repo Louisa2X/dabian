@@ -694,7 +694,113 @@
   </section>
 
 
-  <!-- P3a 具身智能 · 方案架构 -->
+  <!-- P4 大数据 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="titlebar">
+        <div class="bar" style="background:var(--cyan)"></div>
+        <h1>云产品 · 大数据</h1>
+      </div>
+      <div class="card" style="flex:1;padding:28px 36px;display:flex;flex-direction:column;justify-content:center;gap:20px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <h3 style="font-size:20px;font-weight:800">「既能让业务查数、又能喂给 AI 训练」的数据底座</h3>
+        </div>
+
+        <div class="cols" style="flex:none">
+          <div class="col" style="flex:1">
+            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
+              <div style="font-size:13px;font-weight:800;color:var(--blue)">① 下层 · 存储与数据组织</div>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">COS 承载数据，Iceberg / Lance 组织表格式，TCLake 管理元数据与权限；Ray 训练 / Spark ETL / Trino 交互查询等 8 类负载已验证，经 S3A 兼容协议接入（PyIceberg 不兼容 cosn）。</p>
+            </div>
+          </div>
+          <div class="col" style="flex:1">
+            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
+              <div style="font-size:13px;font-weight:800;color:var(--blue)">② 中层 · 流湖一体升级</div>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">Setats + Doris 替代「Parquet 直写 + ClickHouse 孤岛」：流批统一处理实时与离线，联邦查询跨湖仓与外部数据源。</p>
+            </div>
+          </div>
+          <div class="col" style="flex:1">
+            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
+              <div style="font-size:13px;font-weight:800;color:var(--blue)">③ 上层 · 黑灯工厂 DataBuddy</div>
+              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模建立统一语义口径，显著提升 NL2SQL 查询准确率、降低幻觉。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow" style="gap:10px">
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">存</div>
+            <div class="t" style="font-size:15px">COS 对象存储</div>
+            <div style="font-size:12px;color:var(--gray)">S3A 兼容接入</div>
+          </div>
+          <div class="farrow" style="font-size:20px">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">管</div>
+            <div class="t" style="font-size:15px">TCLake 数据湖</div>
+            <div style="font-size:12px;color:var(--gray)">统一管理平台</div>
+          </div>
+          <div class="farrow" style="font-size:20px">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">建</div>
+            <div class="t" style="font-size:15px">Iceberg / Lance</div>
+            <div style="font-size:12px;color:var(--gray)">开放表格式</div>
+          </div>
+          <div class="farrow" style="font-size:20px">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">定</div>
+            <div class="t" style="font-size:15px">语义层 / 本体</div>
+            <div style="font-size:12px;color:var(--gray)">Ontology 建模</div>
+          </div>
+          <div class="farrow" style="font-size:20px">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">查</div>
+            <div class="t" style="font-size:15px">NL2SQL</div>
+            <div style="font-size:12px;color:var(--gray)">自然语言查数</div>
+          </div>
+        </div>
+
+        <!-- 关键验证数据 · 4 个数字支撑三层结构 -->
+        <div style="display:flex;gap:10px;flex:none">
+          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
+            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">8</div>
+            <div style="flex:1;line-height:1.35;min-width:0">
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">场景全跑通</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">Wedata + EMR Ray on TKE</div>
+            </div>
+          </div>
+          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
+            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">6万<span style="font-size:14px">QPS</span></div>
+            <div style="flex:1;line-height:1.35;min-width:0">
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">高性能层读取目标</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">客户 6 万 QPS 诉求 · 非实测</div>
+            </div>
+          </div>
+          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
+            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">9.1万<span style="font-size:14px">TPS</span></div>
+            <div style="flex:1;line-height:1.35;min-width:0">
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">Setats 写入吞吐</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">阿维塔实测 · 5731 字段 / 20 亿行分 4 表</div>
+            </div>
+          </div>
+          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
+            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">↓<span style="font-size:14px">幻觉</span></div>
+            <div style="flex:1;line-height:1.35;min-width:0">
+              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 查数更准</div>
+              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">本体建模统一语义口径 · 降幻觉</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gradbar" style="background:transparent;padding:0;margin-top:14px">
+          <p style="color:#0F6E56;font-size:15px;line-height:1.6"><b>以 COS 承载数据</b>，以 <b>Iceberg/Lance 组织不同访问模式的数据集</b>，以 <b>TCLake 统一管理目录、权限与计算</b>，再通过<b>语义层</b>向业务查询与 AI 训练提供一致的数据口径。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+<!-- P3a 具身智能 · 方案架构 -->
   <section class="slide">
     <div class="slide-inner">
       <div class="titlebar">
@@ -984,111 +1090,7 @@
 
 </svg>
       </div>
-<!-- P4 大数据 -->
-  <section class="slide">
-    <div class="slide-inner">
-      <div class="titlebar">
-        <div class="bar" style="background:var(--cyan)"></div>
-        <h1>云产品 · 大数据</h1>
-      </div>
-      <div class="card" style="flex:1;padding:28px 36px;display:flex;flex-direction:column;justify-content:center;gap:20px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <h3 style="font-size:20px;font-weight:800">「既能让业务查数、又能喂给 AI 训练」的数据底座</h3>
-        </div>
-
-        <div class="cols" style="flex:none">
-          <div class="col" style="flex:1">
-            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
-              <div style="font-size:13px;font-weight:800;color:var(--blue)">① 下层 · 存储与数据组织</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">COS 承载数据，Iceberg / Lance 组织表格式，TCLake 管理元数据与权限；Ray 训练 / Spark ETL / Trino 交互查询等 8 类负载已验证，经 S3A 兼容协议接入（PyIceberg 不兼容 cosn）。</p>
-            </div>
-          </div>
-          <div class="col" style="flex:1">
-            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
-              <div style="font-size:13px;font-weight:800;color:var(--blue)">② 中层 · 流湖一体升级</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">Setats + Doris 替代「Parquet 直写 + ClickHouse 孤岛」：流批统一处理实时与离线，联邦查询跨湖仓与外部数据源。</p>
-            </div>
-          </div>
-          <div class="col" style="flex:1">
-            <div style="background:var(--bg2);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;height:100%">
-              <div style="font-size:13px;font-weight:800;color:var(--blue)">③ 上层 · 黑灯工厂 DataBuddy</div>
-              <p style="font-size:12.5px;color:var(--gray);line-height:1.5">数据工程 / 分析 / 治理全链路 AI 化，本体建模建立统一语义口径，显著提升 NL2SQL 查询准确率、降低幻觉。</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flow" style="gap:10px">
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">存</div>
-            <div class="t" style="font-size:15px">COS 对象存储</div>
-            <div style="font-size:12px;color:var(--gray)">S3A 兼容接入</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">管</div>
-            <div class="t" style="font-size:15px">TCLake 数据湖</div>
-            <div style="font-size:12px;color:var(--gray)">统一管理平台</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">建</div>
-            <div class="t" style="font-size:15px">Iceberg / Lance</div>
-            <div style="font-size:12px;color:var(--gray)">开放表格式</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">定</div>
-            <div class="t" style="font-size:15px">语义层 / 本体</div>
-            <div style="font-size:12px;color:var(--gray)">Ontology 建模</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">查</div>
-            <div class="t" style="font-size:15px">NL2SQL</div>
-            <div style="font-size:12px;color:var(--gray)">自然语言查数</div>
-          </div>
-        </div>
-
-        <!-- 关键验证数据 · 4 个数字支撑三层结构 -->
-        <div style="display:flex;gap:10px;flex:none">
-          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">8</div>
-            <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">场景全跑通</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">Wedata + EMR Ray on TKE</div>
-            </div>
-          </div>
-          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">6万<span style="font-size:14px">QPS</span></div>
-            <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">高性能层读取目标</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">客户 6 万 QPS 诉求 · 非实测</div>
-            </div>
-          </div>
-          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">9.1万<span style="font-size:14px">TPS</span></div>
-            <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">Setats 写入吞吐</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">阿维塔实测 · 5731 字段 / 20 亿行分 4 表</div>
-            </div>
-          </div>
-          <div style="flex:1;background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-            <div style="font-size:26px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:46px;text-align:center">↓<span style="font-size:14px">幻觉</span></div>
-            <div style="flex:1;line-height:1.35;min-width:0">
-              <div style="font-size:12.5px;font-weight:800;color:var(--dark)">NL2SQL 查数更准</div>
-              <div style="font-size:10.5px;color:var(--gray);margin-top:2px">本体建模统一语义口径 · 降幻觉</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="gradbar" style="background:transparent;padding:0;margin-top:14px">
-          <p style="color:#0F6E56;font-size:15px;line-height:1.6"><b>以 COS 承载数据</b>，以 <b>Iceberg/Lance 组织不同访问模式的数据集</b>，以 <b>TCLake 统一管理目录、权限与计算</b>，再通过<b>语义层</b>向业务查询与 AI 训练提供一致的数据口径。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- P5 智能驾驶与合规 -->
+<!-- P5 智能驾驶与合规 -->
   <section class="slide">
     <div class="slide-inner">
       <div class="titlebar">
