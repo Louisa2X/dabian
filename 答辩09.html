@@ -186,6 +186,12 @@
   .diff-card .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
   .diff-card .diff-t .q{color:var(--purple);}
   .diff-card .diff-d{font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.55;}
+  .diff-list{display:flex;flex-direction:column;gap:10px;}
+  .diff-item{background:#fff;border:1px solid #DCE6FB;border-radius:10px;padding:12px 14px;}
+  .diff-item .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
+  .diff-item .diff-t .q{color:var(--purple);}
+  .diff-item .diff-d{font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.55;}
+  .diff-note{display:block;margin-top:6px;color:#6B7280;font-weight:500;font-size:12px;line-height:1.5;}
 
   .frames{flex:1;display:flex;gap:18px;min-height:0;}
   .frame-card{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
@@ -663,18 +669,10 @@
       <div class="think-lower">
         <div class="think-lower-left">
           <div class="sec-h"><span class="sec-n">02</span><span>项目难点与推广策略</span></div>
-          <div class="diff-grid diff-stack">
-            <div class="diff-card">
-              <div class="diff-t"><span class="q">决策繁琐？</span>分层推广</div>
-              <div class="diff-d">BD 50 人 POC → HR 验证降门槛 → 分享会覆盖多事业部 → 155 License 下单</div>
-            </div>
-            <div class="diff-card">
+          <div class="diff-list">
+            <div class="diff-item">
               <div class="diff-t"><span class="q">合规复杂？</span>网络环境适配</div>
-              <div class="diff-d">客户走代理上网，产品不直接支持；客户自研脚本适配，以 workaround 推进 POC</div>
-            </div>
-            <div class="diff-card">
-              <div class="diff-t"><span class="q">要求高？</span>产品能力过硬</div>
-              <div class="diff-d">从云龙虾网页版试错（泄密风险／功能单一），扎实提效</div>
+              <div class="diff-d">客户走代理上网，产品不直接支持；客户自研脚本适配，以 workaround 推进 POC。<span class="diff-note">产品侧评估后不愿投入原生适配，博世同学自行开发脚本绕过，POC 得以推进。</span></div>
             </div>
           </div>
         </div>
