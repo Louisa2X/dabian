@@ -703,43 +703,49 @@
         </div>
         <div style="font-size:12px;color:var(--gray);margin-top:-4px">本页只讲 <b style="color:var(--dark)">VM 部门车辆数据平台</b>；与 XC 多模态智驾数据湖是<b>两套独立架构</b>，切勿混为一谈。</div>
 
-        <div style="font-size:12px;color:var(--gray)">上游两类数据：<b style="color:var(--dark)">① 车辆传感器 TSP（JSON 流式日志）</b>经 CKafka 缓冲　<b style="color:var(--dark)">② 业务库 MySQL binlog</b>（车主 / 商城）由 Flink 直消费</div>
+        <div class="flow" style="gap:8px;flex-wrap:wrap;align-items:center">
+          <!-- 上游双源 -->
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:14px">车</div>
+            <div class="t" style="font-size:14px">车辆上报</div>
+            <div style="font-size:11px;color:var(--gray)">传感器 JSON</div>
+          </div>
+          <div class="farrow">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:13px">K</div>
+            <div class="t" style="font-size:14px">CKafka</div>
+            <div style="font-size:11px;color:var(--gray)">消息队列缓冲</div>
+          </div>
+          <div class="farrow">›</div>
+          <div class="fnode">
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:12px">S1</div>
+            <div class="t" style="font-size:14px">Source 1</div>
+          </div>
 
-        <div class="flow" style="gap:9px">
+          <div class="farrow" style="color:var(--gray);font-size:16px">＋</div>
+
           <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">采</div>
-            <div class="t" style="font-size:15px">车辆信号 JSON</div>
-            <div style="font-size:12px;color:var(--gray)">传感器上报</div>
+            <div class="n" style="background:#9b8edd;width:32px;height:32px;border-radius:16px;font-size:12px">S2</div>
+            <div class="t" style="font-size:14px">Source 2</div>
+            <div style="font-size:11px;color:var(--gray)">MySQL binlog</div>
           </div>
-          <div class="farrow" style="font-size:20px">›</div>
+          <div class="farrow">›</div>
           <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">缓</div>
-            <div class="t" style="font-size:15px">CKafka 缓冲</div>
-            <div style="font-size:12px;color:var(--gray)">消息队列</div>
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:13px">算</div>
+            <div class="t" style="font-size:14px">Oceanus</div>
+            <div style="font-size:11px;color:var(--gray)">Flink · 多流关联</div>
           </div>
-          <div class="farrow" style="font-size:20px">›</div>
+          <div class="farrow">›</div>
           <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">算</div>
-            <div class="t" style="font-size:15px">Oceanus 流式计算</div>
-            <div style="font-size:12px;color:var(--gray)">腾讯云 Flink 托管</div>
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:13px">湖</div>
+            <div class="t" style="font-size:14px">Iceberg</div>
+            <div style="font-size:11px;color:var(--gray)">ODS → DWD → ADS</div>
           </div>
-          <div class="farrow" style="font-size:20px">›</div>
+          <div class="farrow">›</div>
           <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">湖</div>
-            <div class="t" style="font-size:15px">Iceberg 湖表</div>
-            <div style="font-size:12px;color:var(--gray)">ODS/DWD/ADS · Spark 离线校准</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">引擎</div>
-            <div class="t" style="font-size:15px">SeTATS 流湖一体</div>
-            <div style="font-size:12px;color:var(--gray)">COS 统一存储</div>
-          </div>
-          <div class="farrow" style="font-size:20px">›</div>
-          <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">查</div>
-            <div class="t" style="font-size:15px">Doris OLAP</div>
-            <div style="font-size:12px;color:var(--gray)">TCHouse-D · 秒级查询</div>
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:13px">查</div>
+            <div class="t" style="font-size:14px">Doris</div>
+            <div style="font-size:11px;color:var(--gray)">TCHouse-D · OLAP</div>
           </div>
         </div>
 
@@ -791,7 +797,7 @@
           </div>
         </div>
         <div class="gradbar" style="background:transparent;padding:0;margin-top:12px">
-          <p style="color:#0F6E56;font-size:15px;line-height:1.6;margin:0">以 <b>CKafka → Oceanus → Iceberg → SeTATS → Doris</b> 构建流湖一体：Oceanus 流式入湖、Iceberg 分层建模（ODS/DWD/ADS）、Spark 离线校准、Doris 秒级 OLAP——实时与离线一体，升级博世 VM 数据平台。</p>
+          <p style="color:#0F6E56;font-size:15px;line-height:1.6;margin:0">双源汇入 <b>Oceanus</b>（车辆经 CKafka→Source 1 / MySQL binlog→Source 2）→ 流式写入 <b>Iceberg</b> 分层（ODS→DWD→ADS）→ <b>Doris</b> OLAP 查询。Spark 并行离线校准，SeTATS 作底层流湖引擎落 COS。</p>
         </div>
       </div>
     </div>
