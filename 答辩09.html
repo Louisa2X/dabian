@@ -182,16 +182,14 @@
   .diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .diff-grid.diff-stack{grid-template-columns:1fr;gap:10px;}
   .think-foot{margin-top:12px;flex:none;font-size:14.5px;font-weight:700;color:var(--dark);background:#F4F7FE;border:1px solid #DCE6FB;border-left:4px solid var(--blue);border-radius:9px;padding:9px 14px;line-height:1.5;}
-  .diff-card{background:#F4F7FE;border:1px solid #DCE6FB;border-top:3px solid var(--blue);border-radius:10px;padding:12px 14px;}
-  .diff-card .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
-  .diff-card .diff-t .q{color:var(--purple);}
-  .diff-card .diff-d{font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.55;}
-  .diff-list{display:flex;flex-direction:column;gap:10px;}
-  .diff-item{background:#fff;border:1px solid #DCE6FB;border-radius:10px;padding:12px 14px;}
-  .diff-item .diff-t{font-size:15px;font-weight:800;color:var(--blue);margin-bottom:6px;}
-  .diff-item .diff-t .q{color:var(--purple);}
-  .diff-item .diff-d{font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.55;}
-  .diff-note{display:block;margin-top:6px;color:#6B7280;font-weight:500;font-size:12px;line-height:1.5;}
+  .diff3{display:flex;flex-direction:column;gap:12px;}
+  .pt{position:relative;padding:9px 14px 9px 16px;border-left:4px solid var(--blue);border-radius:0 9px 9px 0;background:transparent;}
+  .pt.c{border-left-color:var(--purple);}
+  .pt.g{border-left-color:var(--gold);}
+  .pt .pt-t{font-size:15px;font-weight:800;color:var(--dark);line-height:1.4;}
+  .pt .pt-t .q{color:var(--purple);}
+  .pt .pt-d{margin-top:5px;font-size:12.5px;font-weight:600;color:#374151;line-height:1.55;}
+  .pt .pt-note{display:block;margin-top:5px;color:#6B7280;font-weight:500;font-size:12px;line-height:1.5;}
 
   .frames{flex:1;display:flex;gap:18px;min-height:0;}
   .frame-card{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
@@ -669,10 +667,16 @@
       <div class="think-lower">
         <div class="think-lower-left">
           <div class="sec-h"><span class="sec-n">02</span><span>项目难点与推广策略</span></div>
-          <div class="diff-list">
-            <div class="diff-item">
-              <div class="diff-t"><span class="q">合规复杂？</span>网络环境适配</div>
-              <div class="diff-d">客户走代理上网，产品不直接支持；客户自研脚本适配，以 workaround 推进 POC。<span class="diff-note">产品侧评估后不愿投入原生适配，博世同学自行开发脚本绕过，POC 得以推进。</span></div>
+          <div class="diff3">
+            <div class="pt b">
+              <div class="pt-t"><span class="q">决策繁琐？</span>分层推广</div>
+            </div>
+            <div class="pt c">
+              <div class="pt-t"><span class="q">合规复杂？</span>网络环境适配</div>
+              <div class="pt-d">客户走代理上网，产品不直接支持；客户自研脚本适配，以 workaround 推进 POC。<span class="pt-note">产品侧评估后不愿投入原生适配，博世同学自行开发脚本绕过，POC 得以推进。</span></div>
+            </div>
+            <div class="pt g">
+              <div class="pt-t"><span class="q">要求高？</span>产品能力过硬</div>
             </div>
           </div>
         </div>
