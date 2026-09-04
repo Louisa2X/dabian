@@ -709,12 +709,12 @@
         <div class="bar" style="background:var(--cyan)"></div>
         <h1>方案理解</h1>
       </div>
-      <div class="card" style="flex:1;padding:7px 20px;display:flex;flex-direction:column;justify-content:flex-start;gap:3px">
-        <div style="display:flex;gap:14px;flex:1;min-height:0">
-          <div style="flex:1;display:flex;flex-direction:column;min-width:0">
-            <h3 style="font-size:18px;font-weight:800;margin:0 0 2px;color:var(--dark)">VM部门车辆数据平台</h3>
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0">
-              <svg viewBox="0 0 1040 400" style="height:172px;width:auto;display:block;margin:0 auto;font-family:inherit">
+      <div class="card" style="flex:1;padding:14px 28px;display:flex;flex-direction:column;justify-content:flex-start;gap:0">
+        <!-- 上半：VM 全宽 -->
+        <div style="flex:0 0 auto">
+          <h3 style="font-size:18px;font-weight:800;margin:0 0 4px 0;color:var(--dark)">VM部门车辆数据平台</h3>
+          <div style="width:100%;overflow:hidden;border-radius:8px;border:1px solid var(--border);background:#fff;padding:6px">
+            <svg viewBox="0 0 1040 400" style="height:172px;width:auto;display:block;margin:0 auto;font-family:inherit">
           <defs>
             <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0052D9"/></marker>
             <marker id="arc" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#00A6A6"/></marker>
@@ -758,38 +758,35 @@
           <text x="727" y="348" text-anchor="middle" font-size="16.5" font-weight="700" fill="#5A5A6E">Spark 离线校准 backfill</text>
           <text x="727" y="374" text-anchor="middle" font-size="14.5" fill="#9AA3B2">SeTATS 流湖引擎(兼容 Iceberg) · <tspan fill="#0A7C86" font-weight="700">流湖统一</tspan></text>
         </svg>
-            </div>
-          </div>
-          <div style="flex:0 0 248px;display:flex;flex-direction:column;gap:6px;justify-content:center;min-height:0">
-            <div style="background:var(--bg2);border-radius:8px;padding:8px 12px">
-              <div style="font-size:12px;font-weight:800;color:var(--dark);margin-bottom:2px">客户三大痛点</div>
-              <div style="font-size:11px;color:#7C3AED;font-weight:700;line-height:1.45">①存储割裂 ②查询孤岛 ③AI缺地基</div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <div style="background:var(--bg2);border-radius:7px;padding:6px 8px;border-left:3px solid var(--cyan)">
-                <div style="font-size:16px;font-weight:800;color:var(--cyan);line-height:1.1">9.1万</div>
-                <div style="font-size:10px;font-weight:700;color:var(--dark)">TPS</div>
-              </div>
-              <div style="background:var(--bg2);border-radius:7px;padding:6px 8px;border-left:3px solid var(--cyan)">
-                <div style="font-size:16px;font-weight:800;color:var(--cyan);line-height:1.1">20亿</div>
-                <div style="font-size:10px;font-weight:700;color:var(--dark)">规模</div>
-              </div>
-              <div style="background:var(--bg2);border-radius:7px;padding:6px 8px;border-left:3px solid var(--cyan)">
-                <div style="font-size:16px;font-weight:800;color:var(--cyan);line-height:1.1">1000</div>
-                <div style="font-size:10px;font-weight:700;color:var(--dark)">QPS</div>
-              </div>
-              <div style="background:var(--bg2);border-radius:7px;padding:6px 8px;border-left:3px solid var(--cyan)">
-                <div style="font-size:16px;font-weight:800;color:var(--cyan);line-height:1.1">40%</div>
-                <div style="font-size:10px;font-weight:700;color:var(--dark)">降本</div>
-              </div>
-            </div>
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;flex:1;min-height:0">
-          <h3 style="font-size:18px;font-weight:800;margin:0 0 2px;color:var(--dark)">智驾数据回传与闭环</h3>
-          <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0">
-            <img src="zhijia_loop.svg" alt="智驾数据回传与闭环" style="height:172px;width:auto;display:block;margin:0 auto"/>
+        <!-- 中间：痛点 + 数字 紧凑横条 -->
+        <div style="display:flex;align-items:center;gap:10px;flex:0 0 auto;margin-top:6px">
+          <div style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:7px;padding:5px 12px;border-left:3px solid #7C3AED;display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px;font-weight:800;color:var(--dark);white-space:nowrap">三大痛点</span>
+            <span style="font-size:10.5px;color:#7C3AED;font-weight:700">①存储割裂 ②查询孤岛 ③AI缺地基</span>
+          </div>
+          <div style="flex:1;display:flex;gap:7px"><div style="background:var(--bg2);border-radius:7px;padding:5px 10px;border-left:3px solid var(--cyan);display:flex;align-items:center;gap:6px;min-width:0">
+        <span style="font-size:17px;font-weight:800;color:var(--cyan);white-space:nowrap">9.1万</span>
+        <span style="font-size:10px;font-weight:700;color:var(--dark);white-space:nowrap">Setats 写入 TPS</span>
+      </div><div style="background:var(--bg2);border-radius:7px;padding:5px 10px;border-left:3px solid var(--cyan);display:flex;align-items:center;gap:6px;min-width:0">
+        <span style="font-size:17px;font-weight:800;color:var(--cyan);white-space:nowrap">20亿</span>
+        <span style="font-size:10px;font-weight:700;color:var(--dark);white-space:nowrap">线上最大规模</span>
+      </div><div style="background:var(--bg2);border-radius:7px;padding:5px 10px;border-left:3px solid var(--cyan);display:flex;align-items:center;gap:6px;min-width:0">
+        <span style="font-size:17px;font-weight:800;color:var(--cyan);white-space:nowrap">1000</span>
+        <span style="font-size:10px;font-weight:700;color:var(--dark);white-space:nowrap">OLAP 压测 QPS</span>
+      </div><div style="background:var(--bg2);border-radius:7px;padding:5px 10px;border-left:3px solid var(--cyan);display:flex;align-items:center;gap:6px;min-width:0">
+        <span style="font-size:17px;font-weight:800;color:var(--cyan);white-space:nowrap">40%</span>
+        <span style="font-size:10px;font-weight:700;color:var(--dark);white-space:nowrap">存储成本降低</span>
+      </div></div>
+        </div>
+
+        <!-- 下半：智驾 全宽 -->
+        <div style="flex:0 0 auto;margin-top:6px">
+          <h3 style="font-size:18px;font-weight:800;margin:0 0 4px 0;color:var(--dark)">智驾数据回传与闭环</h3>
+          <div style="width:100%;overflow:hidden;border-radius:8px;border:1px solid var(--border);background:#fff;padding:6px;display:flex;justify-content:center">
+            <img src="zhijia_loop.svg" alt="智驾数据回传与闭环" style="height:auto;width:100%;max-height:none;display:block"/>
           </div>
         </div>
 
@@ -1582,9 +1579,11 @@
   // 懒加载视频：仅当前页(<video data-src>)才真正加载并播放，离开即暂停，避免 14 个视频并发抢解码器/带宽
   function playSlideVideos(slide){
     if(!slide) return;
-    slide.querySelectorAll('video[data-src]').forEach((v, i) => {
+    const vs = Array.from(slide.querySelectorAll('video[data-src]'));
+    const step = vs.length > 5 ? 300 : 120; // 同页视频多(如六角色页8个)时拉大错峰，避免瞬时解码峰值
+    vs.forEach((v, i) => {
       if(!v.getAttribute('src')){ v.setAttribute('src', v.dataset.src); }
-      setTimeout(() => { v.play().catch(() => {}); }, i * 120); // 错开启动，缓解同页多视频瞬时解码峰值
+      setTimeout(() => { v.play().catch(() => {}); }, i * step);
     });
   }
   function pauseSlideVideos(slide){
