@@ -165,7 +165,7 @@
   .demo-pane video,.demo-pane img{width:100%;height:100%;object-fit:contain;background:#fff;display:block;}
   .demo-pane .strip-label .tag{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--blue);background:#EAF1FF;padding:2px 9px;border-radius:6px;}
   /* 我的思考：01 置顶，下方左03(三框上下叠) 右02 */
-  .think-top{flex:none;display:flex;flex-direction:column;margin-bottom:12px;background:transparent;padding:14px 16px;}
+  .think-top{flex:none;display:flex;flex-direction:column;margin-bottom:7px;background:transparent;padding:14px 16px;}
   .think-top .demo-strip{height:320px;flex:none;}
   .think-lower{flex:none;display:flex;gap:20px;min-height:0;}
   .think-lower-left{flex:1.55;display:flex;flex-direction:column;min-height:0;background:transparent;padding:14px 16px;}
@@ -182,8 +182,7 @@
   .diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .diff-grid.diff-stack{grid-template-columns:1fr;gap:10px;}
   .think-foot{margin-top:14px;flex:none;font-size:14.5px;font-weight:700;color:var(--dark);background:transparent;padding:4px 2px;line-height:1.5;}
-  .diff3{display:flex;flex-direction:column;gap:12px;}
-  .diff2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .diff2{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
   .pt{position:relative;padding:9px 14px 9px 16px;border-left:4px solid var(--blue);border-radius:0 9px 9px 0;background:transparent;}
   .pt.c{border-left-color:var(--purple);}
   .pt.g{border-left-color:var(--blue);}
@@ -668,14 +667,12 @@
       <div class="think-lower">
         <div class="think-lower-left">
           <div class="sec-h"><span class="sec-n">02</span><span>项目难点与推广策略</span></div>
-          <div class="diff3">
-            <div class="diff2">
-              <div class="pt b">
-                <div class="pt-t"><span class="q">决策繁琐？</span>分层推广</div>
-              </div>
-              <div class="pt g">
-                <div class="pt-t"><span class="q">要求高？</span>产品能力过硬</div>
-              </div>
+          <div class="diff2">
+            <div class="pt b">
+              <div class="pt-t"><span class="q">决策繁琐？</span>分层推广</div>
+            </div>
+            <div class="pt g">
+              <div class="pt-t"><span class="q">要求高？</span>产品能力过硬</div>
             </div>
             <div class="pt c">
               <div class="pt-t"><span class="q">合规复杂？</span>网络环境适配</div>
