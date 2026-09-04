@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>张卓涵 · 实习总结答辩</title>
+<title>方案理解</title>
 <style>
   :root{
     --blue:#0052D9; --cyan:#00C2C2; --dark:#1A1A2E; --gold:#FFC000;
@@ -699,7 +699,7 @@
       </div>
       <div class="card" style="flex:1;padding:24px 36px;display:flex;flex-direction:column;justify-content:center;gap:16px">
         <div style="display:flex;align-items:center;gap:12px">
-          <h3 style="font-size:20px;font-weight:800">聚焦 VM 部门：从车辆信号到 Doris 的流湖一体方案</h3>
+          <h3 style="font-size:20px;font-weight:800">VM部门车辆数据平台</h3>
         </div>
 
         <svg viewBox="0 0 1040 300" width="100%" style="max-height:280px;display:block;margin:2px auto 0;font-family:inherit">
@@ -790,9 +790,6 @@
               <div style="font-size:10.5px;color:var(--gray);margin-top:2px">计算节约 33% · 某自主车企</div>
             </div>
           </div>
-        </div>
-        <div class="gradbar" style="background:transparent;padding:0;margin-top:12px">
-          <p style="color:#0F6E56;font-size:15px;line-height:1.6;margin:0">双源汇入 <b>Oceanus</b>（车辆经 CKafka→Source 1 / MySQL binlog→Source 2）→ 流式写入 <b>Iceberg</b> 分层（ODS→DWD→ADS）→ <b>Doris</b> OLAP 查询。Spark 并行离线校准，SeTATS 作底层流湖引擎落 COS。</p>
         </div>
       </div>
     </div>
