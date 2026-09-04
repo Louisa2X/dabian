@@ -272,6 +272,8 @@
   .role-flow .demo-frame .df-body{flex:1;padding:8px 9px;overflow:hidden;display:flex;flex-direction:column;gap:5px;}
   .role-flow .demo-frame .df-body.vid{aspect-ratio:16/9;width:100%;padding:0;background:#0B0B1E;overflow:hidden;display:block;}
   .role-flow .demo-frame .df-body.vid video{display:block;width:100%;height:100%;object-fit:cover;background:#0B0B1E;border-radius:0;}
+  /* 视频加载失败兜底：不显示空白块，原地给一句明确提示 */
+  .video-fallback{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:16/10;background:#0B0B1E;color:#9fb3d1;font-size:13px;line-height:1.5;border-radius:6px;border:1px dashed #3a4a66;text-align:center;padding:0 12px;box-sizing:border-box;}
   .role-flow .demo-frame .df-body .row{flex:none;display:flex;align-items:center;gap:5px;font-size:10.5px;color:#3F4A5B;}
   .role-flow .demo-frame .df-body .row .k{font-size:9px;color:var(--gray);font-weight:700;letter-spacing:.3px;}
   .role-flow .demo-frame .df-body .row .v{flex:1;font-weight:600;color:var(--dark);}
@@ -1583,6 +1585,15 @@
     const step = vs.length > 5 ? 300 : 120; // 同页视频多(如六角色页8个)时拉大错峰，避免瞬时解码峰值
     vs.forEach((v, i) => {
       if(!v.getAttribute('src')){ v.setAttribute('src', v.dataset.src); }
+      // 加载失败兜底：原地显示提示，不留空白块
+      v.addEventListener('error', () => {
+        if(v.dataset.fb) return; v.dataset.fb = '1';
+        const b = document.createElement('div');
+        b.className = 'video-fallback';
+        b.textContent = '视频加载失败 · 刷新页面或检查网络后重试';
+        v.style.display = 'none';
+        if(v.parentNode) v.parentNode.insertBefore(b, v);
+      }, { once: true });
       setTimeout(() => { v.play().catch(() => {}); }, i * step);
     });
   }
