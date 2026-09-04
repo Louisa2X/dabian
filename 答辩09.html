@@ -101,7 +101,7 @@
   .role-cell .rlab{font-size:11.5px;font-weight:800;color:var(--dark);white-space:nowrap;}
   .role-cell video{width:70%;aspect-ratio:16/10;border-radius:6px;border:1px solid #E8EDF5;background:#fff;display:block;}
   .wb-scene .body p.hr-lead{font-size:17px;font-weight:800;color:#0052D9;line-height:1.5;margin:8px 0 4px;}
-  .hr-grid{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;margin-top:6px;justify-content:space-evenly;}
+  .hr-grid{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;margin-top:3px;justify-content:space-evenly;}
   .hr-cell{display:flex;flex-direction:column;gap:3px;flex:1;min-height:0;}
   .hr-cell .ht{font-size:14px;font-weight:700;color:var(--dark);white-space:nowrap;}
   .hr-cell video{width:64%;max-height:155px;aspect-ratio:16/10;object-fit:contain;border-radius:6px;border:1px solid #E8EDF5;background:#fff;display:block;}
@@ -195,7 +195,7 @@
   .pt .pt-t .q{display:block;margin-bottom:3px;color:var(--purple);}
   .pt.c .pt-t .q{display:inline;margin-bottom:0;}
   .pt.g .pt-t{font-size:15px;}
-  .pt .pt-d{margin-top:6px;font-size:13px;font-weight:600;color:#6B7280;line-height:1.6;}
+  .pt .pt-d{margin-top:3px;font-size:13px;font-weight:600;color:#6B7280;line-height:1.6;}
   .pt .pt-note{display:block;margin-top:5px;color:#6B7280;font-weight:500;font-size:12px;line-height:1.5;}
 
   .frames{flex:1;display:flex;gap:18px;min-height:0;}
@@ -709,12 +709,12 @@
         <div class="bar" style="background:var(--cyan)"></div>
         <h1>方案理解</h1>
       </div>
-      <div class="card" style="flex:1;padding:14px 28px;display:flex;flex-direction:column;justify-content:flex-start;gap:12px">
+      <div class="card" style="flex:1;padding:10px 24px;display:flex;flex-direction:column;justify-content:flex-start;gap:6px">
         <div style="display:flex;align-items:center;gap:12px">
-          <h3 style="font-size:20px;font-weight:800">VM部门车辆数据平台</h3>
+          <h3 style="font-size:20px;font-weight:800;margin:0">VM部门车辆数据平台</h3>
         </div>
 
-        <svg viewBox="0 0 1040 400" width="100%" style="max-height:148px;display:block;margin:2px auto 0;font-family:inherit">
+        <svg viewBox="0 0 1040 400" style="height:130px;width:auto;display:block;margin:4px auto 0;font-family:inherit">
           <defs>
             <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0052D9"/></marker>
             <marker id="arc" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#00A6A6"/></marker>
@@ -758,47 +758,34 @@
           <text x="727" y="348" text-anchor="middle" font-size="16.5" font-weight="700" fill="#5A5A6E">Spark 离线校准 backfill</text>
           <text x="727" y="374" text-anchor="middle" font-size="14.5" fill="#9AA3B2">SeTATS 流湖引擎(兼容 Iceberg) · <tspan fill="#0A7C86" font-weight="700">流湖统一</tspan></text>
         </svg>
-        <img src="zhijia_loop.svg" alt="智驾数据回传与闭环" style="width:100%;max-height:138px;display:block;margin:10px auto 0"/>
 
-
-        <div style="display:flex;gap:14px;flex:none;align-items:stretch">
-          <!-- 左：客户三大痛点 -->
-          <div style="flex:0 0 232px;background:var(--bg2);border-radius:10px;padding:14px 18px;display:flex;flex-direction:column;gap:10px;justify-content:center">
-            <div style="font-size:13px;font-weight:800;color:var(--dark)">客户三大痛点</div>
-            <div style="font-size:13.5px;color:var(--gray);line-height:2">
-              <div><span style="color:#7C3AED;font-weight:700">① 存储割裂</span></div>
-              <div><span style="color:#7C3AED;font-weight:700">② 查询孤岛</span></div>
-              <div><span style="color:#7C3AED;font-weight:700">③ AI 问数缺地基</span></div>
-            </div>
+        <div style="display:flex;gap:10px;flex:none;align-items:center">
+          <div style="flex:0 0 auto;background:var(--bg2);border-radius:7px;padding:5px 10px;display:flex;align-items:center;gap:6px">
+            <span style="font-size:11px;font-weight:800;color:var(--dark);white-space:nowrap">三大痛点</span>
+            <span style="font-size:10.5px;color:#7C3AED;font-weight:700">①存储割裂 ②查询孤岛 ③AI缺地基</span>
           </div>
-          <!-- 右：四个验证数字 2x2 -->
-          <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-              <div style="font-size:22px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:64px;text-align:center">9.1万</div>
-              <div style="flex:1;line-height:1.35;min-width:0">
-                <div style="font-size:12.5px;font-weight:800;color:var(--dark)">Setats 写入吞吐 TPS</div>
-              </div>
+          <div style="flex:1;display:flex;gap:6px">
+            <div style="flex:1;background:var(--bg2);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;border-left:3px solid var(--cyan)">
+              <span style="font-size:16px;font-weight:800;color:var(--cyan);white-space:nowrap">9.1万</span><span style="font-size:10px;font-weight:700;color:var(--dark)">TPS</span>
             </div>
-            <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-              <div style="font-size:22px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:64px;text-align:center">20亿</div>
-              <div style="flex:1;line-height:1.35;min-width:0">
-                <div style="font-size:12.5px;font-weight:800;color:var(--dark)">线上最大规模</div>
-              </div>
+            <div style="flex:1;background:var(--bg2);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;border-left:3px solid var(--cyan)">
+              <span style="font-size:16px;font-weight:800;color:var(--cyan);white-space:nowrap">20亿</span><span style="font-size:10px;font-weight:700;color:var(--dark)">规模</span>
             </div>
-            <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-              <div style="font-size:22px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:64px;text-align:center">1000</div>
-              <div style="flex:1;line-height:1.35;min-width:0">
-                <div style="font-size:12.5px;font-weight:800;color:var(--dark)">OLAP 压测 QPS</div>
-              </div>
+            <div style="flex:1;background:var(--bg2);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;border-left:3px solid var(--cyan)">
+              <span style="font-size:16px;font-weight:800;color:var(--cyan);white-space:nowrap">1000</span><span style="font-size:10px;font-weight:700;color:var(--dark)">QPS</span>
             </div>
-            <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--cyan)">
-              <div style="font-size:22px;font-weight:800;color:var(--cyan);line-height:1;flex:none;width:64px;text-align:center">40%</div>
-              <div style="flex:1;line-height:1.35;min-width:0">
-                <div style="font-size:12.5px;font-weight:800;color:var(--dark)">存储成本降低</div>
-              </div>
+            <div style="flex:1;background:var(--bg2);border-radius:7px;padding:5px 8px;display:flex;align-items:center;gap:6px;border-left:3px solid var(--cyan)">
+              <span style="font-size:16px;font-weight:800;color:var(--cyan);white-space:nowrap">40%</span><span style="font-size:10px;font-weight:700;color:var(--dark)">降本</span>
             </div>
           </div>
         </div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:3px">
+          <h3 style="font-size:20px;font-weight:800;margin:0">智驾数据回传与闭环</h3>
+        </div>
+
+        <img src="zhijia_loop.svg" alt="智驾数据回传与闭环" style="height:130px;width:auto;display:block;margin:4px auto 0"/>
+
       </div>
     </div>
   
