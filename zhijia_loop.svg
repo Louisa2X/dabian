@@ -11,7 +11,7 @@
   <rect x="0" y="0" width="1600" height="600" fill="#FFFFFF"/>
 
   <!-- title -->
-  <text x="40" y="52" font-size="30" font-weight="700" fill="#1A1A1A">智驾数据回传与闭环</text>
+  <!-- 标题已由 HTML h3 提供，此处删除 -->
 
   <!-- ============ Section A: 数据闭环 outer loop ============ -->
   <text x="40" y="124" font-size="19" font-weight="700" fill="#3DB5B0">① 数据闭环（端到端迭代）</text>
