@@ -117,9 +117,12 @@
   .tl-node .tl-dot{width:18px;height:18px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--blue);}
   .tl-node .tl-month{font-size:16px;font-weight:800;color:var(--dark);margin-top:16px;}
   .tl-node .tl-desc{font-size:16px;font-weight:600;color:var(--gray);line-height:1.5;}
-  .tl-node.tl-final .tl-dot{background:var(--dark);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--dark);}
+  .tl-node.tl-final .tl-dot{background:var(--blue);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--blue);}
   .tl-node.tl-final .tl-month{color:var(--dark);}
   .tl-node.tl-final .tl-desc{color:var(--dark);font-weight:800;}
+  .tl-node.tl-goal .tl-dot{width:18px;height:18px;background:#fff;border:4px solid var(--blue);box-shadow:0 0 0 3px #fff;}
+  .tl-node.tl-goal .tl-month{color:var(--blue);}
+  .tl-node.tl-goal .tl-desc{color:var(--blue);font-weight:700;}
   .tl-band{flex:1.6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
     background:#EEF3FF;border:1px solid #DCE6FB;border-radius:14px;padding:18px 16px;position:relative;z-index:1;}
   .tl-band .tl-band-label{font-size:16px;font-weight:800;color:var(--blue);letter-spacing:.3px;}
@@ -562,16 +565,21 @@
           <div class="tl-node">
             <div class="tl-dot"></div>
             <div class="tl-month">5月</div>
-            <div class="tl-desc">面向 BD 推 WorkBuddy</div>
+            <div class="tl-desc">向 BD 部门推 WorkBuddy</div>
           </div>
           <div class="tl-band">
             <div class="tl-band-label">6月 – 8月 · 无数交流</div>
-            <div class="tl-band-subs"><span>7月 面向 HR</span><span>8月 分享会 + 董事会</span></div>
+            <div class="tl-band-subs"><span>7月 向 HR部门推广</span><span>8月 分享会 + 董事会</span></div>
           </div>
           <div class="tl-node tl-final">
             <div class="tl-dot"></div>
             <div class="tl-month">9月2号</div>
             <div class="tl-desc">签单 155 license 含5位董事会</div>
+          </div>
+          <div class="tl-node tl-goal">
+            <div class="tl-dot"></div>
+            <div class="tl-month">目标 · 进行中</div>
+            <div class="tl-desc">软件引入流程 &amp; 增量</div>
           </div>
         </div>
       </div>
