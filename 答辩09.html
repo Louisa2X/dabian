@@ -697,7 +697,7 @@
       </div>
       <div class="card" style="flex:1;padding:24px 36px;display:flex;flex-direction:column;justify-content:center;gap:16px">
         <div style="display:flex;align-items:center;gap:12px">
-          <h3 style="font-size:20px;font-weight:800">聚焦 VM 部门：从车辆信号到 OLAP 的标准大数据链路</h3>
+          <h3 style="font-size:20px;font-weight:800">聚焦 VM 部门：从车辆信号到 Doris 的流湖一体方案</h3>
         </div>
 
         <div class="flow" style="gap:9px">
@@ -715,26 +715,26 @@
           <div class="farrow" style="font-size:20px">›</div>
           <div class="fnode">
             <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">算</div>
-            <div class="t" style="font-size:15px">Flink 流式计算</div>
-            <div style="font-size:12px;color:var(--gray)">实时入湖</div>
+            <div class="t" style="font-size:15px">Oceanus 流式计算</div>
+            <div style="font-size:12px;color:var(--gray)">腾讯云 Flink 托管</div>
           </div>
           <div class="farrow" style="font-size:20px">›</div>
           <div class="fnode">
             <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">湖</div>
             <div class="t" style="font-size:15px">Iceberg 湖表</div>
-            <div style="font-size:12px;color:var(--gray)">流批统一存储</div>
+            <div style="font-size:12px;color:var(--gray)">ODS/DWD/ADS · Spark 离线校准</div>
           </div>
           <div class="farrow" style="font-size:20px">›</div>
           <div class="fnode">
-            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">校</div>
-            <div class="t" style="font-size:15px">Spark 离线校准</div>
-            <div style="font-size:12px;color:var(--gray)">批量 ETL</div>
+            <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">引擎</div>
+            <div class="t" style="font-size:15px">SeTATS 流湖一体</div>
+            <div style="font-size:12px;color:var(--gray)">COS 统一存储</div>
           </div>
           <div class="farrow" style="font-size:20px">›</div>
           <div class="fnode">
             <div class="n" style="background:var(--cyan);width:32px;height:32px;border-radius:16px;font-size:15px">查</div>
-            <div class="t" style="font-size:15px">ClickHouse</div>
-            <div style="font-size:12px;color:var(--gray)">OLAP 查询</div>
+            <div class="t" style="font-size:15px">Doris OLAP</div>
+            <div style="font-size:12px;color:var(--gray)">TCHouse-D · 秒级查询</div>
           </div>
         </div>
 
@@ -786,7 +786,7 @@
           </div>
         </div>
         <div class="gradbar" style="background:transparent;padding:0;margin-top:12px">
-          <p style="color:#0F6E56;font-size:15px;line-height:1.6;margin:0">以 <b>CKafka → Flink → Iceberg → Spark → ClickHouse</b> 六环节完成流批处理，腾讯云以 <b>SeTATS 流湖一体 + Doris + DataBuddy + 本体论</b> 升级博世 VM 数据平台。</p>
+          <p style="color:#0F6E56;font-size:15px;line-height:1.6;margin:0">以 <b>CKafka → Oceanus → Iceberg → SeTATS → Doris</b> 构建流湖一体方案：Oceanus 实时入湖、SeTATS 统一流批存储、Doris 秒级 OLAP，并以 <b>DataBuddy 智能问数 + 本体论治理</b> 升级博世 VM 数据平台。</p>
         </div>
       </div>
     </div>
