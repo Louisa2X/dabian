@@ -694,10 +694,7 @@
       <!-- 底部：我完成的 WorkBuddy 相关工作 -->
       <div class="think-foot">
         <div class="foot-item"><span class="ck">✓</span>访谈HR + 自变量研发同学以了解需求；向产品同学咨询</div>
-        <div class="foot-item"><span class="ck">✓</span>复核 WorkBuddy 对外安全自评</div>
-        <div class="foot-detail">
-          <div class="fd">SaaS 弱，专享版/私有化强</div>
-        </div>
+        <div class="foot-item"><span class="ck">✓</span>复核 WorkBuddy 对外安全自评 <span style="color:#6B7280;font-size:12.5px;font-weight:600;margin-left:8px">SaaS 弱，专享版/私有化强</span></div>
         <div class="foot-item"><span class="ck">✓</span>设计腾讯内部推广材料，科普 Skill &amp; 知识库搭建要点</div>
       </div>
     </div>
@@ -1029,124 +1026,6 @@
 
 </svg>
       </div>
-<!-- P6 座舱 -->
-  <section class="slide">
-    <div class="slide-inner">
-      <div class="titlebar">
-        <div class="bar" style="background:var(--cyan)"></div>
-        <h1>云产品 · 智能座舱</h1>
-      </div>
-
-      <!-- 顶部：架构主链路 -->
-      <div class="card" style="flex:none;padding:14px 20px;display:flex;align-items:center;justify-content:center">
-        <div class="flow" style="flex:1">
-          <div class="fnode"><div class="n" style="background:var(--cyan)">1</div><div class="t">三入口<br>车机 / 微信 / 手机端</div></div>
-          <div class="farrow">›</div>
-          <div class="fnode"><div class="n" style="background:var(--cyan)">2</div><div class="t">Master Agent<br>端云双脑中枢</div></div>
-          <div class="farrow">›</div>
-          <div class="fnode"><div class="n" style="background:var(--cyan)">3</div><div class="t">四类智能体<br>小程序/出行/元宝/车企</div></div>
-        </div>
-      </div>
-
-      <div class="cols" style="flex:1;gap:16px;min-height:0;margin-top:12px">
-        <!-- 左：四条学习主线 -->
-        <div class="col" style="flex:3;gap:10px">
-          <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
-            <div style="display:flex;align-items:baseline;gap:8px">
-              <span style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:1px">01</span>
-              <b style="font-size:14px;color:var(--dark)">架构怎么读：1 个协同核心 + 端云双脑 + 3 类感知输入 + 4 项平台支撑</b>
-              <span style="font-size:10.5px;color:var(--gray);margin-left:auto">先找大脑，再看派单</span>
-            </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">端云协同为核心；端侧 Master 负责低时延、离线可完成的意图识别与控制，云侧 Master 负责复杂意图编排、跨服务协同与长期记忆；语音（声纹）+ 视觉（DMS/OMS）+ 车身数据三维感知；芯片适配 / DAG 编排 / S2S 情感语音 / TI-One 四项支撑。<b style="color:var(--cyan)">子 Agent 各自拥有独立记忆空间、相互隔离</b>是 2.0 的核心架构升级。</p>
-          </div>
-
-          <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
-            <div style="display:flex;align-items:baseline;gap:8px">
-              <span style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:1px">02</span>
-              <b style="font-size:14px;color:var(--dark)">能力 vs 边界：升级了体验，没突破天花板</b>
-              <span style="font-size:10.5px;color:var(--gray);margin-left:auto">本次最大洞察</span>
-            </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">2.0 真升级：TTS 更拟人 · <b>并行任务（ASR 与执行解耦）</b> · 反应快很多。但能力边界没变 —— 根因是微信小程序框架<b style="color:var(--cyan)">受沙箱、页面结构暴露程度与主动交互权限限制，难以稳定获取可操作元素、坐标与主动点击能力</b>，只能模拟人操作走写死路径，页面一改版就得人工后台改。</p>
-          </div>
-
-          <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
-            <div style="display:flex;align-items:baseline;gap:8px">
-              <span style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:1px">03</span>
-              <b style="font-size:14px;color:var(--dark)">两条路径的取舍：GUI 模拟 vs API 直连</b>
-              <span style="font-size:10.5px;color:var(--gray);margin-left:auto">能上 API 就上 API</span>
-            </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">路径 A 小程序 GUI 模拟：覆盖面广（电影/生活/出行，当前主流），但对页面改版敏感、稳定性与可审计性较弱。路径 B <b style="color:var(--cyan)">API 后台直连</b>：需逐家完成商务与接口接入，但链路更稳定、可明确授权与结果确认，目前仅瑞幸/麦当劳/肯德基三家（未来主攻）。生活类场景可用 GUI 作补充。</p>
-          </div>
-
-          <div class="card" style="flex:1;padding:12px 16px;display:flex;flex-direction:column;gap:4px;justify-content:center">
-            <div style="display:flex;align-items:baseline;gap:8px">
-              <span style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:1px">04</span>
-              <b style="font-size:14px;color:var(--dark)">放回竞争格局看：边界是选出来的</b>
-              <span style="font-size:10.5px;color:var(--gray);margin-left:auto">战略选择 ≠ 能力短板</span>
-            </div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.5">腾讯当前战略是<b style="color:var(--cyan)">「尊重边界：不碰车控」</b>，座舱领域以生态服务、智能体、地图内容及云能力为核心定位，不以自研整车操作系统作为主攻路径，用生态独占 + 开放接口换更广连接。斑马能细粒度调用，是因为 AliOS 与支付宝小程序同属<b>阿里系</b>、权限自主 —— 差距在<b>「权限链」</b>，不在技术水平。三家 Agent 架构已趋同（都是 1 总控 + N 垂域）。</p>
-          </div>
-        </div>
-
-        <!-- 右：数据 + 友商 + 商业模式 -->
-        <div class="col" style="flex:2;gap:10px">
-          <div class="card" style="flex:none;padding:13px 16px;display:flex;flex-direction:column;gap:8px">
-            <div style="font-size:13px;font-weight:800;color:var(--dark)">腾讯座舱 · 公开规模</div>
-            <div style="display:flex;gap:9px">
-              <div style="flex:1;text-align:center;background:var(--bg2);border-radius:9px;padding:8px 3px">
-                <div style="font-size:19px;font-weight:800;color:var(--cyan);line-height:1.1">1800<span style="font-size:12px">万+</span></div>
-                <div style="font-size:9.5px;color:var(--gray);margin-top:2px">累计搭载车辆</div>
-              </div>
-              <div style="flex:1;text-align:center;background:var(--bg2);border-radius:9px;padding:8px 3px">
-                <div style="font-size:19px;font-weight:800;color:var(--cyan);line-height:1.1">80<span style="font-size:12px">%+</span></div>
-                <div style="font-size:9.5px;color:var(--gray);margin-top:2px">头部车企渗透率</div>
-              </div>
-              <div style="flex:1;text-align:center;background:var(--bg2);border-radius:9px;padding:8px 3px">
-                <div style="font-size:19px;font-weight:800;color:var(--cyan);line-height:1.1">66</div>
-                <div style="font-size:9.5px;color:var(--gray);margin-top:2px">Agent 场景目标</div>
-              </div>
-            </div>
-            <div style="font-size:11px;color:var(--gray);line-height:1.5;border-top:1px dashed #E6ECF8;padding-top:7px">
-              三大优势：<b style="color:var(--dark)">生态数据赋能</b>（微信×QQ音乐×腾讯地图×大众点评）· <b style="color:var(--dark)">多模型开放接入</b>（不绑定单一厂商）· <b style="color:var(--dark)">白盒交付</b>（头部互联网厂商中唯一）
-            </div>
-          </div>
-
-          <div class="card" style="flex:none;padding:13px 16px;display:flex;flex-direction:column;gap:7px">
-            <div style="font-size:13px;font-weight:800;color:var(--dark)">友商格局</div>
-            <div class="krow" style="gap:9px">
-              <span class="klabel" style="min-width:58px;font-size:11px">OS 派</span>
-              <span class="kval" style="font-size:11.5px;line-height:1.45">华为鸿蒙座舱 <b>近 200 万台</b> · 斑马 AliOS <b>940 万辆</b></span>
-            </div>
-            <div class="krow" style="gap:9px">
-              <span class="klabel" style="min-width:58px;font-size:11px">模型派</span>
-              <span class="kval" style="font-size:11.5px;line-height:1.45">豆包 <b>700 万辆 / 145 车型</b> · 千问接入 10+ 车企</span>
-            </div>
-            <div class="krow" style="gap:9px">
-              <span class="klabel" style="min-width:58px;font-size:11px">生态派</span>
-              <span class="kval" style="font-size:11.5px;line-height:1.45">腾讯：不主攻自研 OS，输出生态 + 智能体 + 云与合规</span>
-            </div>
-            <div class="krow" style="gap:9px">
-              <span class="klabel" style="min-width:58px;font-size:11px">自研 / T1</span>
-              <span class="kval" style="font-size:11.5px;line-height:1.45">蔚来·理想全栈自研；德赛西威等供域控与工具链</span>
-            </div>
-            <div style="font-size:9.5px;color:#A0A8B8;line-height:1.4;margin-top:2px">注：规模数据来自各厂商公开披露：腾讯 1800 万辆 / 80%（2026 TIME DAY）、华为鸿蒙近 200 万台（2026-07 官方）、斑马 940 万辆（截至 2025-12-31 招股书）、豆包 700 万辆 / 145 车型（火山引擎）；口径存在差异，仅作规模参考。</div>
-          </div>
-
-          <div class="card" style="flex:1;padding:13px 16px;display:flex;flex-direction:column;gap:6px;justify-content:center">
-            <div style="font-size:13px;font-weight:800;color:var(--dark)">商业模式</div>
-            <p style="font-size:12px;color:var(--gray);line-height:1.55">腾讯只做方案 → 卖给 <b style="color:var(--dark)">OEM 主机厂</b> → OEM 再卖终端用户，按<b style="color:var(--cyan)">「每辆车 License」</b>计费。</p>
-            <div style="font-size:11.5px;color:var(--dark);line-height:1.5;background:var(--bg2);border-radius:8px;padding:8px 10px">
-              所以客户要的不是「做好的功能」，而是<b style="color:var(--cyan)">可自由拼装的原子化能力</b> —— 行业风向也已从「原子能力更多」转向<b>「原子能力好不好组合」</b>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:11px;flex:none;font-size:15px;line-height:1.6;color:#0F6E56">
-        <b style="font-weight:800">微信生态构成腾讯座舱的重要差异化优势，但其开放边界也决定了部分 Agent 能力的实现上限</b>。
-      </div>
-    </div>
-  </section>
 
   <!-- P7 混元3D · 车模 -->
   <section class="slide">
