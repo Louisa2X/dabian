@@ -1193,47 +1193,24 @@
 
         <!-- 右：会议纪要 + 自评核校（上下叠） -->
         <div class="col" style="flex:3;gap:10px;justify-content:flex-start">
-          <div class="card" style="flex:none;padding:20px 22px;display:flex;flex-direction:column;gap:11px;border-top:3px solid var(--purple)">
-            <div style="display:flex;align-items:baseline;gap:8px;flex:none">
-              <span style="font-size:15.5px;font-weight:800;color:var(--dark)">会议纪要</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">周会</span>
-                <span style="font-size:12px;color:var(--gray)">客户项目组例会 · 进度与卡点</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">方案</span>
-                <span style="font-size:12px;color:var(--gray)">具身智能方案对齐 · 招标应答</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">产品</span>
-                <span style="font-size:12px;color:var(--gray)">WorkBuddy 场景讨论与培训复盘</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">技术</span>
-                <span style="font-size:12px;color:var(--gray)">黑灯工厂技术分享 · 数据链路</span>
-              </div>
-            </div>
-          </div>
         <!-- 自评核校 -->
-          <div class="card" style="flex:none;padding:20px 22px;display:flex;flex-direction:column;gap:11px;border-top:3px solid var(--purple)">
+          <div class="card" style="flex:1;padding:20px 22px;display:flex;flex-direction:column;gap:13px;border-top:3px solid var(--purple);justify-content:center">
             <div style="display:flex;align-items:baseline;gap:8px;flex:none">
-              <span style="font-size:15.5px;font-weight:800;color:var(--dark)">自评核校</span>
+              <span style="font-size:15.5px;font-weight:800;color:var(--dark)">Workbuddy 自评核校</span>
             </div>
-            <p style="font-size:12.5px;color:var(--gray);line-height:1.55;flex:none">复核 WorkBuddy 对外安全自评（8 维度 38 项），逐项核证据、统一口径、修正虚高项。</p>
-            <div style="display:flex;flex-direction:column;gap:10px">
+            <p style="font-size:13px;color:var(--gray);line-height:1.6;flex:none">对外安全自评 8 维 38 项，加权 <b style="color:var(--purple)">88.4 / 100</b>：强项突出、短板明确，对外口径才站得住。</p>
+            <div style="display:flex;flex-direction:column;gap:11px">
               <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">分档</span>
-                <span style="font-size:12px;color:var(--gray)">安全竞争力不是固定分，SaaS 短板在专享版/私有化能满分</span>
+                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">强项</span>
+                <span style="font-size:12px;color:var(--gray)">传输/存储加密、权限默认只读、Skill 五大威胁检测</span>
               </div>
               <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">根因</span>
-                <span style="font-size:12px;color:var(--gray)">短板集中在「SaaS 多租户欠账」（租户隔离 / BYOK）</span>
+                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">资质</span>
+                <span style="font-size:12px;color:var(--gray)">等保三级 / ISO 27001 / SOC2 / CSA STAR（继承腾讯云）</span>
               </div>
               <div style="display:flex;align-items:center;gap:8px;background:#F5F1FF;border-radius:8px;padding:8px 12px">
-                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">证据</span>
-                <span style="font-size:12px;color:var(--gray)">多「继承腾讯云」而非产品自身，需补产品级证据</span>
+                <span style="font-size:10.5px;font-weight:800;color:var(--purple);flex:none;width:44px">短板</span>
+                <span style="font-size:12px;color:var(--gray)">SaaS 多租户隔离 / BYOK 欠账，证据多「继承腾讯云」</span>
               </div>
             </div>
           </div>
@@ -1253,81 +1230,69 @@
 
       <!-- 顶部：一句话总结 -->
       <div class="card" style="flex:none;padding:20px 28px;background:var(--grad);margin-bottom:14px">
-        <p style="font-size:18px;color:#fff;line-height:1.6">这段实习让我真正体会到：<b style="font-weight:800">把技术翻译成「每个角色都听得懂」的叙事，和熟练掌握技术一样重要。</b></p>
+        <p style="font-size:19px;color:#fff;line-height:1.6"><b style="font-weight:800">把技术翻译成「每个角色都听得懂」的叙事，和熟练掌握技术一样重要。</b></p>
       </div>
 
       <div class="cols" style="flex:1;gap:16px;min-height:0">
-        <!-- 左：三点思考 -->
-        <div class="col" style="flex:3;gap:11px">
-          <div style="font-size:15px;font-weight:800;color:var(--dark);flex:none">看到了什么</div>
+        <!-- 左：思考合并为一卡，字放大 -->
+        <div class="col" style="flex:3;gap:0">
+          <div class="card" style="flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:15px;justify-content:center">
+            <div style="font-size:16px;font-weight:800;color:var(--dark);flex:none">看到了什么</div>
 
-          <div class="card" style="flex:1;padding:15px 20px;display:flex;flex-direction:column;gap:7px;justify-content:center">
-            <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-size:11px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:3px 9px;flex:none">01</span>
-              <span style="font-size:15px;font-weight:800;color:var(--dark)">车企真正在意的四件事</span>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:4px 10px;flex:none">01</span>
+              <div>
+                <div style="font-size:15.5px;font-weight:800;color:var(--dark)">车企真正在意的四件事</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:7px">
+                  <span class="chip" style="color:var(--blue)">合规</span>
+                  <span class="chip" style="color:var(--blue)">算力</span>
+                  <span class="chip" style="color:var(--blue)">实时数据</span>
+                  <span class="chip" style="color:var(--blue)">可验收 SLA</span>
+                </div>
+              </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;padding-left:2px">
-              <span class="chip" style="color:var(--blue)">合规</span>
-              <span class="chip" style="color:var(--blue)">算力</span>
-              <span class="chip" style="color:var(--blue)">实时数据</span>
-              <span class="chip" style="color:var(--blue)">可验收 SLA</span>
-            </div>
-            <p style="font-size:13px;color:var(--gray);line-height:1.55">从客户互动里看到的共性关切 —— 方案能不能过，往往不取决于技术多先进，而取决于这四条能不能兜住。</p>
-          </div>
 
-          <div class="card" style="flex:1;padding:15px 20px;display:flex;flex-direction:column;gap:7px;justify-content:center">
-            <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-size:11px;font-weight:800;color:#fff;background:var(--cyan);border-radius:6px;padding:3px 9px;flex:none">02</span>
-              <span style="font-size:15px;font-weight:800;color:var(--dark)">协作是能力互补，不是分工切割</span>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--cyan);border-radius:6px;padding:4px 10px;flex:none">02</span>
+              <div>
+                <div style="font-size:15.5px;font-weight:800;color:var(--dark)">协作是能力互补，不是分工切割</div>
+                <p style="font-size:14px;color:var(--gray);line-height:1.55;margin-top:6px">商务、架构师、产品各有主场：<b style="color:var(--dark)">谁离能力最近谁上</b>。</p>
+              </div>
             </div>
-            <p style="font-size:13px;color:var(--gray);line-height:1.55">商务、架构师、产品各有主场：<b style="color:var(--dark)">谁离能力最近谁上</b>。架构师卡在产品细节时产品补位，产品说不清商业价值时商务接手。</p>
-          </div>
 
-          <div class="card" style="flex:1;padding:15px 20px;display:flex;flex-direction:column;gap:7px;justify-content:center">
-            <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-size:11px;font-weight:800;color:#fff;background:var(--gold);border-radius:6px;padding:3px 9px;flex:none">03</span>
-              <span style="font-size:15px;font-weight:800;color:var(--dark)">说清「哪里做不到」才有说服力</span>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--gold);border-radius:6px;padding:4px 10px;flex:none">03</span>
+              <div>
+                <div style="font-size:15.5px;font-weight:800;color:var(--dark)">说清「哪里做不到」才有说服力</div>
+                <p style="font-size:14px;color:var(--gray);line-height:1.55;margin-top:6px">审计盘点里主动标出能力断点、招标应答里声明开源锁定等级 —— 边界讲清楚，客户才信得过「做得到」的部分。</p>
+              </div>
             </div>
-            <p style="font-size:13px;color:var(--gray);line-height:1.55">审计盘点里主动标出能力断点、招标应答里声明开源锁定等级 —— 边界讲清楚，客户才信得过「做得到」的部分。</p>
-          </div>
 
-          <div class="card" style="flex:none;padding:14px 20px;display:flex;flex-direction:column;gap:7px;background:var(--bg2);border-left:4px solid var(--purple)">
-            <div style="display:flex;align-items:center;gap:9px">
-              <span style="font-size:14.5px;font-weight:800;color:var(--purple)">灵感</span>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--purple);border-radius:6px;padding:4px 10px;flex:none">04</span>
+              <div>
+                <div style="font-size:15.5px;font-weight:800;color:var(--dark)">灵感</div>
+                <p style="font-size:14px;color:var(--gray);line-height:1.55;margin-top:6px">同一个客户、多个项目接口分散 —— <b style="color:var(--purple)">是否可以建立更系统化的信息同步机制？</b></p>
+              </div>
             </div>
-            <p style="font-size:13px;color:var(--dark);line-height:1.55">同一个客户、多个项目接口分散 —— <b style="color:var(--purple)">是否可以建立更系统化的信息同步机制？</b></p>
           </div>
         </div>
 
-        <!-- 右：短期 / 中期 / 目标 -->
-        <div class="col" style="flex:2;gap:11px">
-          <div style="font-size:15px;font-weight:800;color:var(--dark);flex:none">接下来怎么走</div>
+        <!-- 右：接下来怎么走（短期 / 长期 合并为一卡上下两段） -->
+        <div class="col" style="flex:2;gap:0">
+          <div class="card" style="flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:16px;justify-content:center">
+            <div style="font-size:16px;font-weight:800;color:var(--dark);flex:none">接下来怎么走</div>
 
-          <div class="card" style="flex:1;padding:15px 20px;display:flex;flex-direction:column;gap:9px;justify-content:flex-start">
-            <span style="font-size:12px;font-weight:800;color:#fff;background:var(--blue);border-radius:14px;padding:4px 13px;align-self:flex-start">短期</span>
-            <div style="display:flex;flex-direction:column;gap:7px;flex:1;justify-content:space-evenly">
-              <div style="display:flex;gap:8px;align-items:flex-start">
-                <span style="font-size:12px;color:var(--blue);font-weight:800;flex:none;margin-top:1px">1</span>
-                <p style="font-size:13.5px;color:var(--gray);line-height:1.55">继续深入理解<b style="color:var(--dark)">云产品与出行行业</b>。</p>
-              </div>
-              <div style="display:flex;gap:8px;align-items:flex-start">
-                <span style="font-size:12px;color:var(--blue);font-weight:800;flex:none;margin-top:1px">2</span>
-                <p style="font-size:13.5px;color:var(--gray);line-height:1.55">参与资深架构师的<b style="color:var(--dark)">方案设计</b>，洞察客户需求，对齐团队沟通。</p>
-              </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--blue);border-radius:14px;padding:4px 13px;align-self:flex-start">短期</span>
+              <p style="font-size:14px;color:var(--gray);line-height:1.6">继续深入理解<b style="color:var(--dark)">云产品与出行行业</b>；参与资深架构师的<b style="color:var(--dark)">方案设计</b>，洞察客户需求，对齐团队沟通。</p>
             </div>
-          </div>
 
-          <div class="card" style="flex:1;padding:15px 20px;display:flex;flex-direction:column;gap:9px;justify-content:flex-start">
-            <span style="font-size:12px;font-weight:800;color:#fff;background:var(--cyan);border-radius:14px;padding:4px 13px;align-self:flex-start">长期</span>
-            <div style="display:flex;flex-direction:column;gap:7px;flex:1;justify-content:space-evenly">
-              <div style="display:flex;gap:8px;align-items:flex-start">
-                <span style="font-size:12px;color:var(--cyan);font-weight:800;flex:none;margin-top:1px">1</span>
-                <p style="font-size:13.5px;color:var(--gray);line-height:1.55">成为能<b style="color:var(--dark)">独立产出方案</b>、也<b style="color:var(--dark)">擅长团队协作</b>的架构师。</p>
-              </div>
-              <div style="display:flex;gap:8px;align-items:flex-start">
-                <span style="font-size:12px;color:var(--cyan);font-weight:800;flex:none;margin-top:1px">2</span>
-                <p style="font-size:13.5px;color:var(--gray);line-height:1.55">具备<b style="color:var(--dark)">推动 AI / 云产品在车企落地</b>的能力。</p>
-              </div>
+            <div style="height:1px;background:#E6E6F0"></div>
+
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:12px;font-weight:800;color:#fff;background:var(--cyan);border-radius:14px;padding:4px 13px;align-self:flex-start">长期</span>
+              <p style="font-size:14px;color:var(--gray);line-height:1.6">成为能<b style="color:var(--dark)">独立产出方案</b>、也<b style="color:var(--dark)">擅长团队协作</b>的架构师；具备<b style="color:var(--dark)">推动 AI / 云产品在车企落地</b>的能力。</p>
             </div>
           </div>
         </div>
